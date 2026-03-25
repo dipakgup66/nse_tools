@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidated Trading Terminal</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --accent: #111;
+    --border: #e2e8f0;
+    --bull: #22c55e;
+    --bear: #ef4444;
+    --text-sec: #94a3b8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-page); color: #1e293b; font-size: 13px;
+    height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+}
+
+header {
+    background: #fff; padding: 10px 24px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 20px; flex-shrink: 0;
+}
+header h1 { font-size: 14px; font-weight: 900; letter-spacing: -0.5px; color: #111; }
+
+.controls { display: flex; align-items: center; gap: 14px; flex: 1; margin-left: 20px; }
+.ctl-group { display: flex; flex-direction: column; gap: 1px; }
+.ctl-group label { font-size: 9px; font-weight: 900; color: var(--text-sec); text-transform: uppercase; }
+
+input, select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; outline: none; background: #fff; }
+button { padding: 8px 18px; border-radius: 6px; font-weight: 700; cursor: pointer; border: none; transition: 0.1s; display: flex; align-items: center; gap: 6px; }
+.btn-primary { background: #111; color: #fff; }
+.btn-save { background: var(--bull); color: #fff; }
+
+.dashboard { flex: 1; display: grid; grid-template-rows: auto 1fr 180px; gap: 12px; padding: 12px; overflow: hidden; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+.section-title { font-size: 9px; font-weight: 900; color: var(--text-sec); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; }
+
+.top-row { display: grid; grid-template-columns: repeat(5, 1fr) 200px; gap: 12px; }
+.stat-label { font-size: 9px; font-weight: 800; color: var(--text-sec); margin-bottom: 4px; }
+.stat-value { font-size: 20px; font-weight: 800; color: #111; }
+
+.sizing-card { background: #111; color: #fff; border: none; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.sizing-card .stat-label { color: rgba(255,255,255,0.6); font-size: 10px; margin-bottom: 2px; }
+.sizing-card .stat-value { font-size: 38px; color: #fff; line-height: 1; text-align: center; font-weight: 900; }
+
+.mid-row { display: grid; grid-template-columns: 360px 1fr 1fr; gap: 12px; overflow: hidden; }
+.strat-name { font-size: 26px; font-weight: 900; color: #111; line-height: 1.1; margin-bottom: 6px; }
+.sizing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.sizing-box { background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--text-sec); padding-bottom: 10px; font-size: 10px; border-bottom: 1px solid var(--border); }
+td { padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+.badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+
+#loading { position: fixed; inset: 0; background: rgba(255,255,255,0.85); z-index: 1000; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+.spinner { width: 40px; height: 40px; border: 4px solid #eee; border-top-color: #111; border-radius: 50%; animation: spin 0.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.chart-box { height: 220px; width: 100%; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spinner"></div><div id="load-text">Fetching live NSE data...</div></div>
+
+<header>
+    <h1>NSE TERMINAL</h1>
+    <div class="controls">
+        <div class="ctl-group"><label>Index</label><select id="sym"><option>NIFTY</option><option>BANKNIFTY</option><option>FINNIFTY</option></select></div>
+        <div class="ctl-group"><label>Capital (₹)</label><input type="number" id="cap" value="1000000" style="width:100px"></div>
+        <div class="ctl-group"><label>Risk (%)</label><input type="number" id="risk" value="2" step="0.5" style="width:50px"></div>
+        <button class="btn-primary" onclick="refresh()">Refresh Market</button>
+        <button class="btn-save" id="btn-save" style="display:none;" onclick="saveTrade()">Log Entry</button>
+    </div>
+    <div id="clock" style="font-weight:900; font-family:monospace; font-size:16px; color:#111;">--:--:--</div>
+</header>
+
+<div class="dashboard">
+    <div class="top-row">
+        <div class="card"><div class="stat-label">SPOT PRICE</div><div class="stat-value" id="s-spot">--</div></div>
+        <div class="card"><div class="stat-label">TREND</div><div class="stat-value" id="s-trend">--</div></div>
+        <div class="card"><div class="stat-label">EMA_20 (D)</div><div class="stat-value" id="s-ema" style="color: #64748b;">--</div></div>
+        <div class="card"><div class="stat-label">IV RANK</div><div class="stat-value" id="s-ivr">--</div></div>
+        <div class="card"><div class="stat-label">SOURCE</div><div class="stat-value" id="s-src" style="font-size:14px; color:#aaa;">NSE BRIDGE</div></div>
+        <div class="card sizing-card">
+            <div class="stat-label">RECOMMENDED LOTS</div>
+            <div class="stat-value" id="sz-lots">--</div>
+        </div>
+    </div>
+
+    <div class="mid-row">
+        <div class="card">
+            <div class="section-title">Analysis Signal</div>
+            <div class="strat-name" id="r-name">ANALYZING...</div>
+            <p id="r-text" style="color:var(--text-sec); line-height:1.6; font-size: 14px; margin-top: 10px;">Waiting for fresh option chain data.</p>
+            <div class="sizing-grid">
+                <div class="sizing-box"><div class="stat-label">CAPITAL AT RISK</div><div class="stat-value" id="sz-risk" style="font-size:18px;">--</div></div>
+                <div class="sizing-box"><div class="stat-label">NET PREM (₹)</div><div class="stat-value" id="sz-prem" style="font-size:18px;">--</div></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="section-title">Expiry P&L Chart</div>
+            <div class="chart-box"><canvas id="payoffChart"></canvas></div>
+        </div>
+        <div class="card" style="overflow:hidden;">
+            <div class="section-title">Leg Details</div>
+            <table id="p-table">
+                <thead><tr><th style="font-size:9px;">ACTION</th><th style="font-size:9px;">STRIKE</th><th>PREM</th><th>EXPIRY</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:auto;">
+        <div class="section-title" style="padding:16px 16px 0;">Journal Log</div>
+        <table id="j-table">
+            <thead><tr style="position:sticky; top:0; background:#fff; z-index:10;"><th style="padding-left:16px;">DATE</th><th>SYMBOL</th><th>STRATEGY</th><th>NET P&L (EST)</th><th style="padding-right:16px;">STATUS</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+const API = 'http://localhost:7778';
+let activeData = null;
+let ch = null;
+
+function updateClock() { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-IN', {hour12:false}); }
+setInterval(updateClock, 1000); updateClock();
+
+async function refresh() {
+    const sym = document.getElementById('sym').value;
+    const cap = document.getElementById('cap').value;
+    const risk = document.getElementById('risk').value;
+    document.getElementById('loading').style.display = 'flex';
+    try {
+        const r = await fetch(`${API}/analyse?symbol=${sym}&capital=${cap}&risk_pct=${risk}`);
+        const data = await r.json();
+        render(data);
+    } catch(e) { }
+    finally { document.getElementById('loading').style.display = 'none'; }
+}
+
+function render(data) {
+    activeData = data;
+    document.getElementById('s-spot').innerText = Math.round(data.spot).toLocaleString();
+    document.getElementById('s-trend').innerText = data.trend.replace('_',' ').toUpperCase();
+    document.getElementById('s-trend').style.color = data.trend.includes('up') ? 'var(--bull)' : 'var(--bear)';
+    document.getElementById('s-ema').innerText = data.ema20 ? Math.round(data.ema20).toLocaleString() : 'CALC...';
+    document.getElementById('s-src').innerText = data.data_source.toUpperCase();
+
+    const rec = data.recommendations[0];
+    if (rec && rec.strategy !== 'Wait/Neutral') {
+        document.getElementById('r-name').innerText = rec.strategy;
+        document.getElementById('r-text').innerText = rec.rationale;
+        document.getElementById('btn-save').style.display = 'block';
+        
+        const s = rec.sizing;
+        document.getElementById('sz-lots').innerText = s.lots;
+        document.getElementById('sz-risk').innerText = '₹' + s.capital_at_risk.toLocaleString();
+        document.getElementById('sz-prem').innerText = '₹' + Math.round(rec.legs.reduce((acc,l)=>acc+(l.action==='SELL'?1:-1)*l.price,0)).toLocaleString();
+
+        const tbody = document.querySelector('#p-table tbody');
+        tbody.innerHTML = rec.legs.map(l => `<tr><td style="font-weight:700; color:${l.action==='SELL'?'var(--bear)':'var(--bull)'}">${l.action} ${l.type}</td><td style="font-weight:700;">${l.strike}</td><td>₹${l.price}</td><td style="font-size:10px; color:#cbd5e1;">${l.expiry}</td></tr>`).join('');
+        initChart(data.spot, rec.legs);
+    }
+}
+
+function initChart(spot, legs) {
+    const ctx = document.getElementById('payoffChart').getContext('2d');
+    if (ch) ch.destroy();
+    const range = 400; const steps = 40; const x = []; const y = [];
+    const lotSize = (activeData.symbol === 'BANKNIFTY' ? 15 : 75);
+    for (let i = -steps/2; i <= steps/2; i++) {
+        const s = spot + (i * range / (steps/2)); x.push(Math.round(s));
+        let pnl = 0;
+        legs.forEach(l => {
+            const side = l.action === 'BUY' ? 1 : -1;
+            const intrinsic = l.type === 'CE' ? Math.max(0, s - l.strike) : Math.max(0, l.strike - s);
+            pnl += side * (intrinsic - l.price);
+        });
+        y.push(Math.round(pnl * lotSize));
+    }
+    ch = new Chart(ctx, {
+        type: 'line',
+        data: { labels: x, datasets: [{ label: 'P&L', data: y, borderColor: '#111', borderWidth: 1.5, fill: { target: 'origin', above: 'rgba(34, 197, 94, 0.1)', below: 'rgba(239, 68, 68, 0.1)' }, tension: 0.15, pointRadius: 0 }]},
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: '#f1f5f9' }, ticks: { font: {size: 10} } }, x: { grid: { display : false }, ticks: { font: {size: 10} } } }, plugins: { legend: { display: false } } }
+    });
+}
+
+async function saveTrade() {
+    const trade = { symbol: activeData.symbol, strategy: activeData.recommendations[0].strategy, created_at: new Date().toISOString() };
+    await fetch(`${API}/trades`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trade) });
+    alert("Saved!"); loadJournal();
+}
+
+async function loadJournal() {
+    try {
+        const r = await fetch(`${API}/trades`);
+        const data = await r.json();
+        const tbody = document.querySelector('#j-table tbody');
+        tbody.innerHTML = data.trades.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).map(t => `<tr><td style="padding-left:16px;">${new Date(t.created_at).toLocaleDateString()}</td><td><strong>${t.symbol}</strong></td><td>${t.strategy}</td><td>₹1,240</td><td style="padding-right:16px;"><span class="badge bg-bull">OPEN</span></td></tr>`).join('');
+    } catch(e) {}
+}
+
+refresh(); loadJournal();
+</script>
+</body>
+</html>

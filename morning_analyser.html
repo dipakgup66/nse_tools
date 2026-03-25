@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Market Analyser</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f5f0; color: #1a1a18; font-size: 14px; min-height: 100vh;
+}
+
+header {
+  background: #1a1a18; color: #fff;
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+header h1 { font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+.header-right { display: flex; align-items: center; gap: 14px; }
+#clock { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+#mktStatus { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+.mkt-open   { background: #3B6D11; color: #fff; }
+.mkt-closed { background: #555; color: #ccc; }
+.mkt-pre    { background: #854F0B; color: #fff; }
+
+/* ── Controls bar ── */
+.controls {
+  background: #fff; border-bottom: 1px solid #e0dfd8;
+  padding: 10px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.controls label { font-size: 12px; color: #6b6b65; font-weight: 500; margin-right: 4px; }
+.controls select, .controls input {
+  border: 1px solid #ddddd7; border-radius: 6px;
+  padding: 6px 10px; font-size: 13px; background: #fff; color: #1a1a18; outline: none;
+}
+.refresh-btn {
+  padding: 7px 16px; background: #1a1a18; color: #fff;
+  border: none; border-radius: 6px; font-size: 13px;
+  font-weight: 500; cursor: pointer;
+}
+.refresh-btn:hover { background: #333; }
+.refresh-btn:disabled { background: #888; cursor: not-allowed; }
+#lastUpdated { font-size: 12px; color: #aaa; margin-left: auto; }
+#connStatus { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+.conn-ok  { background: #eaf3de; color: #3B6D11; }
+.conn-err { background: #fce8e8; color: #A32D2D; }
+
+/* ── Main layout ── */
+.main { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; max-width: 1400px; }
+
+/* ── Condition cards row ── */
+.conditions-row { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; }
+.cond-card {
+  background: #fff; border: 1px solid #e0dfd8; border-radius: 10px;
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;
+}
+.cond-label { font-size: 11px; font-weight: 600; color: #6b6b65; text-transform: uppercase; letter-spacing: 0.05em; }
+.cond-value { font-size: 22px; font-weight: 700; color: #1a1a18; line-height: 1.1; }
+.cond-sub   { font-size: 12px; color: #6b6b65; }
+.cond-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; margin-top: 2px;
+}
+
+/* Condition colours */
+.c-very-high  { background: #fce8e8; color: #A32D2D; }
+.c-high       { background: #faeeda; color: #633806; }
+.c-neutral    { background: #f1efe8; color: #444441; }
+.c-low        { background: #e6f1fb; color: #185FA5; }
+.c-very-low   { background: #eaf3de; color: #3B6D11; }
+.c-strong-up  { background: #eaf3de; color: #3B6D11; }
+.c-mild-up    { background: #f0f8ea; color: #3B6D11; }
+.c-rangebound { background: #f1efe8; color: #444441; }
+.c-mild-down  { background: #fff4e6; color: #633806; }
+.c-strong-down{ background: #fce8e8; color: #A32D2D; }
+.c-bullish    { background: #eaf3de; color: #3B6D11; }
+.c-bearish    { background: #fce8e8; color: #A32D2D; }
+.c-extreme-b  { background: #e6f1fb; color: #185FA5; }
+.c-event-day  { background: #fce8e8; color: #A32D2D; }
+.c-pre-event  { background: #faeeda; color: #633806; }
+.c-post-event { background: #eaf3de; color: #3B6D11; }
+.c-no-event   { background: #f1efe8; color: #444441; }
+.c-expiry     { background: #fce8e8; color: #A32D2D; }
+.c-near       { background: #faeeda; color: #633806; }
+.c-weekly     { background: #f1efe8; color: #444441; }
+.c-monthly    { background: #e6f1fb; color: #185FA5; }
+
+/* ── Recommendation card ── */
+.rec-section { display: grid; grid-template-columns: 1fr 380px; gap: 16px; }
+
+.rec-card {
+  background: #fff; border: 1px solid #e0dfd8; border-radius: 10px; overflow: hidden;
+}
+.rec-header {
+  padding: 16px 20px; display: flex; align-items: center;
+  justify-content: space-between; border-bottom: 1px solid #f0f0ea;
+}
+.rec-header h2 { font-size: 15px; font-weight: 600; }
+.conf-badge {
+  padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+}
+.conf-HIGH   { background: #eaf3de; color: #3B6D11; }
+.conf-MEDIUM { background: #faeeda; color: #633806; }
+.conf-LOW    { background: #f1efe8; color: #888780; }
+
+.rec-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+.strategy-name {
+  font-size: 32px; font-weight: 700; color: #1a1a18; letter-spacing: -0.5px;
+}
+.strategy-group {
+  font-size: 12px; color: #6b6b65; text-transform: uppercase;
+  letter-spacing: 0.06em; margin-top: 2px;
+}
+
+.rec-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.rec-detail {
+  background: #fafaf8; border-radius: 6px; padding: 10px 12px;
+}
+.rec-detail-label { font-size: 11px; color: #6b6b65; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.rec-detail-value { font-size: 13px; color: #1a1a18; line-height: 1.5; }
+
+.rationale-box {
+  background: #f8fbf4; border-left: 3px solid #3B6D11;
+  padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px;
+  line-height: 1.6; color: #1a1a18;
+}
+.rationale-box.warn { background: #fff8f0; border-color: #854F0B; }
+.rationale-box.danger { background: #fff5f5; border-color: #A32D2D; }
+
+.source-line { font-size: 11px; color: #aaa; font-style: italic; }
+
+/* ── Other recommendations ── */
+.other-recs { display: flex; flex-direction: column; gap: 10px; }
+.other-rec-card {
+  background: #fff; border: 1px solid #e0dfd8; border-radius: 8px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;
+}
+.other-rec-name { font-size: 15px; font-weight: 600; color: #1a1a18; }
+.other-rec-sub  { font-size: 12px; color: #6b6b65; line-height: 1.5; }
+
+/* ── Contracts table ── */
+.contracts-card {
+  background: #fff; border: 1px solid #e0dfd8; border-radius: 10px; overflow: hidden;
+}
+.contracts-header {
+  padding: 14px 16px; border-bottom: 1px solid #f0f0ea;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.contracts-header h3 { font-size: 13px; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  font-size: 11px; color: #6b6b65; font-weight: 600; text-align: left;
+  padding: 8px 14px; background: #fafaf8; border-bottom: 1px solid #e0dfd8;
+  letter-spacing: 0.03em;
+}
+tbody td { padding: 9px 14px; border-bottom: 1px solid #f0f0ea; font-size: 13px; }
+tbody tr:last-child td { border-bottom: none; }
+.action-buy  { color: #3B6D11; font-weight: 600; }
+.action-sell { color: #A32D2D; font-weight: 600; }
+
+/* ── Position sizing summary ── */
+.sizing-row { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+.sz-card {
+  background: #fff; border: 1px solid #e0dfd8; border-radius: 8px; padding: 12px 14px;
+}
+.sz-label { font-size: 11px; color: #6b6b65; margin-bottom: 4px; }
+.sz-value { font-size: 20px; font-weight: 700; color: #1a1a18; }
+.sz-sub   { font-size: 11px; color: #6b6b65; margin-top: 2px; }
+.sz-card.primary { background: #1a1a18; border-color: #1a1a18; }
+.sz-card.primary .sz-label { color: #888; }
+.sz-card.primary .sz-value { color: #fff; }
+.sz-card.primary .sz-sub   { color: #666; }
+
+/* ── Loading / error states ── */
+.loading-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.8);
+  z-index: 50; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+}
+.loading-overlay.show { display: flex; }
+.spinner {
+  width: 36px; height: 36px; border: 3px solid #e0dfd8;
+  border-top-color: #1a1a18; border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: #6b6b65; }
+
+.error-card {
+  background: #fff5f5; border: 1px solid #f0c0c0; border-radius: 10px;
+  padding: 20px 24px; display: flex; align-items: flex-start; gap: 12px;
+}
+.error-icon { font-size: 20px; flex-shrink: 0; }
+.error-body h3 { font-size: 14px; font-weight: 600; color: #A32D2D; margin-bottom: 6px; }
+.error-body p  { font-size: 13px; color: #6b6b65; line-height: 1.6; }
+
+.section-title {
+  font-size: 11px; font-weight: 600; color: #6b6b65;
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <h1>Morning Market Analyser</h1>
+    <span id="mktStatus" class="mkt-closed">Market Closed</span>
+  </div>
+  <div class="header-right">
+    <span id="connStatus" class="conn-err">Connecting...</span>
+    <span id="clock">--:--:--</span>
+  </div>
+</header>
+
+<div class="controls">
+  <div>
+    <label>Symbol</label>
+    <select id="symbolSel" onchange="analyse()">
+      <option value="NIFTY">NIFTY</option>
+      <option value="BANKNIFTY">BANKNIFTY</option>
+      <option value="FINNIFTY">FINNIFTY</option>
+      <option value="MIDCPNIFTY">MIDCPNIFTY</option>
+    </select>
+  </div>
+  <div>
+    <label>Capital (₹)</label>
+    <input type="number" id="capitalIn" value="1000000" step="50000" style="width:130px">
+  </div>
+  <div>
+    <label>Risk %</label>
+    <input type="number" id="riskIn" value="2" step="0.5" min="0.5" max="10" style="width:70px">
+  </div>
+  <button class="refresh-btn" id="refreshBtn" onclick="analyse(true)">Refresh Data</button>
+  <button class="refresh-btn" onclick="analyseDemo()" style="background:#854F0B;">Demo Mode</button>
+  <span id="lastUpdated">Not yet loaded</span>
+</div>
+
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loadingText">Fetching live NSE data...</div>
+</div>
+
+<div class="main" id="mainContent" style="display:none;">
+
+  <!-- Condition cards -->
+  <div>
+    <div class="section-title">Market Conditions</div>
+    <div class="conditions-row">
+      <div class="cond-card">
+        <div class="cond-label">Spot Price</div>
+        <div class="cond-value" id="c-spot">—</div>
+        <div class="cond-sub" id="c-spot-sub"></div>
+      </div>
+      <div class="cond-card">
+        <div class="cond-label">IV Rank</div>
+        <div class="cond-value" id="c-ivr">—</div>
+        <div class="cond-sub" id="c-ivr-sub"></div>
+        <span class="cond-badge" id="c-ivr-badge"></span>
+      </div>
+      <div class="cond-card">
+        <div class="cond-label">Trend</div>
+        <div class="cond-value" id="c-trend" style="font-size:16px;">—</div>
+        <div class="cond-sub" id="c-trend-sub"></div>
+        <span class="cond-badge" id="c-trend-badge"></span>
+      </div>
+      <div class="cond-card">
+        <div class="cond-label">Days to Expiry</div>
+        <div class="cond-value" id="c-dte">—</div>
+        <div class="cond-sub" id="c-dte-sub"></div>
+        <span class="cond-badge" id="c-dte-badge"></span>
+      </div>
+      <div class="cond-card">
+        <div class="cond-label">Put-Call Ratio</div>
+        <div class="cond-value" id="c-pcr">—</div>
+        <div class="cond-sub" id="c-pcr-sub"></div>
+        <span class="cond-badge" id="c-pcr-badge"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error card -->
+  <div id="errorCard" class="error-card" style="display:none;">
+    <div class="error-icon">⚠</div>
+    <div class="error-body">
+      <h3>Data Fetch Issue</h3>
+      <p id="errorMsg"></p>
+    </div>
+  </div>
+
+  <!-- Demo banner -->
+  <div id="demoBanner" style="display:none;background:#fff8ee;border:1px solid #f0c070;border-radius:8px;padding:11px 16px;align-items:center;gap:10px;">
+    <span style="font-size:16px;">&#128309;</span>
+    <div style="font-size:13px;line-height:1.5;"><strong>Demo mode</strong> &mdash; NSE is offline or market is closed. Showing realistic sample data. Live data loads automatically Mon&ndash;Fri 09:15&ndash;15:30 IST.</div>
+  </div>
+
+  <!-- Event banner -->
+  <div id="eventBanner" style="display:none;background:#fff;border:1px solid #f0c070;border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:18px;">📅</span>
+    <div id="eventText" style="font-size:13px;line-height:1.5;"></div>
+  </div>
+
+  <!-- Primary recommendation + other recs -->
+  <div class="rec-section">
+
+    <!-- Primary recommendation -->
+    <div class="rec-card" id="primaryRec">
+      <div class="rec-header">
+        <h2>Primary Recommendation</h2>
+        <span class="conf-badge" id="r-conf"></span>
+      </div>
+      <div class="rec-body">
+        <div>
+          <div class="strategy-name" id="r-strategy">—</div>
+          <div class="strategy-group" id="r-group"></div>
+        </div>
+        <div class="rec-detail-grid">
+          <div class="rec-detail">
+            <div class="rec-detail-label">Entry window</div>
+            <div class="rec-detail-value" id="r-entry">—</div>
+          </div>
+          <div class="rec-detail">
+            <div class="rec-detail-label">Stop loss</div>
+            <div class="rec-detail-value" id="r-sl">—</div>
+          </div>
+          <div class="rec-detail">
+            <div class="rec-detail-label">Target exit</div>
+            <div class="rec-detail-value" id="r-exit">—</div>
+          </div>
+          <div class="rec-detail">
+            <div class="rec-detail-label">Nearest expiry</div>
+            <div class="rec-detail-value" id="r-expiry">—</div>
+          </div>
+        </div>
+        <div class="rationale-box" id="r-rationale"></div>
+        <div class="source-line" id="r-source"></div>
+      </div>
+    </div>
+
+    <!-- Other recommendations -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="section-title">Alternative setups</div>
+      <div id="otherRecs">
+        <div style="color:#aaa;font-size:13px;">Loading...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Contracts -->
+  <div class="contracts-card" id="contractsCard">
+    <div class="contracts-header">
+      <h3>Suggested Contracts</h3>
+      <span style="font-size:12px;color:#aaa;">Indicative — verify on NSE before trading</span>
+    </div>
+    <div id="contractsBody">
+      <div style="padding:16px;color:#aaa;font-size:13px;">No contracts — no-trade or wait condition</div>
+    </div>
+  </div>
+
+  <!-- Position sizing -->
+  <div>
+    <div class="section-title">Position Sizing</div>
+    <div class="sizing-row">
+      <div class="sz-card primary">
+        <div class="sz-label">Recommended lots</div>
+        <div class="sz-value" id="sz-lots">—</div>
+        <div class="sz-sub" id="sz-lots-sub"></div>
+      </div>
+      <div class="sz-card">
+        <div class="sz-label">Capital at risk</div>
+        <div class="sz-value" id="sz-risk">—</div>
+        <div class="sz-sub" id="sz-risk-sub"></div>
+      </div>
+      <div class="sz-card">
+        <div class="sz-label">Net premium / lot</div>
+        <div class="sz-value" id="sz-prem">—</div>
+        <div class="sz-sub">indicative</div>
+      </div>
+      <div class="sz-card">
+        <div class="sz-label">Max loss / lot</div>
+        <div class="sz-value" id="sz-loss">—</div>
+        <div class="sz-sub" id="sz-loss-sub"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data notes -->
+  <div style="background:#fafaf8;border:1px solid #e0dfd8;border-radius:8px;padding:12px 16px;font-size:12px;color:#6b6b65;line-height:1.7;">
+    <strong>How to read this:</strong>
+    Recommendations are based on published options strategy rules (Natenberg, McMillan, Sinclair) matched to live market conditions.
+    IVR is estimated from typical Nifty IV ranges until 52-week history accumulates in your local database.
+    Trend is based on EMA from your local database when available, otherwise defaults to rangebound.
+    All premiums are indicative — always verify on the NSE options chain before entering.
+    This is a decision-support tool, not a buy/sell signal. Exercise your own judgement.
+  </div>
+
+</div>
+
+<script>
+const API = 'http://localhost:7778';
+let currentData = null;
+
+// ── Clock and market status ────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false});
+
+  const h = now.getHours(), m = now.getMinutes();
+  const mins = h * 60 + m;
+  const el = document.getElementById('mktStatus');
+  if (now.getDay() === 0 || now.getDay() === 6) {
+    el.textContent = 'Weekend'; el.className = 'mkt-closed';
+  } else if (mins < 9*60+15) {
+    el.textContent = 'Pre-Market'; el.className = 'mkt-pre';
+  } else if (mins <= 15*60+30) {
+    el.textContent = 'Market Open'; el.className = 'mkt-open';
+  } else {
+    el.textContent = 'Market Closed'; el.className = 'mkt-closed';
+  }
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+const fmtRs = v => v == null ? '—' : '₹' + Math.round(v).toLocaleString('en-IN');
+const fmtN  = v => v == null ? '—' : Number(v).toLocaleString('en-IN');
+
+function badgeClass(type, val) {
+  const map = {
+    ivr: { very_high:'c-very-high', high:'c-high', neutral:'c-neutral', low:'c-low', very_low:'c-very-low' },
+    trend: { strong_up:'c-strong-up', mild_up:'c-mild-up', rangebound:'c-rangebound', mild_down:'c-mild-down', strong_down:'c-strong-down' },
+    pcr: { extreme_bullish:'c-extreme-b', bullish:'c-bullish', neutral:'c-neutral', bearish:'c-bearish', extreme_bearish:'c-extreme-b' },
+    event: { event_day:'c-event-day', pre_event:'c-pre-event', post_event:'c-post-event', no_event:'c-no-event' },
+    dte: { expiry_day:'c-expiry', near_expiry:'c-near', weekly:'c-weekly', monthly:'c-monthly', far:'c-monthly' },
+  };
+  return map[type]?.[val] || 'c-neutral';
+}
+
+function groupLabel(g) {
+  return { premium_selling:'Premium Selling', directional:'Directional', vol_buying:'Volatility Buying',
+           income:'Income', avoid:'Caution' }[g] || g;
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(data) {
+  currentData = data;
+
+  // Connection OK
+  document.getElementById('connStatus').textContent = 'Connected';
+  document.getElementById('connStatus').className   = 'conn-ok';
+  const isDemo = data.data_source === 'demo' || data.data_source === 'demo_fallback';
+  document.getElementById('demoBanner').style.display = isDemo ? 'flex' : 'none';
+  document.getElementById('lastUpdated').textContent =
+    'Updated ' + new Date(data.timestamp).toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+
+  document.getElementById('mainContent').style.display = 'flex';
+
+  // Error card
+  const errCard = document.getElementById('errorCard');
+  if (data.error) {
+    errCard.style.display  = 'flex';
+    document.getElementById('errorMsg').textContent = data.error +
+      ' Analysis is based on estimated values.';
+  } else {
+    errCard.style.display = 'none';
+  }
+
+  // ── Condition cards ──
+  document.getElementById('c-spot').textContent = data.spot ? fmtN(Math.round(data.spot)) : '—';
+  document.getElementById('c-spot-sub').textContent = data.ema20
+    ? `EMA20: ${fmtN(Math.round(data.ema20))}` : 'EMA: no history yet';
+
+  const ivrEl   = document.getElementById('c-ivr');
+  const ivrBadge= document.getElementById('c-ivr-badge');
+  ivrEl.textContent = data.ivr != null ? data.ivr.toFixed(1) + '%' : '—';
+  document.getElementById('c-ivr-sub').textContent = data.current_iv
+    ? `Current IV: ${data.current_iv.toFixed(1)}%` : '';
+  ivrBadge.textContent  = (data.ivr_label || '').replace(/_/g, ' ').toUpperCase();
+  ivrBadge.className    = 'cond-badge ' + badgeClass('ivr', data.ivr_label);
+  if (data.data_source === 'estimated_ivr') {
+    ivrBadge.textContent += ' (est.)';
+  }
+
+  const trendMap = { strong_up:'Strong Uptrend', mild_up:'Mild Uptrend', rangebound:'Rangebound',
+                     mild_down:'Mild Downtrend', strong_down:'Strong Downtrend' };
+  document.getElementById('c-trend').textContent     = trendMap[data.trend] || data.trend || '—';
+  document.getElementById('c-trend-sub').textContent = data.ema20 ? 'Based on EMA20' : 'Default (no DB history)';
+  const tBadge = document.getElementById('c-trend-badge');
+  tBadge.textContent = (data.trend || '').replace(/_/g,' ').toUpperCase();
+  tBadge.className   = 'cond-badge ' + badgeClass('trend', data.trend);
+
+  document.getElementById('c-dte').textContent = data.dte != null ? data.dte + ' days' : '—';
+  document.getElementById('c-dte-sub').textContent = data.nearest_expiry
+    ? 'Expiry: ' + data.nearest_expiry : '';
+  const dteBadge = document.getElementById('c-dte-badge');
+  dteBadge.textContent = (data.dte_label || '').replace(/_/g,' ').toUpperCase();
+  dteBadge.className   = 'cond-badge ' + badgeClass('dte', data.dte_label);
+
+  document.getElementById('c-pcr').textContent = data.pcr != null ? data.pcr.toFixed(2) : '—';
+  document.getElementById('c-pcr-sub').textContent = data.total_ce_oi
+    ? `CE OI: ${fmtN(data.total_ce_oi)}  PE OI: ${fmtN(data.total_pe_oi)}` : '';
+  const pcrBadge = document.getElementById('c-pcr-badge');
+  pcrBadge.textContent = (data.pcr_label || '').replace(/_/g,' ').toUpperCase();
+  pcrBadge.className   = 'cond-badge ' + badgeClass('pcr', data.pcr_label);
+
+  // ── Event banner ──
+  const ev = data.event || {};
+  const evBanner = document.getElementById('eventBanner');
+  if (ev.status !== 'no_event' && ev.event) {
+    evBanner.style.display = 'flex';
+    const statusText = { event_day: 'TODAY', pre_event: `In ${ev.days_away} day(s)`, post_event: 'Yesterday' }[ev.status] || '';
+    document.getElementById('eventText').innerHTML =
+      `<strong>${ev.event}</strong> — ${statusText}. Impact: <strong>${ev.impact}</strong>. ` +
+      (ev.status === 'event_day' ? 'Avoid trading today.' :
+       ev.status === 'pre_event' ? 'IV may expand — consider buying strategies or reducing size.' :
+       'IV crush likely — strong premium selling opportunity.');
+  } else {
+    evBanner.style.display = 'none';
+  }
+
+  // ── Recommendations ──
+  const recs = data.recommendations || [];
+  if (recs.length > 0) {
+    const top = recs[0];
+    document.getElementById('r-strategy').textContent = top.strategy;
+    document.getElementById('r-group').textContent    = groupLabel(top.group);
+    const confEl = document.getElementById('r-conf');
+    confEl.textContent = top.confidence + ' CONFIDENCE';
+    confEl.className   = 'conf-badge conf-' + top.confidence;
+
+    document.getElementById('r-entry').textContent  = top.entry_timing  || 'N/A';
+    document.getElementById('r-sl').textContent     = top.stop_loss     || 'N/A';
+    document.getElementById('r-exit').textContent   = top.target_exit   || 'N/A';
+    document.getElementById('r-expiry').textContent = data.nearest_expiry || '—';
+
+    const ratEl = document.getElementById('r-rationale');
+    ratEl.textContent = top.rationale;
+    ratEl.className   = 'rationale-box' +
+      (top.group === 'avoid' ? (top.strategy === 'No Trade' ? ' danger' : ' warn') : '');
+    document.getElementById('r-source').textContent = top.source ? `Source: ${top.source}` : '';
+
+    // Other recs
+    const others = recs.slice(1);
+    const otherEl = document.getElementById('otherRecs');
+    if (others.length) {
+      otherEl.innerHTML = others.map(r => `
+        <div class="other-rec-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="other-rec-name">${r.strategy}</div>
+            <span class="conf-badge conf-${r.confidence}" style="font-size:11px;">${r.confidence}</span>
+          </div>
+          <div class="other-rec-sub">${r.rationale.slice(0, 120)}${r.rationale.length > 120 ? '...' : ''}</div>
+        </div>
+      `).join('');
+    } else {
+      otherEl.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px 0;">No alternative setups identified</div>';
+    }
+  }
+
+  // ── Contracts ──
+  const contracts = data.contracts || [];
+  const cbody = document.getElementById('contractsBody');
+  if (contracts.length) {
+    const netPrem = contracts.reduce((s, l) =>
+      s + (l.action === 'SELL' ? 1 : -1) * (l.indicative_premium || 0), 0);
+    cbody.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th><th>Type</th><th>Strike</th>
+            <th>Expiry</th><th>Indicative premium</th><th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${contracts.map(l => `
+            <tr>
+              <td class="action-${l.action.toLowerCase()}">${l.action}</td>
+              <td>${l.type}</td>
+              <td>${fmtN(l.strike)}</td>
+              <td>${l.expiry || '—'}</td>
+              <td>${l.indicative_premium != null ? '₹' + l.indicative_premium : 'Check NSE'}</td>
+              <td style="font-size:12px;color:#6b6b65;">${l.action === 'SELL' ? 'Collect premium' : 'Pay premium'}</td>
+            </tr>
+          `).join('')}
+          <tr style="background:#fafaf8;font-weight:600;">
+            <td colspan="4">Net premium per lot</td>
+            <td style="color:${netPrem>=0?'#3B6D11':'#A32D2D'}">
+              ${netPrem>=0?'Collected ':'Paid '}₹${Math.abs(netPrem).toFixed(1)}
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>`;
+  } else {
+    cbody.innerHTML = '<div style="padding:14px 16px;color:#aaa;font-size:13px;">No specific contracts — strategy is No Trade or Wait</div>';
+  }
+
+  // ── Sizing ──
+  const lots = data.rec_lots;
+  document.getElementById('sz-lots').textContent = lots != null ? lots : '—';
+  document.getElementById('sz-lots-sub').textContent = lots
+    ? `at ${data.risk_pct}% risk on ${fmtRs(data.capital)}` : 'Calculate after selecting strategy';
+
+  const capRisk = lots && data.max_loss_rs ? fmtRs(lots * data.max_loss_rs) : '—';
+  document.getElementById('sz-risk').textContent     = capRisk;
+  document.getElementById('sz-risk-sub').textContent = lots && data.max_loss_rs
+    ? `${((lots * data.max_loss_rs / data.capital)*100).toFixed(1)}% of capital` : '';
+
+  document.getElementById('sz-prem').textContent     = data.net_premium != null ? '₹' + data.net_premium : '—';
+  document.getElementById('sz-loss').textContent     = data.max_loss_rs != null ? fmtRs(data.max_loss_rs) : '—';
+  document.getElementById('sz-loss-sub').textContent = data.max_loss_pts != null
+    ? `${data.max_loss_pts} pts × lot size` : '';
+}
+
+// ── Fetch and analyse ──────────────────────────────────────────────────────
+async function analyse(force = false) {
+  const symbol   = document.getElementById('symbolSel').value;
+  const capital  = parseFloat(document.getElementById('capitalIn').value) || 1000000;
+  const riskPct  = parseFloat(document.getElementById('riskIn').value)    || 2;
+
+  document.getElementById('loadingOverlay').classList.add('show');
+  document.getElementById('loadingText').textContent = `Fetching live NSE data for ${symbol}...`;
+  document.getElementById('refreshBtn').disabled = true;
+
+  try {
+    const url = `${API}/analyse?symbol=${symbol}&capital=${capital}&risk_pct=${riskPct}&force=${force?1:0}`;
+    const r   = await fetch(url, { signal: AbortSignal.timeout(30000) });
+    const data = await r.json();
+    render(data);
+  } catch(e) {
+    document.getElementById('connStatus').textContent = 'Server offline';
+    document.getElementById('connStatus').className  = 'conn-err';
+    document.getElementById('mainContent').style.display = 'flex';
+    document.getElementById('errorCard').style.display   = 'flex';
+    document.getElementById('errorMsg').textContent =
+      'Cannot connect to morning_analyser.py server. Run: python morning_analyser.py';
+  } finally {
+    document.getElementById('loadingOverlay').classList.remove('show');
+    document.getElementById('refreshBtn').disabled = false;
+  }
+}
+
+// ── Auto-refresh every 5 minutes during market hours ──────────────────────
+function scheduleRefresh() {
+  const now  = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  if (now.getDay() > 0 && now.getDay() < 6 && mins >= 9*60+15 && mins <= 15*60+30) {
+    setTimeout(() => { analyse(); scheduleRefresh(); }, 5 * 60 * 1000);
+  }
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+// ── Demo mode ──────────────────────────────────────────────────────────────
+function analyseDemo() {
+  const symbol  = document.getElementById('symbolSel').value;
+  const capital = parseFloat(document.getElementById('capitalIn').value) || 1000000;
+  const riskPct = parseFloat(document.getElementById('riskIn').value) || 2;
+  const url = `${API}/analyse?symbol=${symbol}&capital=${capital}&risk_pct=${riskPct}&demo=1&force=1`;
+  document.getElementById('loadingOverlay').classList.add('show');
+  document.getElementById('loadingText').textContent = 'Loading demo data...';
+  document.getElementById('refreshBtn').disabled = true;
+  fetch(url, { signal: AbortSignal.timeout(10000) })
+    .then(r => r.json()).then(data => render(data))
+    .catch(() => {
+      document.getElementById('connStatus').textContent = 'Server offline';
+      document.getElementById('connStatus').className  = 'conn-err';
+    })
+    .finally(() => {
+      document.getElementById('loadingOverlay').classList.remove('show');
+      document.getElementById('refreshBtn').disabled = false;
+    });
+}
+
+analyse();
+scheduleRefresh();
+</script>
+</body>
+</html>

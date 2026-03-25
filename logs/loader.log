@@ -1,0 +1,202 @@
+2026-03-21 14:30:49  INFO      ============================================================
+2026-03-21 14:30:49  INFO      Kaggle FNO Data Loader
+2026-03-21 14:30:49  INFO        Files    : 1
+2026-03-21 14:30:49  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-21 14:30:49  INFO        Dry run  : True
+2026-03-21 14:30:49  INFO        Chunk    : 50,000 rows
+2026-03-21 14:30:49  INFO      ============================================================
+2026-03-21 14:30:49  INFO      
+[1/1] NSE_FNO_DATA_2020-10-25.csv
+2026-03-21 14:30:49  INFO      Loading: NSE_FNO_DATA_2020-10-25.csv  (120.7 MB)
+2026-03-21 14:30:56  INFO        Done: 1,484,181 loaded  153,575 skipped  6.6s  (224993 rows/sec)
+2026-03-21 14:30:56  INFO      
+============================================================
+2026-03-21 14:30:56  INFO      LOAD COMPLETE
+2026-03-21 14:30:56  INFO        Files processed : 1
+2026-03-21 14:30:56  INFO        Rows loaded     : 1,484,181
+2026-03-21 14:30:56  INFO        Rows skipped    : 153,575
+2026-03-21 14:30:56  INFO        Errors          : 0
+2026-03-21 14:30:56  INFO        Total time      : 0.1 minutes
+2026-03-21 14:30:56  INFO      ============================================================
+2026-03-21 14:54:24  INFO      ============================================================
+2026-03-21 14:54:24  INFO      Kaggle FNO Data Loader
+2026-03-21 14:54:24  INFO        Files    : 1
+2026-03-21 14:54:24  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-21 14:54:24  INFO        Dry run  : True
+2026-03-21 14:54:24  INFO        Chunk    : 50,000 rows
+2026-03-21 14:54:24  INFO      ============================================================
+2026-03-21 14:54:24  INFO      
+[1/1] NSE_FNO_DATA_2020-10-25.csv
+2026-03-21 14:54:24  INFO      Loading: NSE_FNO_DATA_2020-10-25.csv  (120.7 MB)
+2026-03-21 14:54:31  INFO        Done: 1,611,159 loaded  26,597 skipped  6.6s  (244348 rows/sec)
+2026-03-21 14:54:31  INFO      
+============================================================
+2026-03-21 14:54:31  INFO      LOAD COMPLETE
+2026-03-21 14:54:31  INFO        Files processed : 1
+2026-03-21 14:54:31  INFO        Rows loaded     : 1,611,159
+2026-03-21 14:54:31  INFO        Rows skipped    : 26,597
+2026-03-21 14:54:31  INFO        Errors          : 0
+2026-03-21 14:54:31  INFO        Total time      : 0.1 minutes
+2026-03-21 14:54:31  INFO      ============================================================
+2026-03-21 15:07:44  INFO      ============================================================
+2026-03-21 15:07:44  INFO      Kaggle FNO Data Loader
+2026-03-21 15:07:44  INFO        Files    : 13
+2026-03-21 15:07:44  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-21 15:07:44  INFO        Dry run  : False
+2026-03-21 15:07:44  INFO        Chunk    : 50,000 rows
+2026-03-21 15:07:44  INFO      ============================================================
+2026-03-21 15:07:44  INFO      
+[1/13] NSE_FNO_2024-11-03.csv
+2026-03-21 15:07:44  INFO      Loading: NSE_FNO_2024-11-03.csv  (104.4 MB)
+2026-03-21 15:07:45  ERROR     Error loading NSE_FNO_2024-11-03.csv: too many SQL variables
+2026-03-21 15:07:45  INFO      
+[2/13] NSE_FNO_DATA_2020-10-25.csv
+2026-03-21 15:07:45  INFO      Loading: NSE_FNO_DATA_2020-10-25.csv  (120.7 MB)
+2026-03-21 15:07:45  ERROR     Error loading NSE_FNO_DATA_2020-10-25.csv: too many SQL variables
+2026-03-21 15:07:45  INFO      
+[3/13] NSE_FNO_DATA_2024-10-15.csv
+2026-03-21 15:07:45  INFO      Loading: NSE_FNO_DATA_2024-10-15.csv  (82.0 MB)
+2026-03-21 15:07:46  ERROR     Error loading NSE_FNO_DATA_2024-10-15.csv: too many SQL variables
+2026-03-21 15:07:46  INFO      
+[4/13] NSE_FNO_DATA_2024-10-16.csv
+2026-03-21 15:07:46  INFO      Loading: NSE_FNO_DATA_2024-10-16.csv  (84.4 MB)
+2026-03-21 15:07:46  ERROR     Error loading NSE_FNO_DATA_2024-10-16.csv: too many SQL variables
+2026-03-21 15:07:46  INFO      
+[5/13] NSE_FNO_DATA_2024-10-17.csv
+2026-03-21 15:07:46  INFO      Loading: NSE_FNO_DATA_2024-10-17.csv  (91.0 MB)
+2026-03-21 15:07:47  ERROR     Error loading NSE_FNO_DATA_2024-10-17.csv: too many SQL variables
+2026-03-21 15:07:47  INFO      
+[6/13] NSE_FNO_DATA_2024-10-18.csv
+2026-03-21 15:07:47  INFO      Loading: NSE_FNO_DATA_2024-10-18.csv  (93.5 MB)
+2026-03-21 15:07:47  ERROR     Error loading NSE_FNO_DATA_2024-10-18.csv: too many SQL variables
+2026-03-21 15:07:47  INFO      
+[7/13] NSE_FNO_DATA_2024-10-21.CSV
+2026-03-21 15:07:47  INFO      Loading: NSE_FNO_DATA_2024-10-21.CSV  (97.3 MB)
+2026-03-21 15:07:48  ERROR     Error loading NSE_FNO_DATA_2024-10-21.CSV: too many SQL variables
+2026-03-21 15:07:48  INFO      
+[8/13] NSE_FNO_DATA_2024-10-22.CSV
+2026-03-21 15:07:48  INFO      Loading: NSE_FNO_DATA_2024-10-22.CSV  (103.3 MB)
+2026-03-21 15:07:48  ERROR     Error loading NSE_FNO_DATA_2024-10-22.CSV: too many SQL variables
+2026-03-21 15:07:48  INFO      
+[9/13] NSE_FNO_DATA_2024-10-23.csv
+2026-03-21 15:07:48  INFO      Loading: NSE_FNO_DATA_2024-10-23.csv  (106.3 MB)
+2026-03-21 15:07:49  ERROR     Error loading NSE_FNO_DATA_2024-10-23.csv: too many SQL variables
+2026-03-21 15:07:49  INFO      
+[10/13] NSE_FNO_DATA_2024-10-24.csv
+2026-03-21 15:07:49  INFO      Loading: NSE_FNO_DATA_2024-10-24.csv  (103.0 MB)
+2026-03-21 15:07:50  ERROR     Error loading NSE_FNO_DATA_2024-10-24.csv: too many SQL variables
+2026-03-21 15:07:50  INFO      
+[11/13] NSE_FNO_DATA_2024-10-28.csv
+2026-03-21 15:07:50  INFO      Loading: NSE_FNO_DATA_2024-10-28.csv  (116.0 MB)
+2026-03-21 15:07:50  ERROR     Error loading NSE_FNO_DATA_2024-10-28.csv: too many SQL variables
+2026-03-21 15:07:50  INFO      
+[12/13] NSE_FNO_DATA_2024-10-29.CSV
+2026-03-21 15:07:50  INFO      Loading: NSE_FNO_DATA_2024-10-29.CSV  (119.3 MB)
+2026-03-21 15:07:51  ERROR     Error loading NSE_FNO_DATA_2024-10-29.CSV: too many SQL variables
+2026-03-21 15:07:51  INFO      
+[13/13] NSE_FNO_DATA_2024-10-30.CSV
+2026-03-21 15:07:51  INFO      Loading: NSE_FNO_DATA_2024-10-30.CSV  (116.0 MB)
+2026-03-21 15:07:51  ERROR     Error loading NSE_FNO_DATA_2024-10-30.CSV: too many SQL variables
+2026-03-21 15:07:51  INFO      
+============================================================
+2026-03-21 15:07:51  INFO      LOAD COMPLETE
+2026-03-21 15:07:51  INFO        Files processed : 13
+2026-03-21 15:07:51  INFO        Rows loaded     : 0
+2026-03-21 15:07:51  INFO        Rows skipped    : 0
+2026-03-21 15:07:51  INFO        Errors          : 13
+2026-03-21 15:07:51  INFO        Total time      : 0.1 minutes
+2026-03-21 15:07:51  INFO        DB size         : 0 MB
+2026-03-21 15:07:51  INFO      ============================================================
+2026-03-21 15:29:17  INFO      ============================================================
+2026-03-21 15:29:17  INFO      Kaggle FNO Data Loader
+2026-03-21 15:29:17  INFO        Files    : 13
+2026-03-21 15:29:17  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-21 15:29:17  INFO        Dry run  : False
+2026-03-21 15:29:17  INFO        Chunk    : 50,000 rows
+2026-03-21 15:29:17  INFO      ============================================================
+2026-03-21 15:29:17  INFO      
+[1/13] NSE_FNO_2024-11-03.csv
+2026-03-21 15:29:17  INFO      Loading: NSE_FNO_2024-11-03.csv  (104.4 MB)
+2026-03-21 15:29:32  INFO        Done: 1,419,055 loaded  0 skipped  14.1s  (100935 rows/sec)
+2026-03-21 15:29:32  INFO      
+[2/13] NSE_FNO_DATA_2020-10-25.csv
+2026-03-21 15:29:32  INFO      Loading: NSE_FNO_DATA_2020-10-25.csv  (120.7 MB)
+2026-03-21 15:29:49  INFO        Done: 1,637,756 loaded  0 skipped  16.8s  (97679 rows/sec)
+2026-03-21 15:29:49  INFO      
+[3/13] NSE_FNO_DATA_2024-10-15.csv
+2026-03-21 15:29:49  INFO      Loading: NSE_FNO_DATA_2024-10-15.csv  (82.0 MB)
+2026-03-21 15:30:00  INFO        Done: 1,106,731 loaded  0 skipped  11.6s  (95260 rows/sec)
+2026-03-21 15:30:00  INFO      
+[4/13] NSE_FNO_DATA_2024-10-16.csv
+2026-03-21 15:30:00  INFO      Loading: NSE_FNO_DATA_2024-10-16.csv  (84.4 MB)
+2026-03-21 15:30:13  INFO        Done: 1,140,576 loaded  0 skipped  12.1s  (94564 rows/sec)
+2026-03-21 15:30:13  INFO      
+[5/13] NSE_FNO_DATA_2024-10-17.csv
+2026-03-21 15:30:13  INFO      Loading: NSE_FNO_DATA_2024-10-17.csv  (91.0 MB)
+2026-03-21 15:30:26  INFO        Done: 1,230,845 loaded  0 skipped  13.1s  (93849 rows/sec)
+2026-03-21 15:30:26  INFO      
+[6/13] NSE_FNO_DATA_2024-10-18.csv
+2026-03-21 15:30:26  INFO      Loading: NSE_FNO_DATA_2024-10-18.csv  (93.5 MB)
+2026-03-21 15:30:40  INFO        Done: 1,263,751 loaded  0 skipped  13.7s  (92229 rows/sec)
+2026-03-21 15:30:40  INFO      
+[7/13] NSE_FNO_DATA_2024-10-21.CSV
+2026-03-21 15:30:40  INFO      Loading: NSE_FNO_DATA_2024-10-21.CSV  (97.3 MB)
+2026-03-21 15:30:55  INFO        Done: 1,313,245 loaded  0 skipped  14.3s  (91651 rows/sec)
+2026-03-21 15:30:55  INFO      
+[8/13] NSE_FNO_DATA_2024-10-22.CSV
+2026-03-21 15:30:55  INFO      Loading: NSE_FNO_DATA_2024-10-22.CSV  (103.3 MB)
+2026-03-21 15:31:10  INFO        Done: 1,397,924 loaded  0 skipped  15.5s  (90455 rows/sec)
+2026-03-21 15:31:10  INFO      
+[9/13] NSE_FNO_DATA_2024-10-23.csv
+2026-03-21 15:31:10  INFO      Loading: NSE_FNO_DATA_2024-10-23.csv  (106.3 MB)
+2026-03-21 15:31:27  INFO        Done: 1,439,393 loaded  0 skipped  15.9s  (90553 rows/sec)
+2026-03-21 15:31:27  INFO      
+[10/13] NSE_FNO_DATA_2024-10-24.csv
+2026-03-21 15:31:27  INFO      Loading: NSE_FNO_DATA_2024-10-24.csv  (103.0 MB)
+2026-03-21 15:31:42  INFO        Done: 1,395,909 loaded  0 skipped  15.4s  (90358 rows/sec)
+2026-03-21 15:31:42  INFO      
+[11/13] NSE_FNO_DATA_2024-10-28.csv
+2026-03-21 15:31:42  INFO      Loading: NSE_FNO_DATA_2024-10-28.csv  (116.0 MB)
+2026-03-21 15:32:00  INFO        Done: 1,576,027 loaded  0 skipped  17.4s  (90660 rows/sec)
+2026-03-21 15:32:00  INFO      
+[12/13] NSE_FNO_DATA_2024-10-29.CSV
+2026-03-21 15:32:00  INFO      Loading: NSE_FNO_DATA_2024-10-29.CSV  (119.3 MB)
+2026-03-21 15:32:18  INFO        Done: 1,619,208 loaded  0 skipped  17.8s  (90743 rows/sec)
+2026-03-21 15:32:18  INFO      
+[13/13] NSE_FNO_DATA_2024-10-30.CSV
+2026-03-21 15:32:18  INFO      Loading: NSE_FNO_DATA_2024-10-30.CSV  (116.0 MB)
+2026-03-21 15:32:36  INFO        Done: 1,576,738 loaded  0 skipped  17.5s  (89941 rows/sec)
+2026-03-21 15:32:36  INFO      
+============================================================
+2026-03-21 15:32:36  INFO      LOAD COMPLETE
+2026-03-21 15:32:36  INFO        Files processed : 13
+2026-03-21 15:32:36  INFO        Rows loaded     : 18,117,158
+2026-03-21 15:32:36  INFO        Rows skipped    : 0
+2026-03-21 15:32:36  INFO        Errors          : 0
+2026-03-21 15:32:36  INFO        Total time      : 3.3 minutes
+2026-03-21 15:32:36  INFO        DB size         : 4214 MB
+2026-03-21 15:32:47  INFO      
+  Top symbols in DB:
+2026-03-21 15:32:47  INFO        Symbol           Type         Rows          From            To
+2026-03-21 15:32:47  INFO        ------------------------------------------------------------
+2026-03-21 15:32:47  INFO        NIFTY            CE        948,898    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        NIFTY            PE        861,575    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        BANKNIFTY        CE        737,047    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        BANKNIFTY        PE        698,936    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        MIDCPNIFTY       CE        264,297    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        FINNIFTY         CE        260,509    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        MIDCPNIFTY       PE        259,398    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        FINNIFTY         PE        255,092    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        RELIANCE         CE        165,387    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        BAJAJ-AUTO       CE        140,272    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        RELIANCE         PE        132,759    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        MARUTI           CE        127,447    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        TATAMOTORS       CE        123,446    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        HDFCBANK         CE        116,355    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        HDFCBANK         PE         98,703    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        ADANIENT         CE         94,745    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        TATAMOTORS       PE         92,744    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        ICICIBANK        CE         89,135    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        BAJAJ-AUTO       PE         88,308    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO        MARUTI           PE         87,600    2024-10-15    2024-10-31
+2026-03-21 15:32:47  INFO      ============================================================

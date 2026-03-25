@@ -1,0 +1,1216 @@
+2026-03-23 13:35:44  INFO      ==============================================================
+2026-03-23 13:35:44  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 13:35:44  INFO        Root     : D:\YD2
+2026-03-23 13:35:44  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-23 13:35:44  INFO        Month    : Jan25
+2026-03-23 13:35:44  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 13:35:44  INFO        Dry run  : True
+2026-03-23 13:35:44  INFO      ==============================================================
+2026-03-23 13:35:44  INFO      Database ready: C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-23 13:35:44  INFO      Scanning for ZIP files...
+2026-03-23 13:35:44  INFO      Found 90 ZIP files to process
+2026-03-23 13:39:18  INFO      ==============================================================
+2026-03-23 13:39:18  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 13:39:18  INFO        Root     : D:\YD2
+2026-03-23 13:39:18  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-23 13:39:18  INFO        Month    : Jan25
+2026-03-23 13:39:18  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 13:39:18  INFO        Dry run  : True
+2026-03-23 13:39:18  INFO      ==============================================================
+2026-03-23 13:39:18  INFO      Database ready: C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-23 13:39:18  INFO      Scanning for ZIP files...
+2026-03-23 13:39:18  INFO      Found 90 ZIP files to process
+2026-03-23 13:39:18  INFO        Already loaded : 0
+2026-03-23 13:39:18  INFO        To load now    : 90
+2026-03-23 13:39:18  INFO      
+2026-03-23 13:41:24  INFO      
+2026-03-23 13:41:24  INFO      ==============================================================
+2026-03-23 13:41:24  INFO      LOAD COMPLETE
+2026-03-23 13:41:24  INFO        ZIPs processed  : 90
+2026-03-23 13:41:24  INFO        ZIPs skipped    : 0 (already loaded)
+2026-03-23 13:41:24  INFO        Rows loaded     : 41,645,285
+2026-03-23 13:41:24  INFO        Rows skipped    : 0
+2026-03-23 13:41:24  INFO        Errors          : 0
+2026-03-23 13:41:24  INFO        Time            : 2.1 minutes
+2026-03-23 13:41:24  INFO      ==============================================================
+2026-03-23 14:04:08  INFO      ==============================================================
+2026-03-23 14:04:08  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:04:08  INFO        Root     : D:\YD2
+2026-03-23 14:04:08  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:04:08  INFO        Month    : Jan25
+2026-03-23 14:04:08  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:04:08  INFO        Dry run  : True
+2026-03-23 14:04:08  INFO        Symbols  : 40
+2026-03-23 14:04:08  INFO        Resample : 5-min bars
+2026-03-23 14:04:08  INFO      ==============================================================
+2026-03-23 14:04:08  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:04:08  INFO      Scanning for ZIP files...
+2026-03-23 14:04:08  INFO      Found 90 ZIP files to process
+2026-03-23 14:04:08  INFO        Already loaded : 0
+2026-03-23 14:04:08  INFO        To load now    : 90
+2026-03-23 14:04:08  INFO      
+2026-03-23 14:05:10  INFO      
+2026-03-23 14:05:10  INFO      ==============================================================
+2026-03-23 14:05:10  INFO      LOAD COMPLETE
+2026-03-23 14:05:10  INFO        ZIPs processed  : 90
+2026-03-23 14:05:10  INFO        ZIPs skipped    : 0 (already loaded)
+2026-03-23 14:05:10  INFO        Rows loaded     : 14,222,157
+2026-03-23 14:05:10  INFO        Rows skipped    : 0
+2026-03-23 14:05:10  INFO        Errors          : 0
+2026-03-23 14:05:10  INFO        Time            : 1.0 minutes
+2026-03-23 14:05:10  INFO      ==============================================================
+2026-03-23 14:12:49  INFO      ==============================================================
+2026-03-23 14:12:49  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:12:49  INFO        Root     : D:\YD2
+2026-03-23 14:12:49  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:12:49  INFO        Month    : Jan25
+2026-03-23 14:12:49  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:12:49  INFO        Dry run  : False
+2026-03-23 14:12:49  INFO        Symbols  : 20
+2026-03-23 14:12:49  INFO        Resample : 5-min bars
+2026-03-23 14:12:49  INFO      ==============================================================
+2026-03-23 14:12:49  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:12:49  INFO      Scanning for ZIP files...
+2026-03-23 14:12:49  INFO      Found 90 ZIP files to process
+2026-03-23 14:12:49  INFO        Already loaded : 0
+2026-03-23 14:12:49  INFO        To load now    : 90
+2026-03-23 14:12:49  INFO      
+2026-03-23 14:16:17  INFO      ==============================================================
+2026-03-23 14:16:17  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:16:17  INFO        Root     : D:\YD2
+2026-03-23 14:16:17  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:16:17  INFO        Month    : Jan25
+2026-03-23 14:16:17  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:16:17  INFO        Dry run  : False
+2026-03-23 14:16:17  INFO        Symbols  : 20
+2026-03-23 14:16:17  INFO        Resample : 5-min bars
+2026-03-23 14:16:17  INFO      ==============================================================
+2026-03-23 14:16:17  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:16:17  INFO      Scanning for ZIP files...
+2026-03-23 14:16:17  INFO      Found 90 ZIP files to process
+2026-03-23 14:16:17  INFO        Already loaded : 0
+2026-03-23 14:16:17  INFO        To load now    : 90
+2026-03-23 14:16:17  INFO      
+2026-03-23 14:17:18  INFO      
+2026-03-23 14:17:18  INFO      ==============================================================
+2026-03-23 14:17:18  INFO      LOAD COMPLETE
+2026-03-23 14:17:18  INFO        ZIPs processed  : 90
+2026-03-23 14:17:18  INFO        ZIPs skipped    : 0 (already loaded)
+2026-03-23 14:17:18  INFO        Rows loaded     : 10,116,182
+2026-03-23 14:17:18  INFO        Rows skipped    : 0
+2026-03-23 14:17:18  INFO        Errors          : 0
+2026-03-23 14:17:18  INFO        Time            : 1.0 minutes
+2026-03-23 14:17:18  INFO        DB size         : 705 MB
+2026-03-23 14:17:20  INFO      
+2026-03-23 14:17:20  INFO        Symbol             Type         Rows          From            To
+2026-03-23 14:17:20  INFO        ----------------------------------------------------------------
+2026-03-23 14:17:20  INFO        NIFTY              CE        504,131    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        NIFTY              PE        433,250    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        BANKNIFTY          CE        282,596    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        BANKNIFTY          PE        231,642    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        MIDCPNIFTY         CE        117,791    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        FINNIFTY           CE         99,493    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        MIDCPNIFTY         PE         99,250    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        FINNIFTY           PE         83,472    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        RELIANCE           CE         72,685    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        RELIANCE           PE         67,206    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        HDFCBANK           CE         63,046    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        TATAMOTORS         CE         58,075    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        TATAMOTORS         PE         51,078    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        SBIN               CE         51,009    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        HDFCBANK           PE         49,815    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        AXISBANK           CE         49,054    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        ICICIBANK          CE         45,698    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        SBIN               PE         45,035    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        INFY               CE         44,076    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO        WIPRO              CE         44,018    2025-01-01    2025-02-01
+2026-03-23 14:17:20  INFO      ==============================================================
+2026-03-23 14:20:22  INFO      ==============================================================
+2026-03-23 14:20:22  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:20:22  INFO        Root     : D:\YD2
+2026-03-23 14:20:22  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:20:22  INFO        Month    : all
+2026-03-23 14:20:22  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:20:22  INFO        Dry run  : False
+2026-03-23 14:20:22  INFO        Symbols  : 20
+2026-03-23 14:20:22  INFO        Resample : 5-min bars
+2026-03-23 14:20:22  INFO      ==============================================================
+2026-03-23 14:20:22  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:20:22  INFO      Scanning for ZIP files...
+2026-03-23 14:20:22  INFO      Found 558 ZIP files to process
+2026-03-23 14:20:22  INFO        Already loaded : 90
+2026-03-23 14:20:22  INFO        To load now    : 468
+2026-03-23 14:20:22  INFO      
+2026-03-23 14:25:08  INFO      
+2026-03-23 14:25:08  INFO      ==============================================================
+2026-03-23 14:25:08  INFO      LOAD COMPLETE
+2026-03-23 14:25:08  INFO        ZIPs processed  : 468
+2026-03-23 14:25:08  INFO        ZIPs skipped    : 90 (already loaded)
+2026-03-23 14:25:08  INFO        Rows loaded     : 44,397,306
+2026-03-23 14:25:08  INFO        Rows skipped    : 0
+2026-03-23 14:25:08  INFO        Errors          : 0
+2026-03-23 14:25:08  INFO        Time            : 4.8 minutes
+2026-03-23 14:25:08  INFO        DB size         : 3931 MB
+2026-03-23 14:25:19  INFO      
+2026-03-23 14:25:19  INFO        Symbol             Type         Rows          From            To
+2026-03-23 14:25:19  INFO        ----------------------------------------------------------------
+2026-03-23 14:25:19  INFO        NIFTY              PE      3,030,773    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        NIFTY              CE      2,828,283    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        BANKNIFTY          PE      1,409,831    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        BANKNIFTY          CE      1,331,480    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        MIDCPNIFTY         CE        527,945    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        MIDCPNIFTY         PE        511,012    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        RELIANCE           CE        391,253    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        FINNIFTY           CE        383,085    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        RELIANCE           PE        374,619    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        FINNIFTY           PE        368,867    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        TCS                CE        312,178    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        TATAMOTORS         CE        293,616    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        TCS                PE        273,236    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        TATAMOTORS         PE        266,945    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        SBIN               CE        262,867    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        HDFCBANK           CE        249,894    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        SBIN               PE        238,819    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        INFY               CE        237,204    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        ICICIBANK          CE        236,942    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO        BAJFINANCE         CE        234,512    2025-01-01    2025-07-18
+2026-03-23 14:25:19  INFO      ==============================================================
+2026-03-23 14:44:49  INFO      ==============================================================
+2026-03-23 14:44:49  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:44:49  INFO        Root     : D:\YD2
+2026-03-23 14:44:49  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:44:49  INFO        Month    : Aug25
+2026-03-23 14:44:49  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:44:49  INFO        Dry run  : True
+2026-03-23 14:44:49  INFO        Symbols  : 20
+2026-03-23 14:44:49  INFO        Resample : 5-min bars
+2026-03-23 14:44:49  INFO      ==============================================================
+2026-03-23 14:44:49  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:44:49  INFO      Scanning for ZIP files...
+2026-03-23 14:44:49  INFO        Found 4 folder-ZIPs (Format 2) — expanding...
+2026-03-23 14:44:49  INFO          04 Aug to 08 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:44:49  INFO          11 Aug to 15 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:44:49  INFO          18 Aug to 22 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:44:49  INFO          25 Aug to 29 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:44:49  INFO        Total: 72 daily ZIPs (0 direct + 72 from folder-ZIPs)
+2026-03-23 14:44:49  INFO      Found 72 ZIP files to process
+2026-03-23 14:44:49  INFO        Already loaded : 0
+2026-03-23 14:44:49  INFO        To load now    : 72
+2026-03-23 14:44:49  INFO      
+2026-03-23 14:45:15  INFO      
+2026-03-23 14:45:15  INFO      ==============================================================
+2026-03-23 14:45:15  INFO      LOAD COMPLETE
+2026-03-23 14:45:15  INFO        ZIPs processed  : 72
+2026-03-23 14:45:15  INFO        ZIPs skipped    : 0 (already loaded)
+2026-03-23 14:45:15  INFO        Rows loaded     : 5,904,984
+2026-03-23 14:45:15  INFO        Rows skipped    : 0
+2026-03-23 14:45:15  INFO        Errors          : 0
+2026-03-23 14:45:15  INFO        Time            : 0.4 minutes
+2026-03-23 14:45:15  INFO      ==============================================================
+2026-03-23 14:46:17  INFO      ==============================================================
+2026-03-23 14:46:17  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-23 14:46:17  INFO        Root     : D:\YD2
+2026-03-23 14:46:17  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-23 14:46:17  INFO        Month    : all
+2026-03-23 14:46:17  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-23 14:46:17  INFO        Dry run  : False
+2026-03-23 14:46:17  INFO        Symbols  : 20
+2026-03-23 14:46:17  INFO        Resample : 5-min bars
+2026-03-23 14:46:17  INFO      ==============================================================
+2026-03-23 14:46:17  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-23 14:46:17  INFO      Scanning for ZIP files...
+2026-03-23 14:46:17  INFO        Found 22 folder-ZIPs (Format 2) — expanding...
+2026-03-23 14:46:17  INFO          04 Aug to 08 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          11 Aug to 15 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:46:17  INFO          18 Aug to 22 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          25 Aug to 29 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:46:17  INFO          01 Dec to 05 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          08 Dec to 12 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          15 Dec to 19 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          29 Dec to 02 Jan (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          21 Jul to 25 Jul (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          28 Jul to 01 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          03 Nov to 07 Nov (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:46:17  INFO          10 Nov to 14 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          17 Nov to 21 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          24 Nov to 28 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          06 Oct to 10 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:17  INFO          13 Oct to 17 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:18  INFO          20 Oct to 24 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:46:18  INFO          27 Oct to 31 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:18  INFO          01 Sep to 05 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:18  INFO          08 Sep to 12 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:18  INFO          15 Sep to 19 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-23 14:46:18  INFO          29 Sep to 03 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-23 14:46:18  INFO        Total: 978 daily ZIPs (558 direct + 420 from folder-ZIPs)
+2026-03-23 14:46:18  INFO      Found 978 ZIP files to process
+2026-03-23 14:46:18  INFO        Already loaded : 558
+2026-03-23 14:46:18  INFO        To load now    : 420
+2026-03-23 14:46:18  INFO      
+2026-03-23 14:49:59  INFO      
+2026-03-23 14:49:59  INFO      ==============================================================
+2026-03-23 14:49:59  INFO      LOAD COMPLETE
+2026-03-23 14:49:59  INFO        ZIPs processed  : 420
+2026-03-23 14:49:59  INFO        ZIPs skipped    : 558 (already loaded)
+2026-03-23 14:49:59  INFO        Rows loaded     : 34,203,249
+2026-03-23 14:49:59  INFO        Rows skipped    : 0
+2026-03-23 14:49:59  INFO        Errors          : 0
+2026-03-23 14:49:59  INFO        Time            : 3.7 minutes
+2026-03-23 14:49:59  INFO        DB size         : 6514 MB
+2026-03-23 14:50:18  INFO      
+2026-03-23 14:50:18  INFO        Symbol             Type         Rows          From            To
+2026-03-23 14:50:18  INFO        ----------------------------------------------------------------
+2026-03-23 14:50:18  INFO        NIFTY              PE      5,107,430    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        NIFTY              CE      4,724,160    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        BANKNIFTY          PE      2,257,612    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        BANKNIFTY          CE      2,120,058    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        MIDCPNIFTY         PE        830,013    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        MIDCPNIFTY         CE        829,688    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        RELIANCE           CE        659,811    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        RELIANCE           PE        625,057    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        TCS                CE        580,620    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        FINNIFTY           CE        556,502    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        FINNIFTY           PE        541,880    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        TCS                PE        522,247    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        SBIN               CE        470,163    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        HDFCBANK           CE        442,483    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        SBIN               PE        426,161    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        INFY               CE        417,141    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        HDFCBANK           PE        409,882    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        ICICIBANK          CE        406,013    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        BAJFINANCE         CE        405,962    2025-01-01    2026-01-02
+2026-03-23 14:50:18  INFO        TATAMOTORS         CE        403,107    2025-01-01    2025-10-23
+2026-03-23 14:50:18  INFO      ==============================================================
+2026-03-24 12:11:34  INFO      ==============================================================
+2026-03-24 12:11:34  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-24 12:11:34  INFO        Root     : D:\YD2
+2026-03-24 12:11:34  INFO        DB       : C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-24 12:11:34  INFO        Month    : all
+2026-03-24 12:11:34  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-24 12:11:34  INFO        Dry run  : False
+2026-03-24 12:11:34  INFO        Symbols  : 20
+2026-03-24 12:11:34  INFO        Resample : 1-min bars
+2026-03-24 12:11:34  INFO      ==============================================================
+2026-03-24 12:11:34  INFO      Database ready: C:\Users\HP\nse_tools\data\options_chain.db
+2026-03-24 12:11:34  INFO      Scanning for ZIP files...
+2026-03-24 12:11:34  INFO        Found 22 folder-ZIPs (Format 2) — expanding...
+2026-03-24 12:11:34  INFO          04 Aug to 08 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          11 Aug to 15 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:11:34  INFO          18 Aug to 22 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          25 Aug to 29 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:11:34  INFO          01 Dec to 05 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          08 Dec to 12 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          15 Dec to 19 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          29 Dec to 02 Jan (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          21 Jul to 25 Jul (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          28 Jul to 01 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:34  INFO          03 Nov to 07 Nov (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:11:35  INFO          10 Nov to 14 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          17 Nov to 21 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          24 Nov to 28 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          06 Oct to 10 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          13 Oct to 17 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          20 Oct to 24 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:11:35  INFO          27 Oct to 31 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          01 Sep to 05 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          08 Sep to 12 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          15 Sep to 19 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:11:35  INFO          29 Sep to 03 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:11:35  INFO        Total: 978 daily ZIPs (558 direct + 420 from folder-ZIPs)
+2026-03-24 12:11:35  INFO      Found 978 ZIP files to process
+2026-03-24 12:11:35  INFO        Already loaded : 0
+2026-03-24 12:11:35  INFO        To load now    : 978
+2026-03-24 12:11:35  INFO      
+2026-03-24 12:11:35  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250101.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:35  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250101.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:35  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250102.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:35  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250102.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:35  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250103.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\01 Jan to 03 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250103.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250108.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250108.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250108.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250109.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250109.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250109.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:36  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\06 Jan to 10 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250115.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250115.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250115.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250116.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250116.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250116.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:37  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\13 Jan to 17 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250122.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250122.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250122.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250123.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250123.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:38  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250123.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\20 Jan to 24 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250129.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250129.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250129.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250130.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:39  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250130.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250130.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250131.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250131.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250131.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\JAN25\27 Jan to 31 Jan (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:40  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250206.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250206.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250206.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250207.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250207.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\03 Feb to 07 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250207.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:41  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250213.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250213.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250213.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250214.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250214.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\10 Feb to 14 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250214.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:42  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250220.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250220.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250220.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250221.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250221.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\17 Feb to 21 Feb (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250221.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250224.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250224.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250224.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250225.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250225.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250225.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250227.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250227.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:43  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250227.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250228.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250228.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\FEB25\24 Feb to 28 Feb (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250228.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250303.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250303.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250303.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250304.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250304.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250304.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250305.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250305.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250305.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250306.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250306.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:44  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250306.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250307.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250307.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\03 Mar to 07 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250307.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250310.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250310.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250310.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250311.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250311.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250311.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250312.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250312.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250312.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250313.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250313.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\10 Mar to 14 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250313.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250317.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:45  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250317.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250317.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250318.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250318.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250318.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250319.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250319.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250319.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250320.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250320.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250320.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250321.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250321.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\17 Mar to 21 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250321.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250324.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:46  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250324.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250324.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250325.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250325.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250325.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250326.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250326.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250326.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250327.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250327.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250327.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250328.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250328.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:47  ERROR       Error processing D:\YD2\MAR25\24 Mar to 28 Mar (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250328.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250401.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250402.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:48  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250403.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\MAR25\31 Mar to 04 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250404.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250407.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250407.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250407.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250408.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250408.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250408.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250409.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:49  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250409.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250409.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_FUT_1MIN_20250411.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_IDX_1MIN_20250411.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\07 Apr to 11 Apr (NSE FO) - 1MIN - CSV (1)\NSE_OPT_1MIN_20250411.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250415.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250415.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250415.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250416.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250416.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250416.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250417.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250417.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:50  ERROR       Error processing D:\YD2\APR25\14 Apr to 18 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250417.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250421.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250421.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250421.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250422.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250422.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250422.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250423.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250423.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250423.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250424.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250424.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:51  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250424.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250425.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250425.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\21 Apr to 25 Apr (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250425.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250428.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250428.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250428.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250429.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250429.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250429.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250430.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250430.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250430.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:52  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250502.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250502.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\APR25\28 Apr to 02 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250502.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250505.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250505.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250505.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250506.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250506.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250506.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250507.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250507.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250507.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250508.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:53  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250508.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250508.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250509.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250509.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\05 May to 09 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250509.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250512.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250512.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250512.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250513.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250513.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250513.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250514.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:54  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250514.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250514.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250515.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250515.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250515.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250516.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250516.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\12 May to 16 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250516.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250519.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250519.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250519.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250520.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250520.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:55  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250520.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250521.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250521.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250521.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250522.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250522.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250522.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250523.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250523.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\19 May to 23 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250523.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250526.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250526.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250526.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:56  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250527.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250527.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250527.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250528.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250528.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250528.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250529.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250529.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250529.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250530.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250530.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\MAY25\26 May to 30 May (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250530.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250602.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:57  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250602.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250602.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250603.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250603.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250603.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250604.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250604.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250604.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250605.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250605.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250605.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250606.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250606.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:58  ERROR       Error processing D:\YD2\JUL25\02 Jun to 06 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250606.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250609.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250609.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250609.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250610.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250610.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250610.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250611.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250611.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250611.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250612.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250612.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250612.zip: table ohlcv_1min has no column named source
+2026-03-24 12:11:59  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250613.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250613.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\09 Jun to 13 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250613.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250616.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250616.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250616.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250617.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250617.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250617.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250618.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250618.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250618.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250619.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:00  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250619.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250619.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250620.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250620.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\16 Jun to 20 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250620.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250623.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250623.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250623.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250624.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250624.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250624.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250625.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:01  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250625.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250625.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250626.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250626.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250626.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250627.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250627.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\23 Jun to 27 Jun (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250627.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250630.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250630.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250630.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250701.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250701.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:02  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250701.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250702.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250702.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250702.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250703.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250703.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250703.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250704.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250704.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUN25\30 Jun to 04 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250704.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250707.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250707.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250707.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250708.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:03  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250708.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250708.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250709.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250709.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250709.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250710.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250710.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250710.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250711.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250711.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\07 Jul to 11 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250711.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250714.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:04  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250714.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250714.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250715.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250715.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250715.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250716.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250716.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250716.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250717.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250717.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250717.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_FUT_1MIN_20250718.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_IDX_1MIN_20250718.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing D:\YD2\JUL25\14 Jul to 18 Jul (NSE FO) - 1MIN - CSV\NSE_OPT_1MIN_20250718.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250721.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:05  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250721.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250721.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250722.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250722.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250722.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250723.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250723.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250723.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250724.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250724.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250724.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250725.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250725.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250725.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250728.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250728.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250728.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250729.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250729.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250729.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250730.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250730.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:06  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250730.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250731.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250731.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250731.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250801.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250801.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250801.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250804.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250804.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250804.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250805.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250805.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250805.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250806.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250806.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250806.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250807.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250807.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250807.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250808.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250808.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250808.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250811.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250811.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250811.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250812.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:07  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250812.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250812.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250813.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250813.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250813.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250814.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250814.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250814.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250818.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250818.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250818.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250819.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250819.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250819.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250820.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250820.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250820.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250821.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250821.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250821.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250822.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250822.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250822.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250825.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250825.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:08  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250825.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250826.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250826.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250826.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250828.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250828.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250828.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250829.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250829.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250829.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250901.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250901.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250901.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250902.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250902.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250902.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250903.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250903.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250903.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250904.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250904.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250904.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250905.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250905.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250905.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250908.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:09  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250908.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250908.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250909.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250909.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250909.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250910.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250910.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250910.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250911.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250911.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250911.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250912.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250912.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250912.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250915.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250915.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250915.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250916.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250916.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250916.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250917.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250917.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250917.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250918.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250918.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250918.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250919.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:10  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250919.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250919.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250929.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250929.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250929.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20250930.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20250930.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20250930.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251001.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251001.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251001.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251003.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251003.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251003.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251006.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251006.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251006.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251007.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251007.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251007.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251008.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251008.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251008.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251009.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251009.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:11  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251009.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251010.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251010.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251010.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251013.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251013.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251013.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251014.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251014.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251014.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251015.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251015.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251015.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251016.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251016.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251016.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251017.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251017.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251017.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251020.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251020.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251020.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251021.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251021.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:12  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251021.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251023.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251023.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251023.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251024.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251024.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251024.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251027.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251027.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251027.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251028.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251028.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251028.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251029.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251029.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251029.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251030.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251030.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251030.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251031.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251031.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251031.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251103.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:13  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251103.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251103.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251104.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251104.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251104.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251106.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251107.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251110.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251111.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251111.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251111.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251112.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251112.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251112.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251113.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:14  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251114.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251117.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251118.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251118.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251118.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251119.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251119.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251119.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251120.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251121.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251124.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251125.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251125.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251125.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251126.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:15  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251126.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251126.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251127.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251128.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251201.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251202.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251202.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251202.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251203.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251204.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251205.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251208.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251208.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:16  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251208.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251209.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251209.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251209.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251210.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251211.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251212.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251215.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251215.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251215.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251216.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251216.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251216.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251217.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:17  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251218.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251219.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251229.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251229.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251229.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251230.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251230.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251230.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20251231.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20251231.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20251231.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20260101.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20260101.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20260101.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_FUT_1MIN_20260102.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_IDX_1MIN_20260102.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  ERROR       Error processing inner ZIP NSE_OPT_1MIN_20260102.zip: table ohlcv_1min has no column named source
+2026-03-24 12:12:18  INFO      
+2026-03-24 12:12:18  INFO      ==============================================================
+2026-03-24 12:12:18  INFO      LOAD COMPLETE
+2026-03-24 12:12:18  INFO        ZIPs processed  : 978
+2026-03-24 12:12:18  INFO        ZIPs skipped    : 0 (already loaded)
+2026-03-24 12:12:18  INFO        Rows loaded     : 5,188,574
+2026-03-24 12:12:18  INFO        Rows skipped    : 0
+2026-03-24 12:12:18  INFO        Errors          : 735
+2026-03-24 12:12:18  INFO        Time            : 0.7 minutes
+2026-03-24 12:12:18  INFO        DB size         : 4214 MB
+2026-03-24 12:28:17  INFO      ==============================================================
+2026-03-24 12:28:17  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-24 12:28:17  INFO        Root     : D:\YD2
+2026-03-24 12:28:17  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-24 12:28:17  INFO        Month    : all
+2026-03-24 12:28:17  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-24 12:28:17  INFO        Dry run  : False
+2026-03-24 12:28:17  INFO        Symbols  : 20
+2026-03-24 12:28:17  INFO        Resample : 1-min bars
+2026-03-24 12:28:17  INFO      ==============================================================
+2026-03-24 12:28:17  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-24 12:28:17  INFO      Scanning for ZIP files...
+2026-03-24 12:28:17  INFO        Found 22 folder-ZIPs (Format 2) — expanding...
+2026-03-24 12:28:17  INFO          04 Aug to 08 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          11 Aug to 15 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:28:17  INFO          18 Aug to 22 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          25 Aug to 29 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:28:17  INFO          01 Dec to 05 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          08 Dec to 12 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          15 Dec to 19 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          29 Dec to 02 Jan (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          21 Jul to 25 Jul (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          28 Jul to 01 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          03 Nov to 07 Nov (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:28:17  INFO          10 Nov to 14 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          17 Nov to 21 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          24 Nov to 28 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          06 Oct to 10 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          13 Oct to 17 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          20 Oct to 24 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:28:17  INFO          27 Oct to 31 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          01 Sep to 05 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          08 Sep to 12 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          15 Sep to 19 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:28:17  INFO          29 Sep to 03 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:28:17  INFO        Total: 978 daily ZIPs (558 direct + 420 from folder-ZIPs)
+2026-03-24 12:28:17  INFO      Found 978 ZIP files to process
+2026-03-24 12:28:17  INFO        Already loaded : 978
+2026-03-24 12:28:17  INFO        To load now    : 0
+2026-03-24 12:28:17  INFO      
+2026-03-24 12:28:17  INFO      
+2026-03-24 12:28:17  INFO      ==============================================================
+2026-03-24 12:28:17  INFO      LOAD COMPLETE
+2026-03-24 12:28:17  INFO        ZIPs processed  : 0
+2026-03-24 12:28:17  INFO        ZIPs skipped    : 978 (already loaded)
+2026-03-24 12:28:17  INFO        Rows loaded     : 0
+2026-03-24 12:28:17  INFO        Rows skipped    : 0
+2026-03-24 12:28:17  INFO        Errors          : 0
+2026-03-24 12:28:17  INFO        Time            : 0.0 minutes
+2026-03-24 12:28:17  INFO        DB size         : 6514 MB
+2026-03-24 12:28:37  INFO      
+2026-03-24 12:28:37  INFO        Symbol             Type         Rows          From            To
+2026-03-24 12:28:37  INFO        ----------------------------------------------------------------
+2026-03-24 12:28:37  INFO        NIFTY              PE      5,107,430    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        NIFTY              CE      4,724,160    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        BANKNIFTY          PE      2,257,612    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        BANKNIFTY          CE      2,120,058    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        MIDCPNIFTY         PE        830,013    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        MIDCPNIFTY         CE        829,688    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        RELIANCE           CE        659,811    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        RELIANCE           PE        625,057    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        TCS                CE        580,620    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        FINNIFTY           CE        556,502    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        FINNIFTY           PE        541,880    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        TCS                PE        522,247    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        SBIN               CE        470,163    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        HDFCBANK           CE        442,483    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        SBIN               PE        426,161    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        INFY               CE        417,141    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        HDFCBANK           PE        409,882    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        ICICIBANK          CE        406,013    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        BAJFINANCE         CE        405,962    2025-01-01    2026-01-02
+2026-03-24 12:28:37  INFO        TATAMOTORS         CE        403,107    2025-01-01    2025-10-23
+2026-03-24 12:28:37  INFO      ==============================================================
+2026-03-24 12:39:16  INFO      ==============================================================
+2026-03-24 12:39:16  INFO      NSE FNO Data Loader — Weekly ZIP Format
+2026-03-24 12:39:16  INFO        Root     : D:\YD2
+2026-03-24 12:39:16  INFO        DB       : D:\nse_data\options_chain.db
+2026-03-24 12:39:16  INFO        Month    : all
+2026-03-24 12:39:16  INFO        Types    : ['FUT', 'OPT', 'CONT', 'IDX']
+2026-03-24 12:39:16  INFO        Dry run  : False
+2026-03-24 12:39:16  INFO        Symbols  : 20
+2026-03-24 12:39:16  INFO        Resample : 1-min bars
+2026-03-24 12:39:16  INFO      ==============================================================
+2026-03-24 12:39:16  INFO      Database ready: D:\nse_data\options_chain.db
+2026-03-24 12:39:16  INFO      Scanning for ZIP files...
+2026-03-24 12:39:16  INFO        Found 22 folder-ZIPs (Format 2) — expanding...
+2026-03-24 12:39:16  INFO          04 Aug to 08 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          11 Aug to 15 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:39:16  INFO          18 Aug to 22 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          25 Aug to 29 Aug (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:39:16  INFO          01 Dec to 05 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          08 Dec to 12 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          15 Dec to 19 Dec (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          29 Dec to 02 Jan (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          21 Jul to 25 Jul (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          28 Jul to 01 Aug (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          03 Nov to 07 Nov (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:39:16  INFO          10 Nov to 14 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          17 Nov to 21 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          24 Nov to 28 Nov (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          06 Oct to 10 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          13 Oct to 17 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:16  INFO          20 Oct to 24 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:39:16  INFO          27 Oct to 31 Oct (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:17  INFO          01 Sep to 05 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:17  INFO          08 Sep to 12 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:17  INFO          15 Sep to 19 Sep (NSE FO) - 1MIN - CSV.zip: 20 daily ZIPs
+2026-03-24 12:39:17  INFO          29 Sep to 03 Oct (NSE FO) - 1MIN - CSV.zip: 16 daily ZIPs
+2026-03-24 12:39:17  INFO        Total: 978 daily ZIPs (558 direct + 420 from folder-ZIPs)
+2026-03-24 12:39:17  INFO      Found 978 ZIP files to process
+2026-03-24 12:39:17  INFO        Already loaded : 978
+2026-03-24 12:39:17  INFO        To load now    : 0
+2026-03-24 12:39:17  INFO      
+2026-03-24 13:09:36  INFO      
+2026-03-24 13:09:36  INFO      ==============================================================
+2026-03-24 13:09:36  INFO      LOAD COMPLETE
+2026-03-24 13:09:36  INFO        ZIPs processed  : 978
+2026-03-24 13:09:36  INFO        ZIPs skipped    : 978 (already loaded)
+2026-03-24 13:09:36  INFO        Rows loaded     : 88,716,737
+2026-03-24 13:09:36  INFO        Rows skipped    : 0
+2026-03-24 13:09:36  INFO        Errors          : 0
+2026-03-24 13:09:36  INFO        Time            : 30.3 minutes
+2026-03-24 13:09:36  INFO        DB size         : 27957 MB
+2026-03-24 13:13:38  INFO      
+2026-03-24 13:13:38  INFO        Symbol             Type         Rows          From            To
+2026-03-24 13:13:38  INFO        ----------------------------------------------------------------
+2026-03-24 13:13:38  INFO        NIFTY              PE     22,990,862    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        NIFTY              CE     21,349,860    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        BANKNIFTY          PE      9,978,776    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        BANKNIFTY          CE      9,656,728    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        MIDCPNIFTY         CE      3,543,980    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        MIDCPNIFTY         PE      3,473,561    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        RELIANCE           CE      2,663,419    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        RELIANCE           PE      2,411,960    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        TCS                CE      2,299,589    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        FINNIFTY           CE      2,193,572    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        FINNIFTY           PE      2,093,729    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        TCS                PE      1,938,641    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        SBIN               CE      1,883,308    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        HDFCBANK           CE      1,788,393    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        INFY               CE      1,704,557    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        BAJFINANCE         CE      1,663,895    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        TATAMOTORS         CE      1,657,258    2025-01-01    2025-10-23
+2026-03-24 13:13:38  INFO        SBIN               PE      1,628,002    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        ICICIBANK          CE      1,597,696    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO        HDFCBANK           PE      1,595,959    2025-01-01    2026-01-02
+2026-03-24 13:13:38  INFO      ==============================================================
