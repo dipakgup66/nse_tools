@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Strategy Backtest Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-page: #0b0f1a;
+    --bg-card: #111827;
+    --bg-card-alt: #1a2235;
+    --border: #1e293b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --bull: #22c55e;
+    --bull-dim: rgba(34, 197, 94, 0.12);
+    --bear: #ef4444;
+    --bear-dim: rgba(239, 68, 68, 0.12);
+    --text: #e2e8f0;
+    --text-sec: #64748b;
+    --text-dim: #475569;
+    --gold: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-page); color: var(--text); font-size: 13px;
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+    background: linear-gradient(135deg, #111827 0%, #1a1040 100%);
+    padding: 16px 28px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 20px;
+}
+header h1 {
+    font-size: 15px; font-weight: 900; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #a5b4fc, #818cf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.header-tag {
+    font-size: 9px; font-weight: 700; background: var(--accent);
+    color: #fff; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px;
+}
+#clock {
+    margin-left: auto; font-weight: 800; font-family: 'Inter', monospace;
+    font-size: 14px; color: var(--text-sec); font-variant-numeric: tabular-nums;
+}
+#connStatus {
+    font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+}
+.conn-ok  { background: var(--bull-dim); color: var(--bull); }
+.conn-err { background: var(--bear-dim); color: var(--bear); }
+
+/* ── Controls ── */
+.controls {
+    background: var(--bg-card); border-bottom: 1px solid var(--border);
+    padding: 14px 28px; display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap;
+}
+.ctl-group { display: flex; flex-direction: column; gap: 3px; }
+.ctl-group label {
+    font-size: 9px; font-weight: 800; color: var(--text-sec);
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+input, select {
+    padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 12px; outline: none; background: var(--bg-card-alt);
+    color: var(--text); font-family: 'Inter', sans-serif;
+}
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
+select { cursor: pointer; }
+
+button {
+    padding: 8px 20px; border-radius: 8px; font-weight: 700; cursor: pointer;
+    border: none; transition: all 0.15s; font-size: 12px; font-family: 'Inter', sans-serif;
+}
+.btn-run {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+.btn-run:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4); }
+.btn-run:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-add {
+    background: var(--bg-card-alt); color: var(--accent);
+    border: 1px solid var(--accent); 
+}
+.btn-add:hover { background: var(--accent-glow); }
+.btn-clear {
+    background: transparent; color: var(--text-sec);
+    border: 1px solid var(--border);
+}
+.btn-clear:hover { border-color: var(--bear); color: var(--bear); }
+
+/* ── Main layout ── */
+.main { padding: 20px 28px; display: flex; flex-direction: column; gap: 16px; }
+
+.card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.section-title {
+    font-size: 10px; font-weight: 800; color: var(--text-sec);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+}
+
+/* ── Comparison table ── */
+.compare-grid {
+    display: grid; grid-template-columns: 180px repeat(var(--cols, 1), 1fr);
+    gap: 0; font-size: 12px;
+}
+.compare-grid .cg-header {
+    background: var(--bg-card-alt); padding: 10px 14px;
+    font-weight: 800; font-size: 11px; color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.compare-grid .cg-header:first-child { text-align: left; color: var(--text-sec); font-size: 10px; }
+.compare-grid .cg-label {
+    padding: 8px 14px; color: var(--text-sec); font-weight: 600;
+    border-bottom: 1px solid rgba(30,41,59,0.4);
+    display: flex; align-items: center;
+}
+.compare-grid .cg-val {
+    padding: 8px 14px; text-align: center; font-weight: 700;
+    border-bottom: 1px solid rgba(30,41,59,0.4);
+    font-variant-numeric: tabular-nums;
+}
+.cg-best { color: var(--bull); }
+.cg-worst { color: var(--bear); }
+
+/* ── Kpis row ── */
+.kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.kpi {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px; text-align: center;
+}
+.kpi-label { font-size: 9px; font-weight: 800; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.kpi-value { font-size: 24px; font-weight: 900; color: var(--text); }
+.kpi-sub { font-size: 10px; color: var(--text-dim); margin-top: 3px; }
+
+/* ── Charts ── */
+.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.chart-container { position: relative; height: 300px; }
+
+/* ── Trade log ── */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th {
+    text-align: left; color: var(--text-sec); font-weight: 700;
+    padding: 10px 12px; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.5px; border-bottom: 1px solid var(--border);
+    background: var(--bg-card-alt); position: sticky; top: 0; z-index: 5;
+}
+td { padding: 8px 12px; border-bottom: 1px solid rgba(30,41,59,0.3); }
+tr:hover td { background: rgba(99,102,241,0.04); }
+.badge {
+    padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700;
+    display: inline-block;
+}
+.b-win  { background: var(--bull-dim); color: var(--bull); }
+.b-loss { background: var(--bear-dim); color: var(--bear); }
+.b-sl   { background: rgba(245, 158, 11, 0.12); color: var(--gold); }
+.b-eod  { background: rgba(100, 116, 139, 0.12); color: var(--text-sec); }
+
+.trade-log-wrap { max-height: 400px; overflow-y: auto; border-radius: 10px; }
+
+/* ── Loading ── */
+#loading {
+    position: fixed; inset: 0; background: rgba(11,15,26,0.85);
+    z-index: 1000; display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px; backdrop-filter: blur(4px);
+}
+.spinner {
+    width: 44px; height: 44px; border: 4px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#loadText { color: var(--text-sec); font-size: 13px; font-weight: 500; }
+
+/* ── Queue chips ── */
+.queue-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.q-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--bg-card-alt); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 14px; font-size: 11px; font-weight: 600;
+}
+.q-chip .q-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+}
+.q-pending .q-dot { background: var(--gold); }
+.q-running .q-dot { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+.q-done .q-dot    { background: var(--bull); }
+.q-error .q-dot   { background: var(--bear); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.q-remove {
+    cursor: pointer; color: var(--text-dim); font-size: 14px; line-height: 1;
+    margin-left: 2px;
+}
+.q-remove:hover { color: var(--bear); }
+
+/* ── Empty state ── */
+.empty-state {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 60px 20px; color: var(--text-dim);
+}
+.empty-state svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.3; }
+.empty-state h3 { font-size: 16px; font-weight: 700; color: var(--text-sec); margin-bottom: 6px; }
+.empty-state p { font-size: 12px; max-width: 340px; text-align: center; line-height: 1.6; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spinner"></div><div id="loadText">Running backtest...</div></div>
+
+<header>
+    <h1>BACKTEST LAB</h1>
+    <span class="header-tag">MULTI-STRATEGY</span>
+    <div id="clock">--:--:--</div>
+    <span id="connStatus" class="conn-err">Checking...</span>
+</header>
+
+<!-- ── Controls ── -->
+<div class="controls">
+    <div class="ctl-group">
+        <label>Index</label>
+        <select id="ctlSymbol">
+            <option value="NIFTY">NIFTY</option>
+            <option value="BANKNIFTY">BANKNIFTY</option>
+        </select>
+    </div>
+    <div class="ctl-group">
+        <label>Strategy</label>
+        <select id="ctlStrategy">
+            <option>Short Straddle</option>
+            <option>Short Strangle</option>
+            <option>Iron Condor</option>
+            <option>Bull Put Spread</option>
+            <option>Bear Call Spread</option>
+            <option>Bull Call Spread</option>
+            <option>Bear Put Spread</option>
+            <option>Long Straddle</option>
+            <option>Buy Call</option>
+            <option>Buy Put</option>
+        </select>
+    </div>
+    <div class="ctl-group">
+        <label>From</label>
+        <input type="date" id="ctlFrom" value="2025-01-01">
+    </div>
+    <div class="ctl-group">
+        <label>To</label>
+        <input type="date" id="ctlTo" value="2025-12-31">
+    </div>
+    <div class="ctl-group">
+        <label>SL Type</label>
+        <select id="ctlSlType">
+            <option value="multiplier">Multiplier</option>
+            <option value="points">Points</option>
+            <option value="none">None</option>
+        </select>
+    </div>
+    <div class="ctl-group">
+        <label>SL Value</label>
+        <input type="number" id="ctlSlVal" value="2.0" step="0.5" style="width:65px">
+    </div>
+    <div class="ctl-group">
+        <label>Slippage</label>
+        <input type="number" id="ctlSlip" value="0.5" step="0.1" style="width:65px">
+    </div>
+
+    <button class="btn-add" onclick="addToQueue()">+ Add to Queue</button>
+    <button class="btn-run" id="btnRun" onclick="runQueue()">▶ Run All</button>
+    <button class="btn-clear" onclick="clearAll()">Clear</button>
+</div>
+
+<!-- ── Queue bar ── -->
+<div style="padding: 0 28px;">
+    <div class="queue-bar" id="queueBar"></div>
+</div>
+
+<!-- ── Main content ── -->
+<div class="main" id="mainContent">
+
+    <!-- Empty state (shown initially) -->
+    <div id="emptyState" class="card empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 3v18h18"/><path d="M7 16l4-6 4 4 6-8"/>
+        </svg>
+        <h3>No Backtests Yet</h3>
+        <p>Select a strategy above, click <strong>+ Add to Queue</strong>, then <strong>▶ Run All</strong> to compare strategies side-by-side. Add multiple strategies for comparison.</p>
+    </div>
+
+    <!-- Results (hidden initially) -->
+    <div id="resultsSection" style="display:none;">
+
+        <!-- KPI row (for the most recent / selected backtest) -->
+        <div class="kpi-row" id="kpiRow"></div>
+
+        <!-- Comparison table (multi-strat) -->
+        <div class="card" id="compareCard" style="display:none;">
+            <div class="section-title">Strategy Comparison</div>
+            <div class="compare-grid" id="compareGrid"></div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-row">
+            <div class="card">
+                <div class="section-title">Cumulative P&L (Points)</div>
+                <div class="chart-container"><canvas id="equityChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="section-title">Per-Trade P&L Distribution</div>
+                <div class="chart-container"><canvas id="pnlChart"></canvas></div>
+            </div>
+        </div>
+
+        <!-- Trade log -->
+        <div class="card" style="padding: 0;">
+            <div class="section-title" style="padding: 20px 20px 0;">Trade Log</div>
+            <div class="trade-log-wrap">
+                <table id="tradeTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th><th>Strategy</th><th>Entry</th>
+                            <th>Exit Time</th><th>Exit Type</th>
+                            <th style="text-align:right">Premium</th>
+                            <th style="text-align:right">Exit Cost</th>
+                            <th style="text-align:right">P&L (Pts)</th>
+                            <th style="text-align:right">P&L (₹)</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tradeBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const API = 'http://localhost:7778';
+let queue = [];       // [{symbol, strategy, from, to, sl_type, sl_value, slippage, status, result}]
+let results = [];     // completed backtest results
+let equityChart = null;
+let pnlChart = null;
+
+// Palette for multi-strategy overlay
+const COLORS = [
+    '#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4',
+    '#ec4899', '#8b5cf6', '#14b8a6', '#f97316', '#64748b',
+];
+
+// Clock
+function tick() {
+    document.getElementById('clock').innerText =
+        new Date().toLocaleTimeString('en-IN', { hour12: false });
+}
+setInterval(tick, 1000); tick();
+
+// Health check
+async function checkHealth() {
+    try {
+        const r = await fetch(`${API}/health`);
+        const d = await r.json();
+        const el = document.getElementById('connStatus');
+        el.textContent = `Connected · ${d.strategies.length} strategies`;
+        el.className = 'conn-ok';
+    } catch {
+        const el = document.getElementById('connStatus');
+        el.textContent = 'Offline';
+        el.className = 'conn-err';
+    }
+}
+checkHealth(); setInterval(checkHealth, 30000);
+
+// ═══════════════════════════════════════════════════════════
+//  QUEUE MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+
+function addToQueue() {
+    const item = {
+        symbol:   document.getElementById('ctlSymbol').value,
+        strategy: document.getElementById('ctlStrategy').value,
+        from:     document.getElementById('ctlFrom').value,
+        to:       document.getElementById('ctlTo').value,
+        sl_type:  document.getElementById('ctlSlType').value,
+        sl_value: document.getElementById('ctlSlVal').value,
+        slippage: document.getElementById('ctlSlip').value,
+        status:   'pending',
+        result:   null,
+    };
+
+    // Duplicate check
+    const dup = queue.find(q =>
+        q.symbol === item.symbol && q.strategy === item.strategy &&
+        q.from === item.from && q.to === item.to &&
+        q.sl_type === item.sl_type && q.sl_value === item.sl_value
+    );
+    if (dup) { alert('This exact configuration is already in the queue.'); return; }
+
+    queue.push(item);
+    renderQueue();
+}
+
+function removeFromQueue(idx) {
+    if (queue[idx].status === 'running') return;
+    queue.splice(idx, 1);
+    renderQueue();
+}
+
+function renderQueue() {
+    const bar = document.getElementById('queueBar');
+    if (queue.length === 0) { bar.innerHTML = ''; return; }
+
+    bar.innerHTML = queue.map((q, i) => {
+        const cls = `q-chip q-${q.status}`;
+        const label = `${q.strategy} (${q.symbol})`;
+        const rm = q.status !== 'running'
+            ? `<span class="q-remove" onclick="removeFromQueue(${i})">×</span>` : '';
+        return `<div class="${cls}"><span class="q-dot"></span>${label}${rm}</div>`;
+    }).join('');
+}
+
+function clearAll() {
+    queue = [];
+    results = [];
+    renderQueue();
+    document.getElementById('emptyState').style.display = 'flex';
+    document.getElementById('resultsSection').style.display = 'none';
+    if (equityChart) { equityChart.destroy(); equityChart = null; }
+    if (pnlChart) { pnlChart.destroy(); pnlChart = null; }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RUN BACKTESTS
+// ═══════════════════════════════════════════════════════════
+
+async function runQueue() {
+    const pending = queue.filter(q => q.status === 'pending');
+    if (pending.length === 0) { alert('Nothing to run. Add strategies first.'); return; }
+
+    document.getElementById('btnRun').disabled = true;
+    document.getElementById('loading').style.display = 'flex';
+
+    for (let i = 0; i < queue.length; i++) {
+        if (queue[i].status !== 'pending') continue;
+        queue[i].status = 'running';
+        renderQueue();
+
+        document.getElementById('loadText').textContent =
+            `Running ${queue[i].strategy} on ${queue[i].symbol}... (${i+1}/${queue.length})`;
+
+        try {
+            const q = queue[i];
+            const url = `${API}/backtest?symbol=${encodeURIComponent(q.symbol)}`
+                + `&strategy=${encodeURIComponent(q.strategy)}`
+                + `&from=${q.from}&to=${q.to}`
+                + `&sl_type=${q.sl_type}&sl_value=${q.sl_value}`
+                + `&slippage=${q.slippage}`;
+
+            const r = await fetch(url);
+            const data = await r.json();
+            queue[i].result = data;
+            queue[i].status = 'done';
+            results.push({ ...q, data });
+        } catch (e) {
+            queue[i].status = 'error';
+            console.error('Backtest error:', e);
+        }
+        renderQueue();
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('btnRun').disabled = false;
+    renderResults();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER RESULTS
+// ═══════════════════════════════════════════════════════════
+
+function renderResults() {
+    const completed = results.filter(r => r.data && r.data.summary);
+    if (completed.length === 0) return;
+
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('resultsSection').style.display = '';
+
+    renderKPIs(completed[completed.length - 1]);
+    if (completed.length > 1) renderComparison(completed);
+    renderEquityChart(completed);
+    renderPnLChart(completed);
+    renderTradeLog(completed);
+}
+
+function renderKPIs(item) {
+    const s = item.data.summary;
+    const kpis = [
+        { label: 'Total Trades', value: s.total_trades, sub: `${s.wins}W / ${s.losses}L` },
+        { label: 'Win Rate', value: s.win_rate + '%', sub: s.win_rate >= 50 ? 'Profitable' : 'Needs Improvement', color: s.win_rate >= 50 ? 'var(--bull)' : 'var(--bear)' },
+        { label: 'Total P&L', value: `₹${Math.round(s.total_pnl_rs).toLocaleString()}`, sub: `${s.total_pnl_pts >= 0 ? '+' : ''}${s.total_pnl_pts.toFixed(1)} pts`, color: s.total_pnl_rs >= 0 ? 'var(--bull)' : 'var(--bear)' },
+        { label: 'Sharpe Ratio', value: s.sharpe_ratio !== null ? s.sharpe_ratio.toFixed(2) : 'N/A', sub: s.sharpe_ratio > 1 ? 'Good' : s.sharpe_ratio > 0 ? 'Fair' : 'Poor', color: s.sharpe_ratio > 1 ? 'var(--bull)' : s.sharpe_ratio > 0 ? 'var(--gold)' : 'var(--bear)' },
+        { label: 'Max Drawdown', value: s.max_drawdown_pts.toFixed(1) + ' pts', sub: `${s.max_consecutive_losses} max consec losses`, color: 'var(--bear)' },
+        { label: 'SL Hits', value: s.sl_hit_count, sub: `of ${s.total_trades} trades`, color: 'var(--gold)' },
+    ];
+
+    document.getElementById('kpiRow').innerHTML = kpis.map(k => `
+        <div class="kpi">
+            <div class="kpi-label">${k.label}</div>
+            <div class="kpi-value" style="color:${k.color || 'var(--text)'}">${k.value}</div>
+            <div class="kpi-sub">${k.sub}</div>
+        </div>
+    `).join('');
+}
+
+function renderComparison(items) {
+    const card = document.getElementById('compareCard');
+    card.style.display = '';
+    const grid = document.getElementById('compareGrid');
+    const n = items.length;
+    grid.style.setProperty('--cols', n);
+
+    const metrics = [
+        { key: 'win_rate',        label: 'Win Rate',           fmt: v => v + '%',                         best: 'max' },
+        { key: 'total_pnl_rs',    label: 'Total P&L (₹)',      fmt: v => '₹' + Math.round(v).toLocaleString(), best: 'max' },
+        { key: 'total_pnl_pts',   label: 'Total P&L (pts)',     fmt: v => (v >= 0 ? '+' : '') + v.toFixed(1),   best: 'max' },
+        { key: 'sharpe_ratio',    label: 'Sharpe Ratio',        fmt: v => v !== null ? v.toFixed(2) : 'N/A',    best: 'max' },
+        { key: 'avg_win_pts',     label: 'Avg Win (pts)',        fmt: v => '+' + v.toFixed(1),                   best: 'max' },
+        { key: 'avg_loss_pts',    label: 'Avg Loss (pts)',       fmt: v => v.toFixed(1),                         best: 'min_abs' },
+        { key: 'max_drawdown_pts',label: 'Max Drawdown (pts)',   fmt: v => v.toFixed(1),                         best: 'min' },
+        { key: 'sl_hit_count',    label: 'SL Hits',              fmt: v => v,                                    best: 'min' },
+        { key: 'max_consecutive_losses', label: 'Max Consec Losses', fmt: v => v,                               best: 'min' },
+    ];
+
+    // Headers
+    let html = `<div class="cg-header">Metric</div>`;
+    items.forEach((it, i) => {
+        html += `<div class="cg-header" style="color:${COLORS[i % COLORS.length]}">${it.strategy}</div>`;
+    });
+
+    // Rows
+    metrics.forEach(m => {
+        const vals = items.map(it => it.data.summary[m.key]);
+        let bestIdx = -1;
+        if (m.best === 'max') bestIdx = vals.indexOf(Math.max(...vals.filter(v => v !== null)));
+        else if (m.best === 'min') bestIdx = vals.indexOf(Math.min(...vals.filter(v => v !== null)));
+        else if (m.best === 'min_abs') bestIdx = vals.indexOf(vals.reduce((a, b) => Math.abs(a) < Math.abs(b) ? a : b));
+
+        html += `<div class="cg-label">${m.label}</div>`;
+        vals.forEach((v, i) => {
+            const cls = i === bestIdx ? 'cg-best' : '';
+            html += `<div class="cg-val ${cls}">${m.fmt(v)}</div>`;
+        });
+    });
+
+    grid.innerHTML = html;
+}
+
+function renderEquityChart(items) {
+    const ctx = document.getElementById('equityChart').getContext('2d');
+    if (equityChart) equityChart.destroy();
+
+    const datasets = items.map((item, idx) => {
+        const trades = item.data.trades;
+        let cum = 0;
+        const pts = trades.map(t => { cum += t.pnl_points; return cum; });
+
+        return {
+            label: item.strategy,
+            data: pts,
+            borderColor: COLORS[idx % COLORS.length],
+            borderWidth: 2,
+            fill: false,
+            tension: 0.2,
+            pointRadius: trades.length > 50 ? 0 : 3,
+            pointHoverRadius: 5,
+        };
+    });
+
+    // Use dates from the longest trade list as labels
+    const longest = items.reduce((a, b) => a.data.trades.length > b.data.trades.length ? a : b);
+    const labels = longest.data.trades.map(t => t.date);
+
+    equityChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { color: '#94a3b8', font: { size: 11, family: 'Inter' } } },
+                tooltip: {
+                    backgroundColor: '#1e293b', titleColor: '#e2e8f0',
+                    bodyColor: '#94a3b8', borderColor: '#334155', borderWidth: 1,
+                },
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(30,41,59,0.3)' },
+                    ticks: { color: '#475569', font: { size: 10 }, maxTicksLimit: 15 },
+                },
+                y: {
+                    grid: { color: 'rgba(30,41,59,0.3)' },
+                    ticks: { color: '#475569', font: { size: 10 } },
+                },
+            },
+        },
+    });
+}
+
+function renderPnLChart(items) {
+    const ctx = document.getElementById('pnlChart').getContext('2d');
+    if (pnlChart) pnlChart.destroy();
+
+    // Use last result's trades for bar chart
+    const item = items[items.length - 1];
+    const trades = item.data.trades;
+    const labels = trades.map(t => t.date);
+    const data = trades.map(t => t.pnl_points);
+    const bgColors = data.map(v => v >= 0 ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)');
+
+    pnlChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: item.strategy + ' P&L',
+                data, backgroundColor: bgColors,
+                borderRadius: 3, borderSkipped: false,
+            }],
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b', titleColor: '#e2e8f0',
+                    bodyColor: '#94a3b8', borderColor: '#334155', borderWidth: 1,
+                },
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 9 }, maxTicksLimit: 20 } },
+                y: { grid: { color: 'rgba(30,41,59,0.3)' }, ticks: { color: '#475569', font: { size: 10 } } },
+            },
+        },
+    });
+}
+
+function renderTradeLog(items) {
+    // Merge all trades, sort by date
+    let allTrades = [];
+    items.forEach((item, idx) => {
+        item.data.trades.forEach(t => {
+            allTrades.push({ ...t, _strategy: item.strategy, _color: COLORS[idx % COLORS.length] });
+        });
+    });
+    allTrades.sort((a, b) => a.date.localeCompare(b.date));
+
+    const tbody = document.getElementById('tradeBody');
+    tbody.innerHTML = allTrades.map(t => {
+        const pnlColor = t.pnl_points >= 0 ? 'var(--bull)' : 'var(--bear)';
+        const outcomeClass = t.outcome === 'WIN' ? 'b-win' : 'b-loss';
+        const exitClass = t.exit_type === 'STOP_LOSS' ? 'b-sl' : 'b-eod';
+        return `<tr>
+            <td style="font-weight:600">${t.date}</td>
+            <td><span style="color:${t._color}; font-weight:700;">●</span> ${t._strategy}</td>
+            <td>${t.entry_time}</td>
+            <td>${t.exit_time}</td>
+            <td><span class="badge ${exitClass}">${t.exit_type.replace('_',' ')}</span></td>
+            <td style="text-align:right; font-variant-numeric:tabular-nums;">${t.total_premium_collected.toFixed(1)}</td>
+            <td style="text-align:right; font-variant-numeric:tabular-nums;">${t.total_exit_cost.toFixed(1)}</td>
+            <td style="text-align:right; font-weight:700; color:${pnlColor}; font-variant-numeric:tabular-nums;">
+                ${t.pnl_points >= 0 ? '+' : ''}${t.pnl_points.toFixed(1)}
+            </td>
+            <td style="text-align:right; color:${pnlColor}; font-variant-numeric:tabular-nums;">
+                ₹${Math.round(t.pnl_rupees).toLocaleString()}
+            </td>
+            <td><span class="badge ${outcomeClass}">${t.outcome}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+</script>
+</body>
+</html>

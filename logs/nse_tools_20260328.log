@@ -1,0 +1,171 @@
+2026-03-28 09:34:50  INFO      [Test]  Logging OK
+2026-03-28 09:35:43  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 09:36:55  INFO      [IntegrationTest]  DB: D:\nse_data\options_chain.db
+2026-03-28 09:36:55  INFO      [IntegrationTest]  Lot sizes: {'NIFTY': 75, 'BANKNIFTY': 15, 'FINNIFTY': 40, 'MIDCPNIFTY': 75}
+2026-03-28 09:36:55  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 09:36:55  INFO      [IntegrationTest]  NIFTY EMA20: 26111.29 (from 40 closes)
+2026-03-28 09:36:55  INFO      [IntegrationTest]  Trend: strong_down
+2026-03-28 09:36:55  INFO      [IntegrationTest]  BS ATM CE 7DTE: 218.53
+2026-03-28 09:36:55  INFO      [IntegrationTest]  Snapshot: NIFTY spot=24500 trend=strong_down ivr=65 (high)
+2026-03-28 09:36:55  INFO      [IntegrationTest]  Strategy: Short Straddle (HIGH)
+2026-03-28 09:36:55  INFO      [IntegrationTest]  Event: EventRisk(status='no_event', event=None, days_away=None, impact=None)
+2026-03-28 09:46:14  INFO      [TestAgents]  Demo snapshot: NIFTY spot=24350 trend=mild_up ivr=62
+2026-03-28 09:46:14  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 09:46:14  INFO      [TestAgents]  Historical OHLCV: 452 bars on 2025-01-02
+2026-03-28 09:46:14  INFO      [TestAgents]  Registered strategies: ['short_straddle', 'short_strangle', 'iron_condor', 'post_event_sell', 'bull_put_spread', 'bull_call_spread', 'bear_call_spread', 'bear_put_spread', 'long_straddle_event', 'long_straddle_low_iv', 'buy_call', 'buy_put', 'calendar_spread', 'wait_neutral']
+2026-03-28 09:46:14  INFO      [TestAgents]  Top rec: Short Straddle (HIGH) — IVR very high + rangebound + expiry day. Max theta decay, pr...
+2026-03-28 09:46:14  INFO      [StrategyAgent]  Registered strategy: custom_momentum
+2026-03-28 09:50:29  INFO      [BacktestAgent]  Backtesting Short Straddle on NIFTY: 5 dates (2025-01-02 to 2025-01-30)
+2026-03-28 09:50:29  INFO      [BacktestAgent]    SL: multiplier (2.0)  Slippage: 0.5  Costs: 100.0
+2026-03-28 09:50:33  INFO      [BacktestAgent]  
+============================================================
+  Short Straddle Backtest — NIFTY
+  Trades: 5 | Win rate: 60.0%
+  Total PnL: +91.0 pts | Rs +6,329
+  Avg win: +73.5 | Avg loss: -64.8
+  Max DD: 129.5 pts | Max consec loss: 2
+  SL hits: 0/5
+  Sharpe: 3.49
+============================================================
+2026-03-28 09:50:33  INFO      [TestAgents]  Backtest: 5 trades, win rate 60.0%, PnL Rs 6,329
+2026-03-28 10:05:20  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 10:05:20  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 10:05:20  ERROR     [DataAgent]    All data sources failed for NIFTY
+2026-03-28 10:05:20  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 10:05:20  INFO      [DataAgent]  Snapshot ready in 0.01s — NIFTY spot=None trend=rangebound ivr=None (neutral) source=offline
+2026-03-28 10:05:20  INFO      [Orchestrator]  Live data unavailable — falling back to demo mode
+2026-03-28 10:05:26  INFO      [Orchestrator]  Serving cached result for NIFTY
+2026-03-28 10:17:30  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 10:17:30  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 10:17:30  ERROR     [DataAgent]    All data sources failed for NIFTY
+2026-03-28 10:17:30  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 10:17:30  INFO      [DataAgent]  Snapshot ready in 0.03s — NIFTY spot=None trend=rangebound ivr=None (neutral) source=offline
+2026-03-28 10:17:30  INFO      [Orchestrator]  Live data unavailable — falling back to demo mode
+2026-03-28 10:18:25  INFO      [Orchestrator]  Serving cached result for NIFTY
+2026-03-28 15:01:06  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 15:01:10  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 15:01:10  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 15:01:13  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 15:01:15  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 15:01:17  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 15:01:17  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 15:01:17  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 15:01:19  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 15:01:32  WARNING   [NSESession]    India VIX fetch failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-03-28 15:01:32  INFO      [DataAgent]    Using typical IV estimate: 15.0%
+2026-03-28 15:01:32  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=15%
+2026-03-28 15:01:32  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 15:01:32  INFO      [DataAgent]  Snapshot ready in 25.59s — NIFTY spot=22819.6 trend=strong_down ivr=20.0 (low) source=yahoo_synthetic
+2026-03-28 15:02:45  INFO      [Orchestrator]  Serving cached result for NIFTY
+2026-03-28 15:04:47  INFO      [Orchestrator]  Serving cached result for NIFTY
+2026-03-28 15:12:58  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 15:12:58  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 15:12:58  ERROR     [DataAgent]    All data sources failed for NIFTY
+2026-03-28 15:12:58  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 15:12:58  INFO      [DataAgent]  Snapshot ready in 0.01s — NIFTY spot=None trend=rangebound ivr=None (neutral) source=offline
+2026-03-28 16:15:16  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 16:15:20  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:15:20  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 16:15:23  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 16:15:26  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 16:15:28  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:15:28  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:15:28  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:15:31  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 16:15:36  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:15:36  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 16:15:36  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 16:15:36  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 16:15:36  INFO      [DataAgent]  Snapshot ready in 20.34s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 16:16:43  INFO      [DataAgent]  Building snapshot for BANKNIFTY...
+2026-03-28 16:16:48  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:16:48  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:16:48  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:16:48  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:16:52  INFO      [NSESession]    Yahoo spot for BANKNIFTY: 52274.6
+2026-03-28 16:16:56  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:16:56  INFO      [DataAgent]    Using real IV from India VIX: 33.5%
+2026-03-28 16:16:56  INFO      [DataAgent]    Built synthetic chain: BANKNIFTY spot=52274.6 ATM=52300 IV=34%
+2026-03-28 16:16:56  INFO      [DataAgent]  Snapshot ready in 12.39s — BANKNIFTY spot=52274.6 trend=strong_down ivr=65.2 (high) source=yahoo_synthetic
+2026-03-28 16:24:22  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 16:24:26  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:24:26  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:24:26  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:24:26  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:24:28  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 16:24:30  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:24:30  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 16:24:30  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 16:24:30  INFO      [DataAgent]  Snapshot ready in 8.67s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 16:25:51  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 16:25:55  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:25:55  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 16:25:56  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['browse-url', 'ak_bmsc', 'bm_sz']
+2026-03-28 16:25:59  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 16:26:02  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:26:02  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:26:02  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:26:06  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 16:26:11  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:26:11  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 16:26:11  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 16:26:11  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 16:26:11  INFO      [DataAgent]  Snapshot ready in 19.96s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 16:31:10  WARNING   [BacktestAgent]  No trading dates found for NIFTY in 2023-01-01 to 2025-01-01
+2026-03-28 16:36:28  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 16:36:32  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:36:32  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 16:36:35  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 16:36:38  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 16:36:40  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:36:40  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:36:40  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:36:43  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 16:36:47  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:36:47  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 16:36:47  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 16:36:47  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 16:36:47  INFO      [DataAgent]  Snapshot ready in 19.11s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 16:41:32  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 16:41:36  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 16:41:36  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 16:41:40  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 16:41:43  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 16:41:45  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 16:41:45  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 16:41:45  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 16:41:51  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 16:41:54  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 16:41:54  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 16:41:54  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 16:41:54  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 16:41:54  INFO      [DataAgent]  Snapshot ready in 22.19s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 17:18:27  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 17:18:31  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 17:18:31  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 17:18:34  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 17:18:36  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 17:18:38  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 17:18:38  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 17:18:38  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 17:18:40  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 17:18:44  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 17:18:44  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 17:18:44  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 17:18:44  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 17:18:44  INFO      [DataAgent]  Snapshot ready in 16.89s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic
+2026-03-28 17:18:59  INFO      [Orchestrator]  Serving cached result for NIFTY
+2026-03-28 17:22:29  INFO      [DataAgent]  Building snapshot for NIFTY...
+2026-03-28 17:22:33  WARNING   [DataAgent]    Bridge not running (connection refused)
+2026-03-28 17:22:33  INFO      [NSESession]  Building fresh NSE session...
+2026-03-28 17:22:34  INFO      [NSESession]    Warmup https://www.nseindia.com -> 200 | cookies: ['ak_bmsc', 'bm_sz']
+2026-03-28 17:22:37  INFO      [NSESession]    Warmup https://www.nseindia.com/option-chain -> 200 | cookies: ['nsit', '_abck', 'bm_mi', 'bm_sv']
+2026-03-28 17:22:39  INFO      [NSESession]    NSE GET option-chain-indices -> 200 (2 bytes)
+2026-03-28 17:22:39  WARNING   [NSESession]    Empty response (Akamai block)
+2026-03-28 17:22:39  WARNING   [DataAgent]    NSE API blocked — building synthetic chain...
+2026-03-28 17:22:41  INFO      [NSESession]    Yahoo spot for NIFTY: 22819.6
+2026-03-28 17:22:43  INFO      [NSESession]    India VIX: 26.80%  52w [9.1%, 26.8%]  IVR=100.0%
+2026-03-28 17:22:43  INFO      [DataAgent]    Using real IV from India VIX: 26.8%
+2026-03-28 17:22:43  INFO      [DataAgent]    Built synthetic chain: NIFTY spot=22819.6 ATM=22800 IV=27%
+2026-03-28 17:22:43  INFO      [DB]  Database ready: D:\nse_data\options_chain.db
+2026-03-28 17:23:03  INFO      [DataAgent]  Snapshot ready in 33.83s — NIFTY spot=22819.6 trend=strong_down ivr=67.2 (high) source=yahoo_synthetic

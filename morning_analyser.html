@@ -511,7 +511,7 @@ function render(data) {
   pcrBadge.className   = 'cond-badge ' + badgeClass('pcr', data.pcr_label);
 
   // ── Event banner ──
-  const ev = data.event || {};
+  const ev = data.event_risk || data.event || {};
   const evBanner = document.getElementById('eventBanner');
   if (ev.status !== 'no_event' && ev.event) {
     evBanner.style.display = 'flex';
@@ -564,8 +564,11 @@ function render(data) {
     }
   }
 
-  // ── Contracts ──
-  const contracts = data.contracts || [];
+  const topRec = recs.length > 0 ? recs[0] : null;
+  const contracts = (topRec && topRec.legs) ? topRec.legs.map(l => ({
+    action: l.action, type: l.type, strike: l.strike,
+    expiry: l.expiry, indicative_premium: l.indicative_premium,
+  })) : (data.contracts || []);
   const cbody = document.getElementById('contractsBody');
   if (contracts.length) {
     const netPrem = contracts.reduce((s, l) =>
@@ -640,7 +643,7 @@ async function analyse(force = false) {
     document.getElementById('mainContent').style.display = 'flex';
     document.getElementById('errorCard').style.display   = 'flex';
     document.getElementById('errorMsg').textContent =
-      'Cannot connect to morning_analyser.py server. Run: python morning_analyser.py';
+      'Cannot connect to API server. Run: python main.py';
   } finally {
     document.getElementById('loadingOverlay').classList.remove('show');
     document.getElementById('refreshBtn').disabled = false;
