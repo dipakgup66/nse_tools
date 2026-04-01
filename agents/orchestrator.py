@@ -54,6 +54,11 @@ class Orchestrator:
         self._cache    = {}
         self._cache_ts = {}
 
+    def get_handler(self):
+        """Expose the internal handler class (useful for unified startup scripts)."""
+        return _make_handler(self)
+
+
     # ══════════════════════════════════════════════════════════════════════════
     #  LIVE ANALYSIS
     # ══════════════════════════════════════════════════════════════════════════
@@ -226,46 +231,62 @@ class Orchestrator:
         return {"trades": open_trades, "spot": spot}
 
     def get_payoff(self, symbol: str, spot: float, legs: list, dte: int) -> dict:
-        """Calculate T+0 and Expiry P&L for a strategy."""
+        """Calculate T+0 and Expiry P&L, plus POP and Sigma ranges."""
         r = self.cfg.risk_free_rate
         lot_size = self.cfg.get_lot_size(symbol)
         
-        # Price range: +/- 5%
-        steps = 50
-        step_size = (spot * 0.05) / (steps / 2)
+        # Price range: +/- 10% to capture sigma bands
+        steps = 100
+        step_size = (spot * 0.10) / (steps / 2)
         prices = [round(spot + (i - steps/2) * step_size, 2) for i in range(steps + 1)]
         
         expiry_pnl = []
         t0_pnl = []
+        bes = []
         
         T_years = max(dte, 0.5) / 365
+        avg_iv = sum(float(l.get("iv") or 15.0) for l in legs) / len(legs) if legs else 15.0
         
+        last_exp_sum = None
         for s in prices:
             exp_sum = 0
             t0_sum = 0
             for l in legs:
-                # l is {action, type, strike, entry_price, iv}
                 side = 1 if l["action"] == "BUY" else -1
                 strike = float(l["strike"])
                 entry = float(l["entry_price"])
-                iv = float(l.get("iv") or 15.0) / 100
+                iv = float(l.get("iv") or avg_iv) / 100
                 
-                # Expiry P&L
+                # Expiry P&L (pts)
                 intrinsic = max(0, s - strike) if l["type"] == "CE" else max(0, strike - s)
                 exp_sum += side * (intrinsic - entry)
                 
-                # T+0 P&L (BS price today)
+                # T+0 P&L (pts)
                 theo = ind.bs_price(s, strike, T_years, r, iv, l["type"])
                 t0_sum += side * (theo - entry)
                 
             expiry_pnl.append(round(exp_sum * lot_size, 2))
             t0_pnl.append(round(t0_sum * lot_size, 2))
             
+            # Detect breakeven crossing
+            if last_exp_sum is not None:
+                if (last_exp_sum < 0 and exp_sum >= 0) or (last_exp_sum > 0 and exp_sum <= 0):
+                    bes.append(s)
+            last_exp_sum = exp_sum
+            
+        # Calculate POP and Sigma
+        pop = ind.calc_pop(spot, bes, avg_iv, dte)
+        sigma = ind.get_sigma_ranges(spot, avg_iv, dte)
+        
         return {
             "prices": prices,
             "expiry": expiry_pnl,
-            "t0": t0_pnl
+            "t0": t0_pnl,
+            "breakevens": [round(b) for b in bes],
+            "pop": pop,
+            "sigma": sigma
         }
+
 
     # ══════════════════════════════════════════════════════════════════════════
     #  HTTP SERVER

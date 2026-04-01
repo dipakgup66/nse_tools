@@ -77,10 +77,10 @@ class Config:
     }))
 
     yahoo_ticker_map: Dict[str, str] = field(default_factory=lambda: {
-        "NIFTY":      "%5ENSEI",
-        "BANKNIFTY":  "%5ENSEBANK",
-        "FINNIFTY":   "%5EFINIFTY",
-        "MIDCPNIFTY": "%5ENSMIDCP",
+        "NIFTY":      "^NSEI",
+        "BANKNIFTY":  "^NSEBANK",
+        "FINNIFTY":   "NIFTY_FIN_SERVICE.NS",
+        "MIDCPNIFTY": "NIFTY_MID_SELECT.NS",
     })
 
     # ── Market hours (IST) ──
@@ -95,7 +95,7 @@ class Config:
     breeze_session:    Optional[str] = field(default_factory=lambda: os.environ.get("BREEZE_SESSION"))
 
     # ── Cache ──
-    analysis_cache_ttl: int = 300   # 5 minutes
+    analysis_cache_ttl: int = 5   # 5 seconds
 
     # ── Risk-free rate for BS pricing ──
     risk_free_rate: float = 0.065

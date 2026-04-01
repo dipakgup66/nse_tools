@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NSE Trading Terminal</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -879,13 +880,13 @@
                 badge.textContent = '● Live'; badge.className = 'mkt-badge mkt-open';
             }
 
-            // Staleness indicator
-            if (lastRefreshTime) {
-                const ago = Math.round((now - lastRefreshTime) / 1000);
+            // Absolute Timestamp display
+            if (activeData && activeData.captured_at) {
+                const ts = new Date(activeData.captured_at);
+                const timeStr = ts.toLocaleTimeString('en-IN', { hour12: false });
+                const src = activeData.data_source || 'Unknown';
                 const el = document.getElementById('lastUpdated');
-                if (ago < 60) el.textContent = `Updated ${ago}s ago`;
-                else el.textContent = `Updated ${Math.floor(ago / 60)}m ago`;
-                el.style.color = ago > 120 ? 'var(--bear)' : 'var(--text-dim)';
+                el.innerHTML = `<span style="opacity:0.6">Market:</span> <b style="color:var(--text)">${timeStr}</b> <span style="font-size:10px; opacity:0.6">(${src})</span>`;
             }
         }
         setInterval(tick, 1000); tick();
@@ -930,9 +931,9 @@
                 const now = new Date();
                 const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
                 const h = ist.getHours(), m = ist.getMinutes(), dow = ist.getDay();
-                const isMarketHours = dow >= 1 && dow <= 5 && (h > 9 || (h === 9 && m >= 15)) && (h < 15 || (h === 15 && m < 30));
+                const isMarketHours = dow >= 1 && dow <= 5 && (h >= 9 && h <= 15); 
                 if (isMarketHours) refresh(true);
-            }, 30000);
+            }, 60000); // Set to 60s as requested
         }
         setupAutoRefresh();
 
@@ -950,10 +951,18 @@
             }
 
             try {
-                const r = await fetch(`${API}/analyse?symbol=${activeSymbol}&capital=${cap}&risk_pct=${risk}`);
+                // cache_bust ensures your browser doesn't keep old versions of the data in memory
+                const r = await fetch(`${API}/analyse?symbol=${activeSymbol}&capital=${cap}&risk_pct=${risk}&_cb=${Date.now()}`);
                 const data = await r.json();
                 render(data);
-                lastRefreshTime = new Date();
+                
+                // Use the ACTUAL data capture time from the server for the "Updated XXs ago" display
+                if (data.timestamp) {
+                    lastRefreshTime = new Date(data.timestamp);
+                } else {
+                    lastRefreshTime = new Date();
+                }
+                
                 document.getElementById('connStatus').textContent = 'Connected';
                 document.getElementById('connStatus').className = 'conn-badge conn-ok';
             } catch (e) {
@@ -964,6 +973,7 @@
                 document.getElementById('btnRefresh').disabled = false;
             }
         }
+
 
         function render(data) {
             activeData = data;
@@ -1144,18 +1154,13 @@
                 iv: l.iv || 15.0
             }));
 
-            let chartData = {
-                prices: [],
-                expiry: [],
-                t0: []
-            };
+            let chartData = { prices: [], expiry: [], t0: [], pop: 50, sigma: {} };
 
             try {
                 const r = await fetch(`${API}/payoff?symbol=${activeSymbol}&spot=${spot}&dte=${dte}&legs=${JSON.stringify(legParams)}`);
                 chartData = await r.json();
             } catch (e) {
                 console.error("Payoff fetch failed", e);
-                // Fallback to simple calculation if backend fails
                 return;
             }
 
@@ -1164,22 +1169,58 @@
             const ys_t0 = chartData.t0;
 
             let maxProfit = -Infinity, maxLoss = Infinity;
-            const breakevens = [];
-
-            ys.forEach((v, i) => {
+            ys.forEach(v => {
                 maxProfit = Math.max(maxProfit, v);
                 maxLoss = Math.min(maxLoss, v);
-                if (i > 0 && ((ys[i - 1] < 0 && v >= 0) || (ys[i - 1] > 0 && v <= 0))) {
-                    breakevens.push(xs[i]);
-                }
             });
 
             // Strategy Labels Footer
             document.getElementById('p-max').textContent = 'Max Profit: ' + (isFinite(maxProfit) && maxProfit > 0 ? '₹' + Math.round(maxProfit).toLocaleString() : 'Unlimited');
             document.getElementById('p-loss').textContent = 'Max Loss: ' + (isFinite(maxLoss) && maxLoss < 0 ? '₹' + Math.abs(Math.round(maxLoss)).toLocaleString() : 'Capital at Risk');
-            document.getElementById('p-be').textContent = 'BE: ' + (breakevens.length > 0 ? breakevens.join(", ") : '—');
+            
+            const beList = chartData.breakevens || [];
+            document.getElementById('p-be').textContent = 'BE: ' + (beList.length > 0 ? beList.join(", ") : '—');
+            
+            // Add POP indicator
+            const pop = chartData.pop || 50;
+            const payoffHeader = document.getElementById('p-max').parentElement;
+            let popEl = document.getElementById('chart-pop');
+            if(!popEl) {
+                popEl = document.createElement('span');
+                popEl.id = 'chart-pop';
+                popEl.style.marginLeft = 'auto';
+                popEl.style.color = pop > 60 ? 'var(--bull)' : (pop < 40 ? 'var(--bear)' : 'var(--warn)');
+                payoffHeader.appendChild(popEl);
+            }
+            popEl.innerHTML = `POP: <b style="font-size:14px">${pop}%</b>`;
+
+            // Prepare Annotations (Sigma lines)
+            const sigma = chartData.sigma || {};
+            const annotations = {};
+            
+            ["s1_low", "s1_high", "s2_low", "s2_high"].forEach((key, idx) => {
+                if (!sigma[key]) return;
+                const label = key.includes("s1") ? "1σ" : "2σ";
+                const pos = key.includes("low") ? "-" : "+";
+                annotations[key] = {
+                    type: 'line',
+                    xMin: sigma[key],
+                    xMax: sigma[key],
+                    borderColor: 'rgba(148, 163, 184, 0.5)',
+                    borderWidth: 1,
+                    borderDash: [4, 4],
+                    label: {
+                        display: true,
+                        content: pos + label,
+                        position: 'start',
+                        font: { size: 9 },
+                        color: '#94a3b8'
+                    }
+                };
+            });
 
             chart = new Chart(ctx, {
+
                 type: 'line',
                 data: {
                     labels: xs,
@@ -1223,7 +1264,11 @@
                                 label: ctx => `${ctx.dataset.label}: ₹${Math.round(ctx.parsed.y).toLocaleString()}`,
                             },
                         },
+                        annotation: {
+                            annotations: annotations
+                        }
                     },
+
                     scales: {
                         x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 }, maxTicksLimit: 12 } },
                         y: {
@@ -1338,6 +1383,7 @@
 
         refresh();
         loadJournal();
+
     </script>
 </body>
 

@@ -4,25 +4,45 @@ import numpy as np
 import itertools
 import os
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Database Configuration
 DB_PATH = r"D:\master_backtest.db"
 
 # Trading Constants
-LOT_SIZES = {
-    'NIFTY': 75, # Note: Actual Nifty lot size changed to 25 recently, but 75/50 for most historical data.
-    'BANKNIFTY': 15 # Note: BN also changed to 15 recently.
-}
+LOT_SIZES = {'NIFTY': 75, 'BANKNIFTY': 15}
 
 def get_conn(db_path):
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     return conn
 
-def simulate_day(date, symbol, df_day, param_combo, vix):
+def get_daily_ema20(symbol, target_date):
     """
-    Simulates a Short Straddle/Strangle for one day with professional-grade checks.
+    Calculates the Daily 20-period EMA for the given symbol preceding the target_date.
+    """
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    # Fetch last 60 days to ensure a warm EMA20
+    query = f"""
+        SELECT date, close FROM ohlcv_1min 
+        WHERE symbol='{symbol}' AND option_type='IDX' AND date < '{target_date}'
+        GROUP BY date ORDER BY date DESC LIMIT 60
+    """
+    rows = conn.execute(query).fetchall()
+    conn.close()
+    
+    if len(rows) < 20: return None
+    
+    # Reverse to chronological order
+    closes = [r['close'] for r in reversed(rows)]
+    df = pd.DataFrame(closes, columns=['close'])
+    ema = df['close'].ewm(span=20, adjust=False).mean()
+    return float(ema.iloc[-1])
+
+def simulate_ratio_condor(date, symbol, df_day, param_combo, vix, daily_ema):
+    """
+    Simulates a 1:2:2:1 Ratio Iron Condor (Buy ATM, Sell OTM x2)
     """
     offset = param_combo['offset']
     sl_type = param_combo['sl_type']
@@ -33,209 +53,162 @@ def simulate_day(date, symbol, df_day, param_combo, vix):
     lot_size = LOT_SIZES.get(symbol, 75)
     costs_per_lot = param_combo['costs']
 
-    # Organize data into fast lookups
     # underlying at or after entry time
-    valid_underlying_rows = [r for r in df_day if r["option_type"] in ('FUT1', 'IDX', 'SPOT') and r["time"] >= entry_time]
-    
-    if valid_underlying_rows:
-        valid_underlying_rows.sort(key=lambda x: x['time'])
-        underlying = float(valid_underlying_rows[0]["open"] or valid_underlying_rows[0]["close"])
-    else:
-        ce_rows = [r for r in df_day if r['option_type'] == 'CE' and r['time'] >= entry_time]
-        if not ce_rows: return None
-        first_time = min(r['time'] for r in ce_rows)
-        ce_slice = [r for r in ce_rows if r['time'] == first_time]
-        highest_oi_ce = max(ce_slice, key=lambda x: x['oi'] if x['oi'] else 0)
-        underlying = float(highest_oi_ce['strike'])
+    valid_underlying_rows = [r for r in df_day if r["option_type"] in ('IDX', 'SPOT', 'FUT1') and r["time"] >= entry_time]
+    if not valid_underlying_rows: return None
+    valid_underlying_rows.sort(key=lambda x: x['time'])
+    underlying = float(valid_underlying_rows[0]["open"] or valid_underlying_rows[0]["close"])
 
     ce_strikes = sorted(list(set(r['strike'] for r in df_day if r['option_type'] == 'CE')))
     if not ce_strikes: return None
     atm = min(ce_strikes, key=lambda s: abs(s - underlying))
     
-    ce_strike = atm + offset
-    pe_strike = atm - offset
+    # 4 Legs: 
+    # Long: atm CE, atm PE (1 unit)
+    # Short: atm+offset CE, atm-offset PE (2 units)
+    legs = [
+        {'type': 'CE', 'strike': atm, 'qty': 1, 'side': 'BUY'},
+        {'type': 'CE', 'strike': atm + offset, 'qty': 2, 'side': 'SELL'},
+        {'type': 'PE', 'strike': atm, 'qty': 1, 'side': 'BUY'},
+        {'type': 'PE', 'strike': atm - offset, 'qty': 2, 'side': 'SELL'}
+    ]
 
-    # Entry Logic
-    ce_entry_row = next((r for r in df_day if r['option_type'] == 'CE' and r['strike'] == ce_strike and r['time'] >= entry_time), None)
-    pe_entry_row = next((r for r in df_day if r['option_type'] == 'PE' and r['strike'] == pe_strike and r['time'] >= entry_time), None)
+    # Entry Prices
+    entry_total = 0
+    leg_data = {}
+    for i, leg in enumerate(legs):
+        row = next((r for r in df_day if r['option_type'] == leg['type'] and r['strike'] == leg['strike'] and r['time'] >= entry_time), None)
+        if not row: return None
+        price = float(row["open"])
+        if leg['side'] == 'BUY':
+            entry_price = price + slippage
+            entry_total -= entry_price * leg['qty']
+        else:
+            entry_price = price - slippage
+            entry_total += entry_price * leg['qty']
+        leg_data[i] = {'entry': entry_price, 'ts': {r['time']: r['close'] for r in df_day if r['option_type'] == leg['type'] and r['strike'] == leg['strike']}}
 
-    if not ce_entry_row or not pe_entry_row:
-        return None
-
-    ce_entry = float(ce_entry_row["open"]) - slippage
-    pe_entry = float(pe_entry_row["open"]) - slippage
-    total_entry_premium = ce_entry + pe_entry
-
-    if total_entry_premium <= 0: return None
-
-    # Monitoring
-    all_times = sorted(list(set(r['time'] for r in df_day)))
-    ce_ts = {r['time']: r['close'] for r in df_day if r['option_type'] == 'CE' and r['strike'] == ce_strike}
-    pe_ts = {r['time']: r['close'] for r in df_day if r['option_type'] == 'PE' and r['strike'] == pe_strike}
+    # entry_total > 0 means we received a net credit. 
+    # We exit if the total value gets worse by sl_val (multiplier on the initial credit)
+    # But Ratio Spreads can be debits too. Let's use a point-based SL or simple multiplier on the total initial value.
+    initial_net_value = entry_total 
+    
+    all_times = sorted(list(set(r['time'] for r in df_day if r['time'] >= entry_time and r['time'] <= exit_time_eod)))
     
     sl_hit = False
     exit_time = exit_time_eod
-    ce_exit = 0
-    pe_exit = 0
-    exit_reason = ""
+    exit_prices = {}
     
-    ce_active = True
-    pe_active = True
-    ce_sl_price = 0
-    pe_sl_price = 0
-    ce_exit_time = None
-    pe_exit_time = None
-    
-    last_ce = ce_entry + slippage
-    last_pe = pe_entry + slippage
-
-    # Dynamic SL Calculation for vix_points
-    dynamic_sl_pts = 0
-    if sl_type == 'vix_points':
-        # Formula: 70 + x * (VIX - 14)
-        dynamic_sl_pts = 70.0 + sl_val * (vix - 14.0)
-        # Apply a floor so SL doesn't become negative or too tight
-        dynamic_sl_pts = max(25.0, dynamic_sl_pts)
-
     for t in all_times:
-        if t < entry_time: continue
-        if t > exit_time_eod: break
-            
-        cur_ce = ce_ts.get(t, last_ce)
-        cur_pe = pe_ts.get(t, last_pe)
-        last_ce = cur_ce
-        last_pe = cur_pe
+        current_net_value = 0
+        valid_t = True
+        for i, leg in enumerate(legs):
+            p = leg_data[i]['ts'].get(t)
+            if p is None: 
+                valid_t = False; break
+            if leg['side'] == 'BUY': current_net_value -= p * leg['qty']
+            else: current_net_value += p * leg['qty']
         
-        if sl_type == 'multiplier':
-            if cur_ce + cur_pe >= total_entry_premium * sl_val:
-                sl_hit = True; exit_time = t; ce_exit = cur_ce; pe_exit = cur_pe
-                exit_reason = "COMB_SL_MULT"; break
-        elif sl_type == 'points':
-            if cur_ce + cur_pe >= total_entry_premium + sl_val:
-                sl_hit = True; exit_time = t; ce_exit = cur_ce; pe_exit = cur_pe
-                exit_reason = "COMB_SL_PTS"; break
-        elif sl_type == 'vix_points':
-            if cur_ce + cur_pe >= total_entry_premium + dynamic_sl_pts:
-                sl_hit = True; exit_time = t; ce_exit = cur_ce; pe_exit = cur_pe
-                exit_reason = "VIX_SL_PTS"; break
-        elif sl_type == 'leg_multiplier':
-            if ce_active and cur_ce >= ce_entry * sl_val:
-                ce_active = False; ce_sl_price = cur_ce; ce_exit_time = t
-            if pe_active and cur_pe >= pe_entry * sl_val:
-                pe_active = False; pe_sl_price = cur_pe; pe_exit_time = t
-            if not ce_active and not pe_active:
-                sl_hit = True; exit_time = max(ce_exit_time, pe_exit_time)
-                ce_exit = ce_sl_price; pe_exit = pe_sl_price
-                exit_reason = "LEG_SL_BOTH"; break
+        if not valid_t: continue
+            
+        # Drawdown check (If we collected 100, and now it's -50, we lost 150)
+        # Using a simple multiplier: If net value drops below (entry * multiplier) for credit, or (entry / multiplier) for debit.
+        # Professional approach: Exit if net P&L in points < -StopLossPoints
+        # Let's use points SL for Ratio Condors as it is more stable.
+        pnl_pts = current_net_value - initial_net_value
+        # If sl_val is 2.0, let's treat it as a point-based SL of 1.5x the initial margin/width. 
+        # Actually, let's use the user's SL multiplier on the SHORT legs combined premium as a trigger.
+        short_premium_now = 0
+        short_premium_entry = 0
+        for i, leg in enumerate(legs):
+            if leg['side'] == 'SELL':
+                short_premium_now += leg_data[i]['ts'].get(t) * leg['qty']
+                short_premium_entry += leg_data[i]['entry'] * leg['qty']
+        
+        if short_premium_now >= short_premium_entry * sl_val:
+            sl_hit = True; exit_time = t; exit_reason = "SHORT_LEG_TRIGGER"
+            for j in range(len(legs)): exit_prices[j] = leg_data[j]['ts'].get(t)
+            break
 
     if not sl_hit:
-        exit_time = next((t for t in reversed(all_times) if t <= exit_time_eod), exit_time_eod)
-        if sl_type == 'leg_multiplier':
-            ce_exit = ce_sl_price if not ce_active else last_ce
-            pe_exit = pe_sl_price if not pe_active else last_pe
-            exit_reason = "EOD_LEG"
+        exit_time = all_times[-1]
+        for j in range(len(legs)):
+            # Finding last available price for each leg
+            last_t = next((t for t in reversed(all_times) if leg_data[j]['ts'].get(t) is not None), all_times[-1])
+            exit_prices[j] = leg_data[j]['ts'].get(last_t)
+        exit_reason = "EOD"
+
+    # Final P&L
+    final_net_value = 0
+    for i, leg in enumerate(legs):
+        p_exit = exit_prices[i]
+        if leg['side'] == 'BUY':
+            final_net_value -= (p_exit - slippage) * leg['qty']
         else:
-            ce_exit = last_ce; pe_exit = last_pe; exit_reason = "EOD"
-            
-    ce_exit += slippage
-    pe_exit += slippage
+            final_net_value += (p_exit + slippage) * leg['qty']
     
-    pnl_points = total_entry_premium - (ce_exit + pe_exit)
+    pnl_points = final_net_value - initial_net_value
     pnl_rupees = (pnl_points * lot_size) - costs_per_lot
 
     return {
         "date": date, "symbol": symbol, "entry_time": entry_time, "exit_time": exit_time,
-        "exit_reason": exit_reason, "vix": round(vix, 2),
-        "atm": atm, "ce_strike": ce_strike, "pe_strike": pe_strike,
-        "ce_entry": round(ce_entry, 2), "pe_entry": round(pe_entry, 2),
-        "ce_exit": round(ce_exit, 2), "pe_exit": round(pe_exit, 2),
-        "pnl_points": round(pnl_points, 2), "pnl_rupees": round(pnl_rupees, 2),
-        "offset": offset, "sl_type": sl_type, "sl_val": sl_val,
-        "combo_id": f"{offset}_{sl_type}_{sl_val}_{entry_time}"
+        "exit_reason": exit_reason, "vix": round(vix, 2), "daily_ema20": round(daily_ema, 2) if daily_ema else 0,
+        "trend_diff": round(daily_ema - underlying, 2) if daily_ema else 0,
+        "atm": atm, "offset": offset, "pnl_rupees": round(pnl_rupees, 2),
+        "combo_id": f"{offset}_{sl_val}"
     }
 
 def process_day(task):
-    date, symbol, param_grid, vix = task
+    date, symbol, grid, vix, daily_ema = task
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
-    rows = conn.execute("""
-        SELECT time, symbol, option_type, strike, open, close, oi 
-        FROM ohlcv_1min 
-        WHERE date=? AND symbol=? AND (date=expiry OR option_type IN ('FUT1', 'IDX', 'SPOT'))
-    """, (date, symbol)).fetchall()
+    rows = conn.execute("SELECT * FROM ohlcv_1min WHERE date=? AND symbol=? AND (date=expiry OR option_type IN ('IDX', 'SPOT', 'FUT1'))", (date, symbol)).fetchall()
     conn.close()
-    
     df_day = [dict(r) for r in rows]
     results = []
-    for params in param_grid:
-        res = simulate_day(date, symbol, df_day, params, vix)
+    for params in grid:
+        res = simulate_ratio_condor(date, symbol, df_day, params, vix, daily_ema)
         if res: results.append(res)
     return results
 
 def main():
     symbol = "NIFTY"
-    print(f"Starting VIX-Aware Backtest Optimization for {symbol}...")
-    
+    print(f"Starting Ratio Iron Condor Backtest (1:2:2:1) for {symbol}...")
     conn = get_conn(DB_PATH)
-    dates_raw = conn.execute("""
-        SELECT DISTINCT date FROM ohlcv_1min
-        WHERE symbol=? AND option_type IN ('CE','PE') AND date=expiry
-        ORDER BY date
-    """, (symbol,)).fetchall()
-    dates = [r[0] for r in dates_raw]
-    
-    # Load VIX data into a dictionary
-    vix_raw = conn.execute("SELECT date, close FROM vix_daily").fetchall()
-    vix_map = {r[0]: r[1] for r in vix_raw}
+    dates = [r[0] for r in conn.execute("SELECT DISTINCT date FROM ohlcv_1min WHERE symbol=? AND option_type IN ('CE','PE') AND date=expiry", (symbol,)).fetchall()]
+    vix_map = {r[0]: r[1] for r in conn.execute("SELECT date, close FROM vix_daily").fetchall()}
     conn.close()
 
-    grid = []
-    # Test only 09:30 AM with VIX-based SL formula: 70 + x*(VIX-14)
-    x_values = [0.0, 0.5, 0.75, 1.0, 1.25, 1.5] # 0.0 is baseline 70pt SL
-    for x in x_values:
-        grid.append({
-            'offset': 0, 'sl_type': 'vix_points', 'sl_val': x,
-            'entry_time': '09:30:00', 'exit_time': '15:25:00',
-            'slippage': 0.5, 'costs': 60.0
-        })
-        
-    tasks = []
+    # Pre-calculate Daily EMA20 for all dates
+    print("Calculating Daily EMA20 for trend analysis...")
+    ema_map = {}
     for d in dates:
-        vix = vix_map.get(d, 15.0) # Fallback to 15 if missing
-        tasks.append((d, symbol, grid, vix))
+        ema_map[d] = get_daily_ema20(symbol, d)
+
+    grid = []
+    offsets = [100, 150, 200]
+    sl_multipliers = [1.5, 1.8, 2.0] # SL on Short Legs
+    for off, sl in itertools.product(offsets, sl_multipliers):
+        grid.append({'offset': off, 'sl_type': 'short_multiplier', 'sl_val': sl, 'entry_time': '09:30:00', 'exit_time': '15:25:00', 'slippage': 0.5, 'costs': 120.0})
+    
+    tasks = [(d, symbol, grid, vix_map.get(d, 15.0), ema_map.get(d)) for d in dates]
     
     all_results = []
-    completed = 0
-    for task in tasks:
-        day_res = process_day(task)
-        all_results.extend(day_res)
-        completed += 1
-        if completed % 10 == 0: print(f"Processed {completed}/{len(dates)} dates...")
+    for i, task in enumerate(tasks):
+        res = process_day(task); all_results.extend(res)
+        if (i+1) % 10 == 0: print(f"Processed {i+1}/{len(dates)} dates...")
 
-    if not all_results: print("No trades simulated."); return
-        
+    if not all_results: print("No results."); return
     df = pd.DataFrame(all_results)
-    output_file = f"backtest_optimizer_results_{symbol}_v4.csv"
-    df.to_csv(output_file, index=False)
+    df.to_csv(f"backtest_optimizer_results_{symbol}_v5.csv", index=False)
     
-    summary_data = []
-    for combo_id, group in df.groupby('combo_id'):
-        win_rate = (group['pnl_rupees'] > 0).mean() * 100
-        avg_profit = group['pnl_rupees'].mean()
-        total_profit = group['pnl_rupees'].sum()
-        max_loss = group['pnl_rupees'].min()
-        summary_data.append({
-            "Strategy": "Dynamic VIX Straddle",
-            "X_Value (sl_val)": group['sl_val'].iloc[0],
-            "Total_Trades": len(group), "Win_Rate_%": round(win_rate, 2),
-            "Avg_P&L": round(avg_profit, 2), "Max_Loss": round(max_loss, 2),
-            "Total_P&L": round(total_profit, 2)
-        })
-    
-    summary_df = pd.DataFrame(summary_data).sort_values('Total_P&L', ascending=False)
-    summary_file = f"backtest_optimizer_summary_{symbol}_v4.csv"
-    summary_df.to_csv(summary_file, index=False)
-    print("\nVIX-Optimized Results:")
+    summary = []
+    for cid, gp in df.groupby('combo_id'):
+        summary.append({"Strategy": "Ratio Iron Condor (1:2:2:1)", "Offset": gp['offset'].iloc[0], "Short_SL": gp['combo_id'].iloc[0].split('_')[1],
+                        "Trades": len(gp), "Win%": round((gp['pnl_rupees']>0).mean()*100, 2), "Total_P&L": round(gp['pnl_rupees'].sum(), 2)})
+    summary_df = pd.DataFrame(summary).sort_values("Total_P&L", ascending=False)
+    summary_df.to_csv(f"backtest_optimizer_summary_{symbol}_v5.csv", index=False)
+    print("\nRatio Iron Condor Results:")
     print(summary_df.to_string(index=False))
 
 if __name__ == "__main__":

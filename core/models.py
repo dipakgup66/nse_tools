@@ -23,6 +23,8 @@ class MarketSnapshot:
 
     symbol:          str
     timestamp:       datetime
+    captured_at:     Optional[datetime] = None
+
 
     # Spot & trend
     spot:            Optional[float] = None
@@ -63,11 +65,12 @@ class MarketSnapshot:
         for k, v in self.__dict__.items():
             if k == "chain":
                 continue  # Too large for API; omit
-            if k == "timestamp":
+            if k in ("timestamp", "captured_at"):
                 d[k] = v.isoformat() if v else None
             else:
                 d[k] = v
         return d
+
 
 
 # ── Strategy Data ────────────────────────────────────────────────────────────

@@ -46,8 +46,11 @@ except ImportError:
 
 log = get_logger("DataAgent")
 
+# Shared memory for unified scripts (bridge writes here, agent reads here)
+GLOBAL_CHAIN_REGISTRY = {}
 
 class DataAgent:
+
     """
     Acquires and assembles market data from all available sources
     into a single MarketSnapshot.
@@ -91,9 +94,10 @@ class DataAgent:
         )
 
         # ── 1. Fetch option chain (multi-source) ────────────────────────────
-        chain, source = self._fetch_chain(symbol)
+        chain, source, ts = self._fetch_chain(symbol)
         snapshot.chain = chain
         snapshot.chain_source = source
+        snapshot.captured_at = ts
 
         if chain:
             self._extract_chain_data(snapshot, chain)
@@ -113,12 +117,10 @@ class DataAgent:
 
         elapsed = time.time() - t_start
         log.info(
-            f"Snapshot ready in {elapsed:.2f}s — {symbol} "
-            f"spot={snapshot.spot} trend={snapshot.trend} "
-            f"ivr={snapshot.ivr} ({snapshot.ivr_label}) "
-            f"source={snapshot.chain_source}"
+            f"Snapshot ready in {elapsed:.2f}s — Source: {source} (Age: {int((datetime.now()-ts).total_seconds())}s)"
         )
         return snapshot
+
 
     def get_historical_ohlcv(self, symbol: str,
                               date_str: str,
@@ -138,36 +140,42 @@ class DataAgent:
             return []
 
     # ══════════════════════════════════════════════════════════════════════════
-    #  OPTION CHAIN FETCH (MULTI-SOURCE)
-    # ══════════════════════════════════════════════════════════════════════════
-
     def _fetch_chain(self, symbol: str) -> tuple:
         """
         Try all data sources in priority order.
-        Returns (chain_dict, source_label).
+        Returns (chain_dict, source_label, capture_ts).
         """
         # Source 1: Browser Bridge
-        chain = self._try_bridge(symbol)
-        if chain:
-            return chain, "playwright_bridge"
+        chain_res = self._try_bridge(symbol)
+        if chain_res:
+            return chain_res[0], "playwright_bridge", chain_res[1]
 
         # Source 2: NSE API direct
         chain = nse_session.get_option_chain(symbol)
         if chain and chain != {}:
             log.info(f"  NSE API: live chain obtained for {symbol}")
-            return chain, "nse_api"
+            return chain, "nse_api", datetime.now()
 
         # Source 3: Yahoo spot + synthetic chain
         log.warning(f"  NSE API blocked — building synthetic chain...")
         chain = self._build_synthetic(symbol)
         if chain:
-            return chain, "yahoo_synthetic"
+            # Synthetic data is effectively "right now" as we just built it
+            return chain, "yahoo_synthetic", datetime.now()
 
         log.error(f"  All data sources failed for {symbol}")
-        return None, "offline"
+        return None, "offline", datetime.now()
 
-    def _try_bridge(self, symbol: str) -> Optional[dict]:
-        """Try the Playwright browser bridge on localhost."""
+
+    def _try_bridge(self, symbol: str) -> Optional[tuple]:
+        """Try the internal registry or the Playwright browser bridge."""
+        # ── PRIORITY 1: Check internal memory first (for unified scripts) ──
+        if symbol in GLOBAL_CHAIN_REGISTRY:
+            entry = GLOBAL_CHAIN_REGISTRY[symbol]
+            age = (datetime.now() - entry["ts"]).total_seconds()
+            if age < 180:  # Freshness check
+                return entry["data"], entry["ts"]
+
         if not HAS_REQUESTS:
             return None
         try:
@@ -177,18 +185,12 @@ class DataAgent:
                 bridge_data = r.json()
                 if bridge_data.get("data"):
                     age = bridge_data.get("age_seconds", 0)
-                    log.info(f"  Bridge: SUCCESS for {symbol} (age: {age}s)")
-                    data = bridge_data["data"]
-                    data["_source"] = "playwright_bridge"
-                    data["_bridge_age"] = age
-                    return data
-                else:
-                    log.warning(f"  Bridge online but {symbol} not captured yet")
-        except requests.exceptions.ConnectionError:
-            log.warning("  Bridge not running (connection refused)")
-        except Exception as e:
-            log.warning(f"  Bridge error: {e}")
+                    capture_ts = datetime.now() - timedelta(seconds=age)
+                    return bridge_data["data"], capture_ts
+        except:
+            pass
         return None
+
 
     def _build_synthetic(self, symbol: str) -> Optional[dict]:
         """Build synthetic chain from Yahoo spot + India VIX."""
@@ -341,6 +343,9 @@ class DataAgent:
 
                 if iv_list:
                     snapshot.current_iv = round(sum(iv_list) / len(iv_list), 2)
+                    # Bridge it to the chain object for StrategyAgent
+                    chain["_atm_iv"] = snapshot.current_iv
+
 
         except Exception as e:
             log.error(f"Chain extraction error: {e}")
@@ -379,18 +384,57 @@ class DataAgent:
         snapshot.ivr_label = ind.classify_ivr(snapshot.ivr)
 
     def _compute_trend(self, snapshot: MarketSnapshot):
-        """Compute EMA and trend classification from DB."""
-        closes = db.get_ema_closes(
-            snapshot.symbol, period=20,
-            db_path=self.cfg.db_path
-        )
+        """
+        Compute high-accuracy EMA 20 and trend classification.
+        
+        Prioritizes live historical daily closes from yfinance (fetching 3 months 
+        to ensure perfect EMA convergence). Falls back to the local database 
+        only if yfinance is unavailable.
+        """
+        symbol = snapshot.symbol
+        closes = []
+        source = "db_fixed"
+
+        # Source 1: Live Download (Yahoo Finance) via unified config
+        if HAS_YF:
+            yticker = self.cfg.get_yahoo_ticker(symbol)
+            if yticker:
+                try:
+                    log.info(f"  Fetching 3mo history for {symbol} ({yticker})...")
+                    # Fetching 3 months ensures perfect EMA convergence
+                    hist = yf.download(yticker, period="3mo", interval="1d", progress=False)
+                    if not hist.empty:
+                        # Extract the closing prices and convert to list
+                        closes = hist['Close'].values.flatten().tolist()
+                        source = "live_yahoo"
+                        log.info(f"  Live history obtained: {len(closes)} days from Yahoo")
+                except Exception as e:
+                    log.warning(f"  Live history fetch failed (using DB fallback): {e}")
+
+        # Source 2: Local Database (Fallback)
+        if len(closes) < 20:
+            log.info(f"  Using local database fallback for {symbol} history")
+            closes = db.get_ema_closes(
+                symbol, period=30, # request 30 for better average
+                db_path=self.cfg.db_path
+            )
+            source = "local_db"
+
+        # EMA Calculation (ensure we have enough for a valid EMA 20)
         ema20 = ind.ema_from_series(closes, 20)
         snapshot.ema_20 = ema20
 
+        # Trend classification using our consolidated indicators
         if snapshot.spot and ema20:
+            # SANITY CHECK: If EMA20 is absurdly different (>15%), prefer the spot as base
+            if abs(snapshot.spot - ema20) / ema20 > 0.15:
+                log.warning(f"  EMA20 ({ema20}) looks absurd vs Spot ({snapshot.spot}). Result might be stale.")
+            
             snapshot.trend = ind.classify_trend(snapshot.spot, ema20)
+            log.info(f"  EMA20: {ema20} | Source: {source} | Trend: {snapshot.trend}")
         else:
             snapshot.trend = "rangebound"
+
 
     # ══════════════════════════════════════════════════════════════════════════
     #  DEMO / OFFLINE MODE
@@ -399,7 +443,7 @@ class DataAgent:
     def get_demo_snapshot(self, symbol: str = "NIFTY") -> MarketSnapshot:
         """
         Returns a realistic sample snapshot for offline/demo use.
-        Dashboard renders correctly even when NSE is offline.
+        Now includes a dummy chain to prevent downstream engine crashes.
         """
         samples = {
             "NIFTY":      {"spot": 24350, "iv": 14.2, "ivr": 62, "ema": 24180, "pcr": 1.18, "dte": 3},
@@ -408,6 +452,14 @@ class DataAgent:
             "MIDCPNIFTY": {"spot": 12400, "iv": 16.5, "ivr": 55, "ema": 12280, "pcr": 1.08, "dte": 3},
         }
         s = samples.get(symbol.upper(), samples["NIFTY"])
+        
+        # Build dummy chain structure
+        expiry_date = (date.today() + timedelta(days=s["dte"])).strftime("%d-%b-%Y")
+        dummy_chain = {
+            "records": {"underlyingValue": s["spot"], "expiryDates": [expiry_date]},
+            "filtered": {"data": []},
+            "_atm_iv": s["iv"]
+        }
 
         return MarketSnapshot(
             symbol=symbol.upper(),
@@ -424,8 +476,10 @@ class DataAgent:
             dte_label=ind.classify_dte(s["dte"]),
             event_risk=ind.check_event_risk().to_dict(),
             chain_source="demo",
+            chain=dummy_chain,
             macro_data=self._fetch_macro() if HAS_YF else {}
         )
+
 
     # ══════════════════════════════════════════════════════════════════════════
     #  GLOBAL MACRO DATA

@@ -229,8 +229,13 @@ class StrategyAgent:
             
             # Calculate greeks if we have IV
             # use 2nd fallback if specific IV missing: use avg symbol IV
-            effective_iv = iv if iv and iv > 0 else (chain.get("_atm_iv") or 15.0)
+            atm_iv_fallback = 15.0
+            if chain and isinstance(chain, dict):
+                atm_iv_fallback = chain.get("_atm_iv") or 15.0
+                
+            effective_iv = iv if (iv and iv > 0) else atm_iv_fallback
             greeks = ind.calc_greeks(spot, strike, T, r, effective_iv / 100, opt_type)
+
 
             legs.append(StrategyLeg(
                 action=action,

@@ -248,19 +248,81 @@ def compute_ivr(current_iv: float, iv_history: List[Tuple[str, float]]) -> Optio
 
     Args:
         current_iv: Current IV value
-        iv_history: List of (date_str, iv_value) tuples
-
-    Returns:
-        IVR percentage 0-100, or None
+        iv_history: List of (date, iv) tuples
     """
-    if not iv_history or current_iv is None:
+    if not iv_history:
         return None
-    ivs = [v for _, v in iv_history]
-    min_iv = min(ivs)
-    max_iv = max(ivs)
-    if max_iv <= min_iv:
-        return 50.0
-    return round((current_iv - min_iv) / (max_iv - min_iv) * 100, 1)
+    ivs = [i[1] for i in iv_history]
+    low = min(ivs)
+    high = max(ivs)
+    if high == low:
+        return 50.0  # Avoid div by zero
+    ivr = (current_iv - low) / (high - low) * 100
+    return round(ivr, 1)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  PROBABILITY & STATISTICS (OPSTRA STYLE)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def norm_cdf(x: float) -> float:
+    """Standard Normal Cumulative Distribution Function."""
+    return (1.0 + math.erf(x / math.sqrt(2.0))) / 2.0
+
+def calc_pop(spot: float, bes: List[float], iv: float, dte: float) -> float:
+    """
+    Calculate Probability of Profit (POP).
+    Uses log-normal distribution of underlying price at expiry.
+    
+    Args:
+        spot: Current spot price
+        bes: List of breakeven prices (sorted)
+        iv: Implied Volatility (0-100)
+        dte: Days to expiry
+        
+    Returns:
+        Probability (0 to 100)
+    """
+    if dte <= 0: return 100.0 if any(b <= spot for b in bes) else 0.0
+    if not bes: return 0.0
+    
+    T = dte / 365
+    sigma = (iv / 100) * math.sqrt(T)
+    
+    # Calculate CDF at each breakeven
+    def cdf_at(p):
+        d2 = (math.log(p / spot) - (-0.5 * sigma**2)) / sigma
+        return norm_cdf(d2)
+
+    # Simple logic for common strategies:
+    # If 2 breakevens (e.g. Iron Condor, Straddle), POP = P(BE1 < spot < BE2)
+    if len(bes) == 2:
+        be1, be2 = sorted(bes)
+        return round((cdf_at(be2) - cdf_at(be1)) * 100, 1)
+    
+    # If 1 breakeven (e.g. Call Spread):
+    if len(bes) == 1:
+        be = bes[0]
+        # Directional logic: if it's a bull trade, BE is below spot?
+        # A bit complex to detect automatically. Let's assume directional.
+        prob_above = 1.0 - cdf_at(be)
+        prob_below = cdf_at(be)
+        # We'll return the one that 'makes sense' or default to 50/50 logic
+        return round(max(prob_above, prob_below) * 100, 1)
+
+    return 50.0 # Fallback
+
+def get_sigma_ranges(spot: float, iv: float, dte: float) -> dict:
+    """Calculate 1-sigma and 2-sigma price ranges."""
+    T = dte / 365
+    std_dev = spot * (iv / 100) * math.sqrt(T)
+    return {
+        "s1_low": round(spot - std_dev),
+        "s1_high": round(spot + std_dev),
+        "s2_low": round(spot - 2 * std_dev),
+        "s2_high": round(spot + 2 * std_dev)
+    }
+
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
