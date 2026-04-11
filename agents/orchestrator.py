@@ -429,6 +429,24 @@ def _make_handler(orchestrator: Orchestrator):
                 ]
                 self._send(200, json.dumps(events))
 
+            elif parsed.path == "/signal":
+                import live_signal
+                # ensure path resolves correctly regardless of CWD by using dynamic path or assuming root
+                try:
+                    result = live_signal.get_signal()
+                    self._send(200, json.dumps(result))
+                except Exception as e:
+                    self._send(500, json.dumps({"error": str(e)}))
+
+            elif parsed.path == "/breeze/status":
+                status = {"active": False, "session_key": None}
+                if os.path.exists("breeze_session.json"):
+                    with open("breeze_session.json", "r") as f:
+                        try:
+                            status = json.load(f)
+                        except: pass
+                self._send(200, json.dumps(status))
+
             elif parsed.path == "/monitor":
                 symbol = qs.get("symbol", ["NIFTY"])[0].upper()
                 data = orchestrator.monitor_trades(symbol)
@@ -451,12 +469,31 @@ def _make_handler(orchestrator: Orchestrator):
                 self._send(404, json.dumps({"error": "not found"}))
 
         def do_POST(self):
-            if self.path == "/trades":
+            parsed = urlparse(self.path)
+            if parsed.path == "/trades":
                 length = int(self.headers.get("Content-Length", 0))
                 body   = self.rfile.read(length)
                 trade  = json.loads(body)
                 saved  = orchestrator.save_trade(trade)
                 self._send(200, json.dumps(saved))
+            elif parsed.path == "/breeze/session":
+                length = int(self.headers.get("Content-Length", 0))
+                body   = self.rfile.read(length)
+                new_session = json.loads(body)
+                
+                # Write to file
+                session = {"session_key": "", "date": "", "active": False}
+                if os.path.exists("breeze_session.json"):
+                    try:
+                        with open("breeze_session.json", "r") as f:
+                            session = json.load(f)
+                    except: pass
+                
+                session.update(new_session)
+                with open("breeze_session.json", "w") as f:
+                    json.dump(session, f)
+                
+                self._send(200, json.dumps({"status": "ok", "session": session}))
             else:
                 self._send(404, json.dumps({"error": "not found"}))
 

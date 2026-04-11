@@ -44,6 +44,56 @@ def start_api_server():
     server = ThreadingHTTPServer(("localhost", cfg.engine_port), UnifiedHandler)
     server.serve_forever()
 
+def setup_breeze_session():
+    import json, os
+    from datetime import date
+    
+    SESSION_FILE = "breeze_session.json"
+    today_str = date.today().isoformat()
+    session = {"session_key": "", "date": "", "active": False}
+    
+    if os.path.exists(SESSION_FILE):
+        try:
+            with open(SESSION_FILE, "r") as f:
+                session = json.load(f)
+        except:
+            pass
+            
+    # Auto-use if valid for today and active
+    if session.get("active") and session.get("date") == today_str and session.get("session_key"):
+        log.info(f"✅ Breeze Session Auto-loaded: {session.get('session_key')}")
+        return session
+        
+    print("\n" + "="*50)
+    print("  Breeze API Session Setup")
+    print("="*50)
+    old_key = session.get('session_key', 'None')
+    print("  [1] Enter new session key for today")
+    print(f"  [2] Use yesterday's key ({old_key}) — may have expired")
+    print("  [3] Skip Breeze, use NSE/Yahoo only")
+    
+    while True:
+        choice = input("\nChoice (1/2/3)? ").strip()
+        if choice in ('1', '2', '3'): break
+        
+    if choice == '1':
+        key = input("Enter today's Breeze session key: ").strip()
+        session = {"session_key": key, "date": today_str, "active": True}
+    elif choice == '2':
+        session["active"] = True
+    elif choice == '3':
+        session["active"] = False
+        
+    with open(SESSION_FILE, "w") as f:
+        json.dump(session, f)
+        
+    if session["active"]:
+        log.info(f"✅ Breeze Session Active: {session['session_key']}")
+    else:
+        log.info(f"⚠️ Breeze Session Skipped (using NSE/Yahoo fallback)")
+        
+    return session
+
 def start_live_bridge():
     """Manages the real-time Chrome connection to the NSE website."""
     with sync_playwright() as p:
@@ -144,6 +194,9 @@ def start_live_bridge():
 
 
 if __name__ == "__main__":
+    # Ensure Breeze logic runs first in main thread for prompts
+    setup_breeze_session()
+
     # 1. Start Analysis Engine in the background
     threading.Thread(target=start_api_server, daemon=True).start()
     

@@ -695,6 +695,7 @@
             <button class="btn btn-green" id="btnSave" style="display:none;" onclick="saveTrade()">✎ Log Trade</button>
         </div>
         <div class="header-right">
+            <span id="breezeBadge" class="conn-badge conn-err" onclick="updateBreezeKey()" style="cursor:pointer;" title="Click to update Breeze Session Key">Breeze: Offline</span>
             <span id="lastUpdated"></span>
             <span id="connStatus" class="conn-badge conn-err">Checking...</span>
             <span id="mktStatus" class="mkt-badge mkt-closed">—</span>
@@ -709,6 +710,17 @@
     </div>
 
     <!-- ── Dashboard ── -->
+    <div id="signalBanner" style="display:none; margin: 12px 20px 0; padding: 12px 16px; background: #111; color: #fff; border-radius: var(--radius); font-size: 13px; font-weight: 600; justify-content: space-between; align-items: center;">
+        <div>
+            <div style="font-size: 16px; margin-bottom: 4px;" id="sigTitle">TODAY'S SIGNAL</div>
+            <div id="sigChecks" style="color: rgba(255,255,255,0.7); font-size: 11px;"></div>
+        </div>
+        <div style="text-align: right;">
+            <div id="sigLots" style="font-size: 16px; color: var(--bull);"></div>
+            <div id="sigPre" style="color: rgba(255,255,255,0.7); font-size: 11px;"></div>
+        </div>
+    </div>
+    
     <div class="main-layout" style="display: grid; grid-template-columns: 1fr 220px; flex: 1; overflow: hidden;">
         <div class="dashboard" style="overflow-y: auto;">
 
@@ -971,6 +983,74 @@
             } finally {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('btnRefresh').disabled = false;
+            }
+            
+            // Background load for Signal and Breeze Status
+            fetchSignal();
+            checkBreeze();
+        }
+        
+        async function fetchSignal() {
+            try {
+                const r = await fetch(`${API}/signal`);
+                const s = await r.json();
+                
+                if (s.status === 'ok') {
+                    const banner = document.getElementById('signalBanner');
+                    banner.style.display = 'flex';
+                    
+                    const target = s.target;
+                    const isTrade = target !== 'NO TRADE';
+                    const icon = isTrade ? '● ' + target + ' TRADE' : 'WAIT';
+                    const color = target === 'BANKNIFTY' ? 'var(--bull)' : (target === 'NIFTY' ? 'var(--info)' : 'var(--warn)');
+                    
+                    document.getElementById('sigTitle').innerHTML = `TODAY'S SIGNAL <span style="color:${color}; margin-left:12px;">[${icon}]</span> <span style="font-size:12px; margin-left:12px; font-weight:normal;">VIX ${s.indicators.vix.toFixed(1)} (${s.indicators.vix_rank ? s.indicators.vix_rank.toFixed(1) + 'th pct' : 'N/A'})</span>`;
+                    
+                    const c1 = s.checks.vix ? '✓' : '✗';
+                    const c2 = s.checks.ema ? '✓' : '✗';
+                    const c3 = s.checks.gap ? '✓' : '✗';
+                    const c4 = s.checks.rank ? '✓' : '✗';
+                    
+                    document.getElementById('sigChecks').innerHTML = `[${c1}] VIX>14 &nbsp; [${c4}] VIX>=80th &nbsp; [${c2}] EMA<1% &nbsp; [${c3}] Gap<0.75% &nbsp; | &nbsp; ${s.failed.length ? 'Issues: ' + s.failed.join(', ') : 'All conditions met'}`;
+                    
+                    document.getElementById('sigLots').textContent = isTrade ? s.lots + ' Lots' : '— Lots';
+                    document.getElementById('sigLots').style.color = isTrade ? 'var(--bull)' : 'var(--text-sec)';
+                    document.getElementById('sigPre').innerHTML = `EMA20: ${Math.round(s.indicators.ema20).toLocaleString()} &nbsp;|&nbsp; Open must be ${Math.round(s.pre_market.ema_lower).toLocaleString()} - ${Math.round(s.pre_market.ema_upper).toLocaleString()}`;
+                }
+            } catch (e) {
+                console.log("Signal load failed");
+            }
+        }
+
+        async function checkBreeze() {
+            try {
+                const r = await fetch(`${API}/breeze/status`);
+                const s = await r.json();
+                const b = document.getElementById('breezeBadge');
+                if(s.active) {
+                    b.className = 'conn-badge conn-ok';
+                    b.textContent = 'Breeze: Active';
+                } else {
+                    b.className = 'conn-badge conn-err';
+                    b.textContent = 'Breeze: Offline';
+                }
+            } catch (e) {}
+        }
+
+        async function updateBreezeKey() {
+            const key = prompt("Enter new Breeze Session Key for today:");
+            if (key) {
+                try {
+                    await fetch(`${API}/breeze/session`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session_key: key, active: true, date: new Date().toISOString().split('T')[0] })
+                    });
+                    checkBreeze();
+                    alert('Session updated successfully!');
+                } catch(e) {
+                    alert('Failed to update session.');
+                }
             }
         }
 

@@ -1,0 +1,256 @@
+==============================================================================
+  COMPREHENSIVE DATA GAP AUDIT — master_backtest.db
+  Generated: 2026-04-10 10:00:47
+  Database:  D:\master_backtest.db
+==============================================================================
+
+------------------------------------------------------------------------------
+  1. NSE TRADING CALENDAR — NIFTY IDX COVERAGE
+------------------------------------------------------------------------------
+  NIFTY IDX dates in DB: 1051
+  Range: 2022-01-03 to 2026-04-06
+
+  Expected trading days (calendar): 1050
+  Days WITH NIFTY IDX data:         1051
+  Missing IDX days (in DB):         14
+  Extra IDX days (not expected):    15  [likely holidays we missed]
+
+  MISSING IDX DATES (14):
+    2022: 4 days — 2022-03-29, 2022-03-30, 2022-03-31, 2022-06-14
+    2023: 1 days — 2023-06-29
+    2024: 1 days — 2024-11-20
+    2025: 2 days — 2025-08-27, 2025-10-22
+    2026: 6 days — 2026-01-15, 2026-01-26, 2026-03-03, 2026-03-26, 2026-03-31...
+
+------------------------------------------------------------------------------
+  2. OPTION CHAIN COVERAGE (NIFTY CE/PE)
+------------------------------------------------------------------------------
+  IDX dates:          1051
+  Option dates:       824
+  IDX but NO options: 227
+  Options but NO IDX: 0
+
+  Year-by-year option coverage:
+  Year     IDX   OPT Missing OPT  Coverage%
+  ------ ----- ----- ----------- ----------
+  2022     244   191          53      78.3%
+  2023     246   194          52      78.9%
+  2024     249   194          55      77.9%
+  2025     249   240           9      96.4%
+  2026      63     5          58       7.9%
+
+  IDX dates with NO options (first 20): ['2022-01-07', '2022-01-12', '2022-01-14', '2022-01-21', '2022-01-28', '2022-02-03', '2022-02-04', '2022-02-11', '2022-02-18', '2022-02-25', '2022-03-04', '2022-03-11', '2022-03-25', '2022-04-01', '2022-04-08', '2022-04-22', '2022-04-29', '2022-05-06', '2022-05-13', '2022-05-20']
+
+------------------------------------------------------------------------------
+  3. OPTION STRIKE DENSITY (NIFTY CE per date)
+------------------------------------------------------------------------------
+  Total option dates analysed: 824
+  Days with < 10 strikes:      2  [CRITICAL — likely incomplete]
+  Days with 10-19 strikes:     5  [SPARSE — may miss ATM]
+  Days with >= 20 strikes:     817
+
+  CRITICAL (<10 strikes) dates:
+    2023 (2 days):
+      2023-01-23: 9 strikes, 1 expiries
+      2023-01-24: 9 strikes, 1 expiries
+
+------------------------------------------------------------------------------
+  4. MISSING ENTRY BARS — NIFTY IDX @ 09:15 and 09:20
+------------------------------------------------------------------------------
+  Dates with NO 09:15-09:20 bar:    44
+  Dates where first bar > 09:25:    44
+  Sample no-open-bar dates: ['2022-01-18', '2022-02-16', '2022-03-16', '2022-04-18', '2022-05-18', '2022-06-15', '2022-07-15', '2022-08-16', '2022-09-14', '2022-10-13']
+  Sample late-start dates:  ['2022-01-18', '2022-02-16', '2022-03-16', '2022-04-18', '2022-05-18', '2022-06-15', '2022-07-15', '2022-08-16', '2022-09-14', '2022-10-13']
+
+------------------------------------------------------------------------------
+  5. MISSING OPTION ENTRY BARS @ 09:20 (NIFTY CE)
+------------------------------------------------------------------------------
+  Option dates with NO 09:20 CE bar: 1
+  Sample: ['2025-10-21']
+
+------------------------------------------------------------------------------
+  6. INTRADAY BAR CONTINUITY — NIFTY IDX
+------------------------------------------------------------------------------
+  Days with < 300 IDX bars (expected ~375): 46
+
+  Date          Bars  First Bar   Last Bar    Notes
+  ------------ -----  ----------  ----------  --------------------
+  2022-01-18     248  11:22:00    15:29:00    PARTIAL
+  2022-02-16     248  11:22:00    15:29:00    PARTIAL
+  2022-03-16     248  11:22:00    15:29:00    PARTIAL
+  2022-04-18     248  11:22:00    15:29:00    PARTIAL
+  2022-05-18     248  11:22:00    15:29:00    PARTIAL
+  2022-06-15     248  11:22:00    15:29:00    PARTIAL
+  2022-07-15     248  11:22:00    15:29:00    PARTIAL
+  2022-08-16     248  11:22:00    15:29:00    PARTIAL
+  2022-09-14     248  11:22:00    15:29:00    PARTIAL
+  2022-10-13     248  11:22:00    15:29:00    PARTIAL
+  2022-10-24      63  18:07:00    19:17:00    CRITICAL
+  2022-11-14     248  11:22:00    15:29:00    PARTIAL
+  2022-12-14     248  11:22:00    15:29:00    PARTIAL
+  2023-01-11     248  11:22:00    15:29:00    PARTIAL
+  2023-02-10     238  11:32:00    15:29:00    PARTIAL
+  2023-03-14     238  11:32:00    15:29:00    PARTIAL
+  2023-04-11     238  11:32:00    15:29:00    PARTIAL
+  2023-05-11     238  11:32:00    15:29:00    PARTIAL
+  2023-06-12     238  11:32:00    15:29:00    PARTIAL
+  2023-07-12     238  11:32:00    15:29:00    PARTIAL
+  2023-08-09     238  11:32:00    15:29:00    PARTIAL
+  2023-09-08     238  11:32:00    15:29:00    PARTIAL
+  2023-10-10     238  11:32:00    15:29:00    PARTIAL
+  2023-11-08     238  11:32:00    15:29:00    PARTIAL
+  2023-11-12     106  18:09:00    19:54:00    SHORT
+  2023-12-07     238  11:32:00    15:29:00    PARTIAL
+  2024-01-08     236  11:34:00    15:29:00    PARTIAL
+  2024-02-07     238  11:32:00    15:29:00    PARTIAL
+  2024-03-02     212  09:09:00    12:48:00    PARTIAL
+  2024-03-05     238  11:32:00    15:29:00    PARTIAL
+  ... and 16 more dates with < 300 bars
+
+------------------------------------------------------------------------------
+  7. VIX DATA GAPS
+------------------------------------------------------------------------------
+  IDX trading days:   1051
+  VIX dates in DB:    1040
+  Missing VIX dates:  15
+  Missing dates: ['2022-12-26', '2023-11-12', '2024-01-01', '2024-01-20', '2024-02-19', '2024-03-02', '2024-05-18', '2025-01-01', '2025-02-01', '2026-01-01', '2026-02-01', '2026-03-30', '2026-04-01', '2026-04-02', '2026-04-06']
+
+------------------------------------------------------------------------------
+  8. NIFTY FUT1 COVERAGE
+------------------------------------------------------------------------------
+  IDX trading days:   1051
+  FUT1 dates in DB:   358
+  Missing FUT1 dates: 696
+
+  Year-by-year FUT1 coverage:
+  2022: IDX=244, FUT1=41, Missing=203, Coverage=16.8%
+  2023: IDX=246, FUT1=28, Missing=218, Coverage=11.4%
+  2024: IDX=249, FUT1=36, Missing=213, Coverage=14.5%
+  2025: IDX=249, FUT1=242, Missing=7, Coverage=97.2%
+  2026: IDX=63, FUT1=11, Missing=52, Coverage=17.5%
+
+------------------------------------------------------------------------------
+  9. BANKNIFTY vs NIFTY COVERAGE DELTA
+------------------------------------------------------------------------------
+  NIFTY  | IDX: 1051, Options: 824
+  BANKNIFTY | IDX: 1051, Options: 487
+
+  NIFTY option dates missing from BankNifty: 338
+
+  Year-by-year BankNifty option coverage:
+  2022: NIFTY opt=191, BANKNIFTY opt=191, Missing from BN=0
+  2023: NIFTY opt=194, BANKNIFTY opt=165, Missing from BN=29
+  2024: NIFTY opt=194, BANKNIFTY opt=121, Missing from BN=73
+  2025: NIFTY opt=240, BANKNIFTY opt=9, Missing from BN=231
+  2026: NIFTY opt=5, BANKNIFTY opt=1, Missing from BN=4
+
+------------------------------------------------------------------------------
+  10. BREEZEDATA SOURCE FILES INVENTORY
+------------------------------------------------------------------------------
+
+  NIFTY: 7292 option files, 169 distinct expiries
+    Earliest: 20220106  Latest: 20260324
+    Expiries in DB not in files: 64
+    Expiries in files not in DB: 0
+
+  BANKNIFTY: 6344 option files, 146 distinct expiries
+    Earliest: 20220106  Latest: 20260127
+    Expiries in DB not in files: 2
+    Expiries in files not in DB: 0
+
+------------------------------------------------------------------------------
+  11. OPTION CHAIN GAPS BY YEAR — DETAILED
+------------------------------------------------------------------------------
+
+  2022: 244 IDX days, 191 opt days, 53 MISSING opt
+    2022-01-07
+    2022-01-12 to 2022-01-14
+    2022-01-21
+    2022-01-28
+    2022-02-03 to 2022-02-04
+    2022-02-11
+    2022-02-18
+    2022-02-25
+    2022-03-04
+    2022-03-11
+    2022-03-25
+    2022-04-01
+    2022-04-08
+    2022-04-22
+    2022-04-29
+    2022-05-06
+    2022-05-13
+    2022-05-20
+    2022-05-27
+    2022-06-03
+    ... and 30 more gaps
+
+  2023: 246 IDX days, 194 opt days, 52 MISSING opt
+    2023-01-06
+    2023-01-13
+    2023-01-20
+    2023-01-27
+    2023-02-03
+    2023-02-10
+    2023-02-17
+    2023-02-24
+    2023-03-01 to 2023-03-03
+    2023-03-10
+    2023-03-17
+    2023-03-24
+    2023-03-31
+    2023-04-21
+    2023-04-28
+    2023-05-05
+    2023-05-12
+    2023-05-19
+    2023-05-26
+    2023-06-02
+    ... and 30 more gaps
+
+  2024: 249 IDX days, 194 opt days, 55 MISSING opt
+    2024-01-05
+    2024-01-12
+    2024-01-19 to 2024-01-20
+    2024-02-02
+    2024-02-09
+    2024-02-16
+    2024-02-23
+    2024-03-01 to 2024-03-02
+    2024-03-15
+    2024-03-22
+    2024-04-05
+    2024-04-12
+    2024-04-19
+    2024-04-26
+    2024-05-03
+    2024-05-10
+    2024-05-17 to 2024-05-18
+    2024-05-24
+    2024-05-31
+    2024-06-07
+    ... and 28 more gaps
+
+  2025: 249 IDX days, 240 opt days, 9 MISSING opt
+    2025-09-22 to 2025-09-26
+    2025-12-22 to 2025-12-26
+
+==============================================================================
+  SUMMARY: DATA QUALITY ISSUES REQUIRING FIX
+==============================================================================
+  [!]  CRITICAL | Missing NIFTY IDX dates             | Count=14    | Calendar days with no spot data
+  [!!] CRITICAL | IDX dates with no options           | Count=227   | Can't backtest on these days
+  [ok] CRITICAL | Option dates <10 strikes            | Count=2     | Incomplete option chains
+  [!]  HIGH     | IDX dates <300 bars/day             | Count=46    | Intraday data truncated
+  [ok] HIGH     | Opt dates no 09:20 bar              | Count=1     | Can't determine entry price
+  [!!] HIGH     | Missing FUT1 dates                  | Count=696   | No futures for ATM calc fallback
+  [!]  MEDIUM   | Missing VIX dates                   | Count=15    | Affects regime classification
+  [!!] MEDIUM   | BankNifty missing opts              | Count=338   | BankNifty coverage gap
+
+  ACTION REQUIRED:
+  1. Option coverage for 2022-2024 is the BIGGEST gap (IDX present, options missing)
+     -> These dates are in BreezeData source files but not ingested
+     -> Run build_master_db.py or phase0_fix_data.py with all-date ingestion
+  2. FUT1 data for 2022-2023 needs to be downloaded from Breeze API
+     -> Without FUT1, the underlying price estimate at entry is less accurate
+  3. Thin option chains (<10 strikes) in early 2022 — may need wider strike range

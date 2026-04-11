@@ -1,0 +1,11 @@
+import sqlite3
+c = sqlite3.connect(r"D:\master_backtest.db")
+print("=== Daily Indicators Summary ===")
+print("Total days:", c.execute("SELECT count(*) FROM daily_indicators").fetchone()[0])
+print("With PCR:", c.execute("SELECT count(*) FROM daily_indicators WHERE pcr IS NOT NULL").fetchone()[0])
+print("Expiry days:", c.execute("SELECT count(*) FROM daily_indicators WHERE is_expiry=1").fetchone()[0])
+print("With VIX:", c.execute("SELECT count(*) FROM daily_indicators WHERE vix IS NOT NULL").fetchone()[0])
+print("\nDate range:", c.execute("SELECT min(date), max(date) FROM daily_indicators").fetchone())
+print("\nOption dates in master:", c.execute("SELECT count(DISTINCT date) FROM ohlcv_1min WHERE symbol='NIFTY' AND option_type='CE'").fetchone()[0])
+print("\nTotal rows in ohlcv_1min:", c.execute("SELECT count(*) FROM ohlcv_1min").fetchone()[0])
+c.close()
