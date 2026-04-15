@@ -59,10 +59,7 @@ def setup_breeze_session():
         except:
             pass
             
-    # Auto-use if valid for today and active
-    if session.get("active") and session.get("date") == today_str and session.get("session_key"):
-        log.info(f"✅ Breeze Session Auto-loaded: {session.get('session_key')}")
-        return session
+    # Auto-use logic removed per user request: always prompt for session key
         
     print("\n" + "="*50)
     print("  Breeze API Session Setup")

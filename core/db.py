@@ -214,6 +214,7 @@ def get_ema_closes(symbol: str, period: int = 20,
             SELECT date, close FROM ohlcv_1min
             WHERE symbol=? AND option_type=?
               AND time >= '15:25:00' AND time <= '15:30:00'
+              AND date > date('now', '-180 days')
             GROUP BY date
             ORDER BY date DESC LIMIT ?
         """, (symbol.upper(), option_type, period * 2)).fetchall()

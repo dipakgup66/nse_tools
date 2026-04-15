@@ -30,6 +30,7 @@ class MarketSnapshot:
     spot:            Optional[float] = None
     ema_20:          Optional[float] = None
     ema_50:          Optional[float] = None
+    rsi:             Optional[float] = None
     trend:           str = "rangebound"        # strong_up | mild_up | rangebound | mild_down | strong_down
 
     # Volatility

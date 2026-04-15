@@ -145,19 +145,18 @@ class DataAgent:
         Try all data sources in priority order.
         Returns (chain_dict, source_label, capture_ts).
         """
-        # Source 1: Browser Bridge
+        # Source 1: Breeze API (from user session)
+        chain_res = self._try_breeze(symbol)
+        if chain_res:
+            return chain_res[0], "breeze_api", chain_res[1]
+
+        # Source 2: Browser Bridge
         chain_res = self._try_bridge(symbol)
         if chain_res:
             return chain_res[0], "playwright_bridge", chain_res[1]
 
-        # Source 2: NSE API direct
-        chain = nse_session.get_option_chain(symbol)
-        if chain and chain != {}:
-            log.info(f"  NSE API: live chain obtained for {symbol}")
-            return chain, "nse_api", datetime.now()
-
         # Source 3: Yahoo spot + synthetic chain
-        log.warning(f"  NSE API blocked — building synthetic chain...")
+        log.warning(f"  Live APIs failed — building synthetic chain via Yahoo...")
         chain = self._build_synthetic(symbol)
         if chain:
             # Synthetic data is effectively "right now" as we just built it
@@ -165,6 +164,55 @@ class DataAgent:
 
         log.error(f"  All data sources failed for {symbol}")
         return None, "offline", datetime.now()
+
+    def _try_breeze(self, symbol: str) -> Optional[tuple]:
+        """Try fetching live spot and VIX from ICICI Breeze API, return as synthetic chain."""
+        import os, json
+        
+        session_file = "breeze_session.json"
+        if not os.path.exists(session_file):
+            return None
+            
+        try:
+            with open(session_file, "r") as f:
+                session = json.load(f)
+            if not session.get("active") or not session.get("session_key"):
+                return None
+                
+            from breeze_connect import BreezeConnect
+            API_KEY    = "67783F)1NxYr948k50C0Y47J10hI742G"
+            API_SECRET = "71F582O9U151cG994q5A4ek79%d1447_"
+            
+            breeze = BreezeConnect(api_key=API_KEY)
+            breeze.generate_session(api_secret=API_SECRET, session_token=session.get("session_key"))
+            
+            # Fetch Spot Price
+            s_map = {"NIFTY": "NIFTY", "BANKNIFTY": "CNXBAN", "FINNIFTY": "NIFFIN", "MIDCPNIFTY": "NIFMID"}
+            stock_code = s_map.get(symbol, symbol)
+            
+            res = breeze.get_quotes(stock_code=stock_code, exchange_code="NSE", product_type="cash")
+            if not res or "Success" not in res or not res["Success"]:
+                return None
+                
+            spot = float(res['Success'][0]['ltp'])
+            
+            # Fetch INDIA VIX for real IV
+            res_vix = breeze.get_quotes(stock_code="INDIA VIX", exchange_code="NSE", product_type="cash")
+            real_iv = None
+            if res_vix and "Success" in res_vix and res_vix["Success"]:
+                base_iv = float(res_vix['Success'][0]['ltp']) / 100.0
+                scale = {"NIFTY": 1.0, "BANKNIFTY": 1.25, "FINNIFTY": 1.05, "MIDCPNIFTY": 1.10}
+                real_iv = base_iv * scale.get(symbol, 1.0)
+                
+            chain = self._make_synthetic_chain(symbol, spot, real_iv=real_iv)
+            if chain:
+                log.info(f"  Breeze API: Built live synthetic chain for {symbol} (Spot: {spot})")
+                return chain, datetime.now()
+                
+        except Exception as e:
+            log.warning(f"  Breeze API fetch failed: {e}")
+            
+        return None
 
 
     def _try_bridge(self, symbol: str) -> Optional[tuple]:
@@ -423,6 +471,20 @@ class DataAgent:
         # EMA Calculation (ensure we have enough for a valid EMA 20)
         ema20 = ind.ema_from_series(closes, 20)
         snapshot.ema_20 = ema20
+
+        # RSI Calculation
+        if len(closes) > 14:
+            import pandas as pd
+            import numpy as np
+            series = pd.Series(closes)
+            delta = series.diff()
+            gain = delta.where(delta > 0, 0).ewm(alpha=1/14, adjust=False).mean()
+            loss = (-delta.where(delta < 0, 0)).ewm(alpha=1/14, adjust=False).mean()
+            rs = gain / loss
+            rsi = 100 - (100 / (1 + rs))
+            snapshot.rsi = round(rsi.iloc[-1], 2) if not pd.isna(rsi.iloc[-1]) else 50.0
+        else:
+            snapshot.rsi = 50.0
 
         # Trend classification using our consolidated indicators
         if snapshot.spot and ema20:

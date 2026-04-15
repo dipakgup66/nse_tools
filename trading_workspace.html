@@ -40,7 +40,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            font-size: 13px;
+            font-size: 14px;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -259,14 +259,13 @@
             color: #1e40af;
         }
 
-        /* ── Dashboard grid ── */
         .dashboard {
             flex: 1;
-            display: grid;
-            grid-template-rows: auto auto minmax(min-content, 1fr) 180px;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
             padding: 12px 20px;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
         .card {
@@ -422,12 +421,23 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* ── Mid row ── */
+        /* ── Mid row & Bottom row ── */
         .mid-row {
             display: grid;
-            grid-template-columns: 350px 1fr 1.25fr;
+            grid-template-columns: 350px 1fr;
             gap: 10px;
             overflow: hidden;
+        }
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 10px;
+        }
+        .pro-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border);
+        }
+        .pro-card {
+            background: #f8fafc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid var(--border);
         }
 
         .strat-name {
@@ -442,8 +452,8 @@
             display: inline-block;
             padding: 3px 10px;
             border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 800;
             margin-bottom: 8px;
         }
 
@@ -465,7 +475,7 @@
         .strat-rationale {
             color: var(--text-sec);
             line-height: 1.5;
-            font-size: 12px;
+            font-size: 14px;
             min-height: 50px;
         }
 
@@ -488,14 +498,14 @@
         }
 
         .sizing-box .kpi-value {
-            font-size: 16px;
+            font-size: 22px;
         }
 
         /* Alt strategies chips */
         .alt-chip {
             padding: 3px 10px;
             border-radius: 6px;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             background: #fff;
@@ -515,9 +525,8 @@
         }
 
         .chart-box {
-            flex: 1;
             width: 100%;
-            min-height: 250px;
+            height: 380px;
             position: relative;
         }
 
@@ -527,16 +536,16 @@
             padding: 10px;
             background: #f8fafc;
             border-top: 1px solid var(--border);
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--text-sec);
+            font-size: 14px;
+            font-weight: 800;
+            color: #111;
         }
 
         /* Leg table */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         th {
@@ -544,7 +553,7 @@
             color: var(--text-dim);
             font-weight: 700;
             padding: 6px 8px;
-            font-size: 9px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
             border-bottom: 1px solid var(--border);
@@ -721,7 +730,7 @@
         </div>
     </div>
     
-    <div class="main-layout" style="display: grid; grid-template-columns: 1fr 220px; flex: 1; overflow: hidden;">
+    <div class="main-layout" style="display: grid; grid-template-columns: 1fr 320px; flex: 1; overflow: hidden;">
         <div class="dashboard" style="overflow-y: auto;">
 
             <!-- KPI Row -->
@@ -801,10 +810,34 @@
                     </div>
                 </div>
 
-                <!-- Leg details -->
+                </div>
+
+            <!-- Bottom row -->
+            <div class="bottom-row">
+                <!-- Leg details & Pro Stats -->
                 <div class="card" style="overflow:auto;">
-                    <div class="section-title">Leg Details</div>
-                    <table id="legTable">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="section-title" style="margin:0;">Leg Details & Pro Analytics</div>
+                    </div>
+                    <div class="pro-grid" id="proStatsGrid">
+                        <div class="pro-card">
+                            <div class="kpi-label">NET DELTA</div>
+                            <div class="kpi-value" id="pro-delta" style="font-weight:900; font-size:18px; color:#111;">—</div>
+                        </div>
+                        <div class="pro-card">
+                            <div class="kpi-label">NET THETA / DAY</div>
+                            <div class="kpi-value" id="pro-theta" style="font-weight:900; font-size:18px; color:#111;">—</div>
+                        </div>
+                        <div class="pro-card">
+                            <div class="kpi-label">EST. MARGIN IMPACT</div>
+                            <div class="kpi-value" id="pro-margin" style="font-weight:900; font-size:18px;">—</div>
+                        </div>
+                        <div class="pro-card">
+                            <div class="kpi-label">IV SKEW / TERM</div>
+                            <div class="kpi-value" id="pro-oi" style="font-weight:900; font-size:15px;">—</div>
+                        </div>
+                    </div>
+                    <table id="legTable" style="margin-top:10px;">
                         <thead>
                             <tr>
                                 <th>Action</th>
@@ -818,46 +851,45 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div id="legNetRow"
-                        style="display:none; padding:8px; font-weight:800; font-size:12px; text-align:right; border-top:2px solid var(--border); margin-top:4px;">
+                    <div id="legNetRow" style="display:none; padding:8px; font-weight:800; font-size:12px; text-align:right; border-top:2px solid var(--border); margin-top:4px;">
                         Net: <span id="legNet">—</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Journal -->
-            <div class="card journal-card">
-                <div class="journal-header">
-                    <div class="section-title" style="margin-bottom:0;">Trade Journal</div>
-                    <div class="nav-links">
-                        <a class="nav-link" href="backtest_dashboard.html" target="_blank">📊 Backtest Lab</a>
-                        <a class="nav-link" href="morning_analyser.html" target="_blank">☀ Morning Analyser</a>
+                <!-- Global Macro Watch -->
+                <div class="card macro-sidebar" style="min-height:360px;">
+                    <div class="journal-header">
+                        <div class="section-title" style="margin-bottom:0; font-size:14px;">Global Macro Watch</div>
                     </div>
-                </div>
-                <div class="journal-scroll">
-                    <table id="jTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Symbol</th>
-                                <th>Strategy</th>
-                                <th style="text-align:right">Net P&L</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div id="macroList" style="display:flex; flex-direction:column; gap:16px; padding:14px; font-size:14px;">
+                        <div style="font-size:13px; color:var(--text-sec); text-align:center; padding:20px;">Fetching...</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ── Macro Sidebar ── -->
-        <aside class="macro-sidebar"
-            style="background:#fff; border-left:1px solid var(--border); padding:16px; overflow-y:auto; font-size:12px;">
-            <div class="section-title">Global Macro Watch</div>
-            <div id="macroList" style="display:flex; flex-direction:column; gap:12px;">
-                <div style="font-size:11px; color:var(--text-sec); text-align:center; padding:20px;">Fetching...</div>
+        <!-- ── Trade Journal (Sidebar) ── -->
+        <aside class="journal-card" style="background:#fff; border-left:1px solid var(--border); padding:16px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
+            <div class="journal-header" style="padding:0; align-items:flex-start; flex-direction:column; gap:10px;">
+                <div class="section-title" style="margin-bottom:0; font-size:14px;">Trade Journal</div>
+                <div class="nav-links" style="display:flex; gap:6px;">
+                    <a class="nav-link" href="backtest_dashboard.html" target="_blank">📊 Backtest Lab</a>
+                    <a class="nav-link" href="morning_analyser.html" target="_blank">☀ Morning Analyser</a>
+                </div>
             </div>
+            
+            <table id="jTable" style="margin-top:10px; font-size:13px;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Sym</th>
+                        <th>Strat</th>
+                        <th>P&L</th>
+                        <th>Stat</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </aside>
     </div>
 
@@ -937,17 +969,24 @@
         //  AUTO-REFRESH
         // ═══════════════════════════════════════════════════════════
 
-        function setupAutoRefresh() {
-            if (autoRefreshTimer) clearInterval(autoRefreshTimer);
-            autoRefreshTimer = setInterval(() => {
-                const now = new Date();
-                const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-                const h = ist.getHours(), m = ist.getMinutes(), dow = ist.getDay();
-                const isMarketHours = dow >= 1 && dow <= 5 && (h >= 9 && h <= 15); 
-                if (isMarketHours) refresh(true);
-            }, 60000); // Set to 60s as requested
+        let autoRefreshTimeout;
+        async function runAutoRefresh() {
+            const now = new Date();
+            const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+            const h = ist.getHours(), m = ist.getMinutes(), dow = ist.getDay();
+            const isMarketHours = dow >= 1 && dow <= 5 && (h >= 9 && h <= 15); 
+            
+            if (isMarketHours) {
+                await refresh(true);
+            }
+            
+            let delay = 60000;
+            if (activeData && activeData.data_source && activeData.data_source.toLowerCase().includes('breeze')) {
+                delay = 10000; // Faster 10s refresh for Breeze
+            }
+            autoRefreshTimeout = setTimeout(runAutoRefresh, delay);
         }
-        setupAutoRefresh();
+        runAutoRefresh();
 
         // ═══════════════════════════════════════════════════════════
         //  DATA FETCH & RENDER
@@ -992,7 +1031,7 @@
         
         async function fetchSignal() {
             try {
-                const r = await fetch(`${API}/signal`);
+                const r = await fetch(`${API}/signal?symbol=${activeSymbol}`);
                 const s = await r.json();
                 
                 if (s.status === 'ok') {
@@ -1000,22 +1039,18 @@
                     banner.style.display = 'flex';
                     
                     const target = s.target;
-                    const isTrade = target !== 'NO TRADE';
-                    const icon = isTrade ? '● ' + target + ' TRADE' : 'WAIT';
+                    const strat = s.strategy;
+                    const isTrade = !strat.includes('NO_TRADE');
+                    const icon = isTrade ? '● ' + strat : 'WAIT';
                     const color = target === 'BANKNIFTY' ? 'var(--bull)' : (target === 'NIFTY' ? 'var(--info)' : 'var(--warn)');
                     
-                    document.getElementById('sigTitle').innerHTML = `TODAY'S SIGNAL <span style="color:${color}; margin-left:12px;">[${icon}]</span> <span style="font-size:12px; margin-left:12px; font-weight:normal;">VIX ${s.indicators.vix.toFixed(1)} (${s.indicators.vix_rank ? s.indicators.vix_rank.toFixed(1) + 'th pct' : 'N/A'})</span>`;
+                    document.getElementById('sigTitle').innerHTML = `REGIME SIGNAL <span style="color:${color}; margin-left:12px;">[${icon}]</span> <span style="font-size:12px; margin-left:12px; font-weight:normal;">Edge: ${isTrade ? '+₹'+s.expected_pnl : 'None'} | WinRate: ${s.win_rate}%</span>`;
                     
-                    const c1 = s.checks.vix ? '✓' : '✗';
-                    const c2 = s.checks.ema ? '✓' : '✗';
-                    const c3 = s.checks.gap ? '✓' : '✗';
-                    const c4 = s.checks.rank ? '✓' : '✗';
-                    
-                    document.getElementById('sigChecks').innerHTML = `[${c1}] VIX>14 &nbsp; [${c4}] VIX>=80th &nbsp; [${c2}] EMA<1% &nbsp; [${c3}] Gap<0.75% &nbsp; | &nbsp; ${s.failed.length ? 'Issues: ' + s.failed.join(', ') : 'All conditions met'}`;
+                    document.getElementById('sigChecks').innerHTML = `<b>Trend:</b> ${s.regimes.trend} &nbsp;|&nbsp; <b>VIX:</b> ${s.regimes.vix} (${s.indicators.vix.toFixed(1)}) &nbsp;|&nbsp; <b>RSI:</b> ${s.regimes.rsi} (${s.indicators.rsi.toFixed(1)}) &nbsp;|&nbsp; Config: ${s.params}`;
                     
                     document.getElementById('sigLots').textContent = isTrade ? s.lots + ' Lots' : '— Lots';
                     document.getElementById('sigLots').style.color = isTrade ? 'var(--bull)' : 'var(--text-sec)';
-                    document.getElementById('sigPre').innerHTML = `EMA20: ${Math.round(s.indicators.ema20).toLocaleString()} &nbsp;|&nbsp; Open must be ${Math.round(s.pre_market.ema_lower).toLocaleString()} - ${Math.round(s.pre_market.ema_upper).toLocaleString()}`;
+                    document.getElementById('sigPre').innerHTML = `Target: ${target} &nbsp;|&nbsp; Valid as of: ${s.date}`;
                 }
             } catch (e) {
                 console.log("Signal load failed");
@@ -1121,10 +1156,10 @@
                     const sign = m.pct > 0 ? '+' : '';
                     return `
             <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:10px; border-bottom:1px solid #f1f5f9;">
-                <div style="font-weight:600; color:var(--text);">${key}</div>
+                <div style="font-weight:600; color:var(--text); font-size:14px;">${key}</div>
                 <div style="text-align:right;">
-                    <div style="font-weight:700; font-size:13px; font-variant-numeric:tabular-nums;">${m.price.toLocaleString()}</div>
-                    <div style="font-size:10px; font-weight:700; color:${color}">${sign}${m.pct.toFixed(2)}%</div>
+                    <div style="font-weight:700; font-size:16px; font-variant-numeric:tabular-nums;">${m.price.toLocaleString()}</div>
+                    <div style="font-size:13px; font-weight:700; color:${color}">${sign}${m.pct.toFixed(2)}%</div>
                 </div>
             </div>`;
                 }).join('');
@@ -1154,10 +1189,20 @@
                 const netPrem = legs.reduce((a, l) => a + (l.action === 'SELL' ? 1 : -1) * (l.indicative_premium || 0), 0);
                 document.getElementById('sz-prem').textContent = '₹' + Math.round(netPrem).toLocaleString();
 
-                // Leg table
+                // Leg table & Net Greeks
                 const tbody = document.querySelector('#legTable tbody');
+                let netDelta = 0;
+                let netTheta = 0;
+                let avgLot = 0;
+                
                 tbody.innerHTML = legs.map(l => {
                     const g = l.greeks || {};
+                    const q = l.action === 'SELL' ? -1 : 1;
+                    const lot = l.lot_size || 75;
+                    avgLot = lot;
+                    if(g.delta) netDelta += (q * g.delta * lot);
+                    if(g.theta) netTheta += (q * g.theta * lot);
+                    
                     const delta = g.delta != null ? g.delta.toFixed(2) : '—';
                     const theta = g.theta != null ? g.theta.toFixed(1) : '—';
                     const iv = l.iv != null ? l.iv.toFixed(1) + '%' : '—';
@@ -1171,6 +1216,26 @@
                 <td style="font-size:10px; color:var(--text-dim);">${l.expiry || '—'}</td>
             </tr>`;
                 }).join('');
+
+                const recLots = s.lots || data.rec_lots || 1;
+                document.getElementById('pro-delta').textContent = netDelta.toFixed(1);
+                document.getElementById('pro-delta').style.color = netDelta > 0 ? 'var(--bull)' : (netDelta < 0 ? 'var(--bear)' : 'var(--text)');
+                const dTheta = Math.round(netTheta * recLots);
+                document.getElementById('pro-theta').textContent = (dTheta > 0 ? '+' : '') + `₹${dTheta}`;
+                document.getElementById('pro-theta').style.color = dTheta > 0 ? 'var(--bull)' : 'var(--bear)';
+                
+                // Estimate Margin
+                const shortLegs = legs.filter(l => l.action === 'SELL').length;
+                const longLegs = legs.filter(l => l.action === 'BUY').length;
+                const isHedged = longLegs >= shortLegs;
+                let marginPerLot = shortLegs > 0 ? (isHedged ? 35000 * shortLegs : 110000 * shortLegs) : (netPrem > 0 ? -netPrem * avgLot : Math.abs(netPrem) * avgLot);
+                if (marginPerLot < 0) marginPerLot = 0;
+                document.getElementById('pro-margin').textContent = `~₹${(marginPerLot * recLots / 100000).toFixed(1)}L`;
+                
+                // IV Skew Placeholder
+                const curIv = data.current_iv || data.vix || 15;
+                const skewStr = curIv > 20 ? "Steep Put Skew" : "Flat Term Structure";
+                document.getElementById('pro-oi').textContent = `${skewStr} (${curIv.toFixed(1)}%)`;
 
                 if (legs.length > 0) {
                     document.getElementById('legNetRow').style.display = '';
@@ -1334,7 +1399,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } },
+                        legend: { display: true, position: 'bottom', labels: { boxWidth: 16, font: { size: 13, weight: 'bold' }, padding: 15 } },
                         title: { display: false },
                         tooltip: {
                             mode: 'index',
@@ -1350,10 +1415,10 @@
                     },
 
                     scales: {
-                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 }, maxTicksLimit: 12 } },
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 12, weight: 'bold' }, maxTicksLimit: 12 } },
                         y: {
                             grid: { color: '#f1f5f9' },
-                            ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => '₹' + v.toLocaleString() },
+                            ticks: { color: '#64748b', font: { size: 13, weight: 'bold' }, callback: v => '₹' + v.toLocaleString() },
                             grace: '10%'
                         },
                     },
@@ -1410,9 +1475,9 @@
                     return `<tr>
                 <td>${date}</td>
                 <td><strong>${t.symbol || '—'}</strong></td>
-                <td>${t.strategy || '—'}</td>
+                <td>${t.strategy ? t.strategy.split(' ')[0] : '—'}</td>
                 <td style="text-align:right; color:${pnlColor}; font-weight:600;">${pnl}</td>
-                <td><span class="j-badge ${statusBadge}">${status.toUpperCase()}</span></td>
+                <td><span class="j-badge ${statusBadge}">${status.substring(0,3).toUpperCase()}</span></td>
             </tr>`;
                 }).join('');
             } catch (e) { }

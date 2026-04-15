@@ -29,7 +29,7 @@ from urllib.parse import urlparse, parse_qs
 
 from core.config import Config, cfg
 from core.logging_config import get_logger
-from core.models import MarketSnapshot
+from core.models import MarketSnapshot, StrategyRecommendation
 from core import indicators as ind
 
 from agents.data_agent import DataAgent
@@ -90,8 +90,56 @@ class Orchestrator:
             snapshot = self.data.get_demo_snapshot(symbol)
             snapshot.chain_source = "demo_fallback"
 
-        # Evaluate strategies
+        # Default evaluation
         recs = self.strategy.evaluate(snapshot, capital, risk_pct)
+
+        # Inject Live Signal (Regime Router + Risk Manager)
+        try:
+            import live_signal
+            import importlib
+            importlib.reload(live_signal)
+            regime_data = live_signal.get_signal(
+                symbol=symbol,
+                spot=snapshot.spot,
+                ema20=snapshot.ema_20,
+                rsi=snapshot.rsi,
+                vix=snapshot.vix or snapshot.current_iv or 15.0
+            )
+            if regime_data.get("status") == "ok":
+                # Create a top recommendation from regime router
+                regime_st = StrategyRecommendation(
+                    strategy=regime_data["strategy"],
+                    group="regime_router",
+                    confidence="HIGH" if regime_data.get("confidence", 0) > 50 else "MEDIUM",
+                    rationale=f"Regime Match: {regime_data.get('regimes', {}).get('trend')} / VIX {regime_data.get('regimes', {}).get('vix')}. Expectancy: ₹{regime_data.get('expected_pnl')}. Win Rate: {regime_data.get('win_rate')}%.",
+                    source="Master Regime Router"
+                )
+                # Let's specify contracts for it
+                legs = self.strategy._specify_contracts(
+                    regime_st.strategy.title(), snapshot.spot, snapshot.nearest_expiry, snapshot.chain, snapshot.symbol
+                )
+                regime_st.legs = legs
+                # Calculate sizing normally, then override lots and max loss via risk manager payload
+                sizing = self.strategy._compute_sizing(regime_st, legs, symbol, capital, risk_pct)
+                if sizing:
+                    # override with Risk Manager constraints
+                    sizing.lots = regime_data.get("lots", sizing.lots)
+                    rl = regime_data.get("risk_limits", {})
+                    if rl.get("stop_loss_rs"):
+                        sizing.max_loss_rs = abs(rl["stop_loss_rs"])
+                    
+                    # If invalid, convert to NO TRADE
+                    if not rl.get("is_valid", True):
+                        regime_st.strategy = "No Trade"
+                        regime_st.rationale = f"Risk Manager Blocked: {rl.get('reason')}"
+                        regime_st.group = "avoid"
+                        
+                regime_st.sizing = sizing
+                
+                # Prepend the regime recommendation so it appears first on the UI
+                recs.insert(0, regime_st)
+        except Exception as e:
+            log.error(f"Failed to inject live regime signal: {e}")
 
         # Build response
         result = snapshot.to_dict()
@@ -431,9 +479,11 @@ def _make_handler(orchestrator: Orchestrator):
 
             elif parsed.path == "/signal":
                 import live_signal
-                # ensure path resolves correctly regardless of CWD by using dynamic path or assuming root
+                import importlib
+                importlib.reload(live_signal) # Ensure reload if running live
+                symbol = qs.get("symbol", ["NIFTY"])[0].upper()
                 try:
-                    result = live_signal.get_signal()
+                    result = live_signal.get_signal(symbol)
                     self._send(200, json.dumps(result))
                 except Exception as e:
                     self._send(500, json.dumps({"error": str(e)}))

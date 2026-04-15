@@ -1,0 +1,19 @@
+risk_limits:
+  max_loss_pct_capital: 1.5      # Max loss per trade as % of total capital
+  total_capital: 1000000         # Total trading capital starting value
+  max_mtm_loss_pct: 2.0          # Global Max MTM loss per day as % of total capital
+  
+kill_switches:
+  vix_spike_pct: 20.0            # Intraday VIX spike (%) from entry to force exit all
+  underlying_move_pct: 1.2       # Max underlying price move (%) from entry price
+  
+regime_filters:
+  min_sample_size: 15            # Minimum trades in backtest to accept a regime
+  min_confidence_score: 50.0     # Minimum confidence to take a trade
+  min_expectancy_rs: 500         # Minimum expected Rs per trade
+  
+event_calendar:
+  skip_trading_days:
+    - "2026-02-01"               # Union Budget
+    - "2026-04-05"               # RBI Policy example
+  max_overnight_gap_pct: 1.0     # If market opens > 1% gap up/down, pause trading for x mins
