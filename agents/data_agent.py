@@ -139,6 +139,139 @@ class DataAgent:
             log.warning(f"get_historical_ohlcv error: {e}")
             return []
 
+    def get_live_ohlcv(self, symbol: str) -> list:
+        """Fetch intraday OHLCV for the current day from DB, Breeze API, or Yahoo Finance."""
+        import os, json, sqlite3
+        from datetime import datetime
+        import pandas as pd
+        import numpy as np
+        
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        
+        # 1. Try Local Master DB First (Check D:\master_backtest.db as updated by the user)
+        master_db = r"D:\master_backtest.db"
+        if os.path.exists(master_db):
+            try:
+                # Direct connection to the database updated by the script
+                conn = sqlite3.connect(master_db)
+                conn.row_factory = sqlite3.Row
+                rows = conn.execute("""
+                    SELECT date, time, open, high, low, close
+                    FROM ohlcv_1min
+                    WHERE symbol=? AND date=?
+                    ORDER BY time ASC
+                """, (symbol.upper(), today_str)).fetchall()
+                
+                if rows and len(rows) > 0:
+                    bars = []
+                    for r in rows:
+                        dt_str = f"{r['date']} {r['time']}"
+                        dt_obj = datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
+                        ts = int(dt_obj.timestamp())
+                        bars.append({
+                            "time": ts,
+                            "open": float(r['open']),
+                            "high": float(r['high']),
+                            "low": float(r['low']),
+                            "close": float(r['close'])
+                        })
+                    conn.close()
+                    log.info(f"DB: Loaded {len(bars)} bars for {symbol} from {master_db}")
+                    return bars
+                conn.close()
+            except Exception as e:
+                log.warning(f"Master DB fetch failed: {e}")
+
+        # 2. Try Breeze API
+        session_file = "breeze_session.json"
+        if os.path.exists(session_file):
+            try:
+                with open(session_file, "r") as f:
+                    session = json.load(f)
+                if session.get("active") and session.get("session_key"):
+                    from breeze_connect import BreezeConnect
+                    breeze = BreezeConnect(api_key="67783F)1NxYr948k50C0Y47J10hI742G")
+                    breeze.generate_session(api_secret="71F582O9U151cG994q5A4ek79%d1447_", session_token=session.get("session_key"))
+                    
+                    s_map = {"NIFTY": "NIFTY", "BANKNIFTY": "CNXBAN", "FINNIFTY": "NIFFIN", "MIDCPNIFTY": "NIFMID"}
+                    stock_code = s_map.get(symbol, symbol)
+                    
+                    b_start = datetime.now().strftime("%Y-%m-%dT00:00:00.000Z")
+                    b_end   = datetime.now().strftime("%Y-%m-%dT23:59:59.000Z")
+                    
+                    res = breeze.get_historical_data_v2(interval="5minute",
+                                                      from_date=b_start,
+                                                      to_date=b_end,
+                                                      stock_code=stock_code,
+                                                      exchange_code="NSE",
+                                                      product_type="cash")
+                    
+                    if res and "Success" in res and res["Success"]:
+                        bars = []
+                        for row in res["Success"]:
+                            dt_obj = datetime.strptime(row["datetime"], "%Y-%m-%d %H:%M:%S")
+                            ts = int(dt_obj.timestamp())
+                            bars.append({
+                                "time": ts,
+                                "open": float(row["open"]),
+                                "high": float(row["high"]),
+                                "low": float(row["low"]),
+                                "close": float(row["close"])
+                            })
+                        
+                        bars.sort(key=lambda x: x["time"])
+                        unique_bars = []
+                        last_time = None
+                        for b in bars:
+                            if b["time"] != last_time:
+                                unique_bars.append(b)
+                                last_time = b["time"]
+                                
+                        log.info(f"Breeze OHLCV: Returning {len(unique_bars)} bars for {symbol}")
+                        return unique_bars
+            except Exception as e:
+                log.warning(f"Breeze OHLCV fetch failed: {e}")
+                
+        # 3. Fallback to Yahoo Finance
+        try:
+            import yfinance as yf
+            y_map = {"NIFTY": "^NSEI", "BANKNIFTY": "^NSEBANK", "FINNIFTY": "NIFTY_FIN_SERVICE.NS", "MIDCPNIFTY": "^NSEMDCP50"}
+            y_sym = y_map.get(symbol, symbol)
+            
+            df = yf.download(y_sym, interval="5m", period="5d", progress=False)
+            if not df.empty:
+                if hasattr(df.columns, 'levels'):
+                    df.columns = df.columns.get_level_values(0)
+                
+                bars = []
+                for idx, row in df.iterrows():
+                    ts = int(idx.timestamp())
+                    if np.isnan(row["Open"]) or np.isnan(row["High"]) or np.isnan(row["Low"]) or np.isnan(row["Close"]):
+                        continue
+                    bars.append({
+                        "time": ts,
+                        "open": float(row["Open"]),
+                        "high": float(row["High"]),
+                        "low": float(row["Low"]),
+                        "close": float(row["Close"])
+                    })
+                
+                bars.sort(key=lambda x: x["time"])
+                unique_bars = []
+                last_time = None
+                for b in bars:
+                    if b["time"] != last_time:
+                        unique_bars.append(b)
+                        last_time = b["time"]
+                
+                unique_bars = unique_bars[-200:]
+                log.info(f"Yahoo OHLCV: Returning {len(unique_bars)} bars for {symbol}")
+                return unique_bars
+        except Exception as e:
+            log.warning(f"Yahoo OHLCV fetch failed: {e}")
+            
+        return []
+
     # ══════════════════════════════════════════════════════════════════════════
     def _fetch_chain(self, symbol: str) -> tuple:
         """
@@ -204,7 +337,8 @@ class DataAgent:
                 scale = {"NIFTY": 1.0, "BANKNIFTY": 1.25, "FINNIFTY": 1.05, "MIDCPNIFTY": 1.10}
                 real_iv = base_iv * scale.get(symbol, 1.0)
                 
-            chain = self._make_synthetic_chain(symbol, spot, real_iv=real_iv)
+            # dte_days=None triggers the dynamic next_expiry calculation
+            chain = self._make_synthetic_chain(symbol, spot, dte_days=None, real_iv=real_iv)
             if chain:
                 log.info(f"  Breeze API: Built live synthetic chain for {symbol} (Spot: {spot})")
                 return chain, datetime.now()
@@ -213,6 +347,39 @@ class DataAgent:
             log.warning(f"  Breeze API fetch failed: {e}")
             
         return None
+
+
+    def _get_next_expiry_date(self, symbol: str, current_date: date) -> date:
+        """
+        Calculate the next standard weekly expiry date for a given index,
+        accounting for weekends and known NSE holidays.
+        """
+        # Target expiry days for 2026: 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri
+        # Nifty weekly/monthly moved to Tue in 2026. BN is Wed.
+        expiry_day_map = {
+            "NIFTY": 1,       # Tuesday
+            "FINNIFTY": 1,    # Tuesday
+            "BANKNIFTY": 2,   # Wednesday
+            "MIDCPNIFTY": 0   # Monday
+        }
+        
+        target_weekday = expiry_day_map.get(symbol.upper(), 3) # Default to Thursday
+        days_ahead = target_weekday - current_date.weekday()
+        
+        # If target day is today or has passed for this week, move to next week
+        if days_ahead <= 0:
+            days_ahead += 7
+            
+        exp_date = current_date + timedelta(days=days_ahead)
+        
+        # Holiday Logic: If it's a holiday or weekend, shift backward until a trading day is found
+        holidays = [ind.parse_expiry(h[0]) for h in ind.KNOWN_EVENTS]
+        
+        while exp_date.weekday() >= 5 or exp_date in holidays:
+            log.info(f"  Expiry {exp_date} is a holiday/weekend. Shifting backward...")
+            exp_date -= timedelta(days=1)
+            
+        return exp_date
 
 
     def _try_bridge(self, symbol: str) -> Optional[tuple]:
@@ -260,15 +427,24 @@ class DataAgent:
             scale = {"NIFTY": 1.0, "BANKNIFTY": 1.25, "FINNIFTY": 1.05, "MIDCPNIFTY": 1.10}
             real_iv = base_iv * scale.get(symbol, 1.0)
 
-        return self._make_synthetic_chain(symbol, spot, real_iv=real_iv)
+        return self._make_synthetic_chain(symbol, spot, dte_days=None, real_iv=real_iv)
 
     def _make_synthetic_chain(self, symbol: str, spot: float,
-                               dte_days: int = 7,
+                               dte_days: Optional[int] = None,
                                real_iv: Optional[float] = None) -> dict:
         """
         Build a minimal synthetic chain structure from spot + standard strikes.
         Premiums are estimated using Black-Scholes.
         """
+        # Calculate dynamic next expiry if dte_days is omitted
+        if dte_days is None:
+            today = date.today()
+            next_exp = self._get_next_expiry_date(symbol, today)
+            dte_days = (next_exp - today).days
+            expiry_date_str = next_exp.strftime("%d-%b-%Y")
+        else:
+            expiry_date_str = (date.today() + timedelta(days=dte_days)).strftime("%d-%b-%Y")
+
         interval = self.cfg.get_strike_interval(symbol)
         atm = round(spot / interval) * interval
 
@@ -289,8 +465,6 @@ class DataAgent:
         total_ce_oi = 0
         total_pe_oi = 0
 
-        expiry_date = (date.today() + timedelta(days=dte_days)).strftime("%d-%b-%Y")
-
         for strike in strikes:
             distance = abs(strike - atm) / interval
             base_oi = max(1000, int(500000 * (0.7 ** distance)))
@@ -301,7 +475,7 @@ class DataAgent:
 
             data_rows.append({
                 "strikePrice": strike,
-                "expiryDate":  expiry_date,
+                "expiryDate":  expiry_date_str,
                 "CE": {
                     "lastPrice":          round(ind.bs_price(spot, strike, T, r, iv, "CE"), 2),
                     "openInterest":       ce_oi,
@@ -318,11 +492,11 @@ class DataAgent:
                 },
             })
 
-        log.info(f"  Built synthetic chain: {symbol} spot={spot} ATM={atm} IV={iv*100:.0f}%")
+        log.info(f"  Built synthetic chain: {symbol} spot={spot} Exp={expiry_date_str} DTE={dte_days}")
         return {
             "records": {
                 "underlyingValue": spot,
-                "expiryDates": [expiry_date],
+                "expiryDates": [expiry_date_str],
             },
             "filtered": {
                 "data": data_rows,

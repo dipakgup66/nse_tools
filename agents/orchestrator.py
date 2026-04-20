@@ -241,42 +241,34 @@ class Orchestrator:
         # Get latest spot/chain for real-time pricing
         snapshot = self.data.get_latest_market_snapshot(symbol)
         spot = snapshot.spot
-        if spot is None: return {"error": "Live spot unavailable", "trades": open_trades}
-
-        # Simple pricing logic: find LTP in current chain
-        def get_ltp(strike, opt_type):
-            if not snapshot.chain: return None
-            for row in snapshot.chain.get("filtered", {}).get("data", []):
-                if abs(row.get("strikePrice", 0) - strike) < 1:
-                    opt = row.get(opt_type, {})
-                    return opt.get("lastPrice") or opt.get("ltp")
-            return None
+        if spot is None: 
+            return {"error": "Live spot unavailable", "trades": open_trades}
 
         for t in open_trades:
-            # Reconstruct legs from string "BUY CE 22800 / ..."
-            leg_strs = t.get("legs", "").split(" / ")
-            current_value = 0
-            entry_value = (t.get("net_premium") or 0) # total net premium per lot
+            t["current_spot"] = spot
             
-            # This is a bit complex to reconstruct exactly, 
-            # so we'll store specific legs in future.
-            # For now, if we can't parse, we skip P&L.
-            try:
-                pnl = 0
-                for ls in leg_strs:
-                    parts = ls.split() # ["BUY", "CE", "22800"]
-                    if len(parts) == 3:
-                        side, opt_type, strike = parts[0], parts[1], float(parts[2])
-                        ltp = get_ltp(strike, opt_type)
-                        if ltp:
-                            # entry premium was included in t["net_premium"]
-                            # let's assume entry was stored in metadata or reconstructed
-                            pass
-                # For this version, we'll just return the snapshot spot and let JS calculate
-                t["current_spot"] = spot
-            except: pass
-
-        return {"trades": open_trades, "spot": spot}
+            # Real-time greeks
+            dte = snapshot.dte_days if snapshot.dte_days is not None else 0
+            T_years = max(dte, 0.5) / 365
+            r = self.cfg.risk_free_rate
+            iv = (snapshot.current_iv / 100) if snapshot.current_iv else 0.15
+            
+            for leg in t.get("legs", []):
+                try:
+                    strike = float(leg.get("strike", 0))
+                    opt_type = leg.get("type", "CE")
+                    if strike > 0:
+                        leg["greeks"] = ind.calc_greeks(spot, strike, T_years, r, iv, opt_type)
+                except Exception:
+                    pass
+            
+        return {
+            "trades":  open_trades, 
+            "spot":    spot, 
+            "chain":   snapshot.chain or {},
+            "ivr":     snapshot.ivr,
+            "vix":     snapshot.vix
+        }
 
     def get_payoff(self, symbol: str, spot: float, legs: list, dte: int) -> dict:
         """Calculate T+0 and Expiry P&L, plus POP and Sigma ranges."""
@@ -382,7 +374,7 @@ def _make_handler(orchestrator: Orchestrator):
                 self.send_header("Content-Type", ct)
                 self.send_header("Content-Length", len(data))
                 self.send_header("Access-Control-Allow-Origin", "*")
-                self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+                self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
                 self.send_header("Access-Control-Allow-Headers", "Content-Type")
                 self.send_header("Cache-Control", "no-cache")
                 self.end_headers()
@@ -393,7 +385,11 @@ def _make_handler(orchestrator: Orchestrator):
                 log.error(f"Error sending response: {e}")
 
         def do_OPTIONS(self):
-            self._send(204, "")
+            self.send_response(204)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.end_headers()
 
         def do_GET(self):
             parsed = urlparse(self.path)
@@ -466,6 +462,20 @@ def _make_handler(orchestrator: Orchestrator):
                 )
                 self._send(200, json.dumps(result))
 
+            elif parsed.path == "/strikes":
+                symbol = qs.get("symbol", ["NIFTY"])[0].upper()
+                snapshot = orchestrator.data.get_latest_market_snapshot(symbol)
+                strikes = []
+                expiries = []
+                if snapshot.chain:
+                    records = snapshot.chain.get("records", {})
+                    data_nodes = records.get("data", [])
+                    if not data_nodes:
+                        data_nodes = snapshot.chain.get("filtered", {}).get("data", [])
+                    strikes = sorted(list(set(node.get("strikePrice") for node in data_nodes if node.get("strikePrice"))))
+                    expiries = records.get("expiryDates", [])
+                self._send(200, json.dumps({"symbol": symbol, "spot": snapshot.spot, "strikes": strikes, "expiries": expiries, "expiry": snapshot.nearest_expiry}))
+
             elif parsed.path == "/trades":
                 data = orchestrator.get_trades()
                 self._send(200, json.dumps(data))
@@ -476,6 +486,14 @@ def _make_handler(orchestrator: Orchestrator):
                     for d, n, i in ind.KNOWN_EVENTS
                 ]
                 self._send(200, json.dumps(events))
+
+            elif parsed.path == "/ohlcv":
+                symbol = qs.get("symbol", ["NIFTY"])[0].upper()
+                try:
+                    bars = orchestrator.data.get_live_ohlcv(symbol)
+                    self._send(200, json.dumps({"status": "ok", "data": bars}))
+                except Exception as e:
+                    self._send(500, json.dumps({"status": "error", "error": str(e)}))
 
             elif parsed.path == "/signal":
                 import live_signal
@@ -544,6 +562,56 @@ def _make_handler(orchestrator: Orchestrator):
                     json.dump(session, f)
                 
                 self._send(200, json.dumps({"status": "ok", "session": session}))
+            else:
+                self._send(404, json.dumps({"error": "not found"}))
+
+        def do_PUT(self):
+            parsed = urlparse(self.path)
+            parts  = parsed.path.strip("/").split("/")
+            if len(parts) == 2 and parts[0] == "trades":
+                trade_id = int(parts[1])
+                length   = int(self.headers.get("Content-Length", 0))
+                body     = self.rfile.read(length)
+                updated  = json.loads(body)
+                
+                # Update logic
+                f = orchestrator.cfg.journal_file
+                if os.path.exists(f):
+                    with open(f, "r") as fh:
+                        data = json.load(fh)
+                    for i, t in enumerate(data["trades"]):
+                        if t.get("id") == trade_id:
+                            updated["id"] = trade_id
+                            updated["updated_at"] = datetime.now().isoformat()
+                            data["trades"][i] = updated
+                            with open(f, "w") as fh:
+                                json.dump(data, fh, indent=2)
+                            self._send(200, json.dumps(updated))
+                            return
+                self._send(404, json.dumps({"error": "trade not found"}))
+            else:
+                self._send(404, json.dumps({"error": "not found"}))
+
+        def do_DELETE(self):
+            parsed = urlparse(self.path)
+            parts  = parsed.path.strip("/").split("/")
+            if len(parts) == 2 and parts[0] == "trades":
+                try:
+                    trade_id = int(parts[1])
+                    f = orchestrator.cfg.journal_file
+                    if os.path.exists(f):
+                        with open(f, "r") as fh:
+                            data = json.load(fh)
+                        before = len(data["trades"])
+                        data["trades"] = [t for t in data["trades"] if t.get("id") != trade_id]
+                        if len(data["trades"]) < before:
+                            with open(f, "w") as fh:
+                                json.dump(data, fh, indent=2)
+                            self._send(200, json.dumps({"deleted": trade_id}))
+                            return
+                    self._send(404, json.dumps({"error": "trade not found"}))
+                except Exception as e:
+                    self._send(400, json.dumps({"error": str(e)}))
             else:
                 self._send(404, json.dumps({"error": "not found"}))
 
