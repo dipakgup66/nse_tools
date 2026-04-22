@@ -238,8 +238,8 @@ class Orchestrator:
         if not open_trades:
             return {"trades": []}
 
-        # Get latest spot/chain for real-time pricing
-        snapshot = self.data.get_latest_market_snapshot(symbol)
+        # Get latest spot/chain for real-time pricing (LITE mode for speed)
+        snapshot = self.data.get_latest_market_snapshot(symbol, lite=True)
         spot = snapshot.spot
         if spot is None: 
             return {"error": "Live spot unavailable", "trades": open_trades}
@@ -270,6 +270,98 @@ class Orchestrator:
             "vix":     snapshot.vix
         }
 
+    def get_live_ltp(self, symbol: str, legs: list) -> dict:
+        """
+        Fast LTP lookup for open position legs.
+        Reads from GLOBAL_CHAIN_REGISTRY (live NSE intercept) first,
+        then falls back to Breeze. Does NOT run the full analysis pipeline.
+
+        Args:
+            symbol: e.g. "NIFTY"
+            legs:   list of {strike, type} dicts
+
+        Returns:
+            {"ltps": {"24200_CE": 117.5, ...}, "source": "playwright_bridge" | "breeze" | "none",
+             "spot": <float|None>, "chain_age_seconds": <int>}
+        """
+        from agents.data_agent import GLOBAL_CHAIN_REGISTRY
+        from datetime import datetime
+        import os, json
+
+        result = {"ltps": {}, "source": "none", "spot": None, "chain_age_seconds": None}
+
+        # ── Source 1: Playwright-intercepted NSE chain (freshest real data) ──
+        entry = GLOBAL_CHAIN_REGISTRY.get(symbol.upper())
+        if entry:
+            age = (datetime.now() - entry["ts"]).total_seconds()
+            chain = entry["data"]
+            records = chain.get("records", {})
+            filtered = chain.get("filtered", {})
+            spot = records.get("underlyingValue") or filtered.get("CE", {}).get("underlyingValue")
+            chain_rows = filtered.get("data", [])
+            if chain_rows:
+                for leg in legs:
+                    strike = leg.get("strike")
+                    opt_type = leg.get("type", "CE")
+                    if not strike or opt_type == "FUT":
+                        continue
+                    key = f"{int(strike)}_{opt_type}"
+                    row = next((r for r in chain_rows if abs(r.get("strikePrice", 0) - float(strike)) < 1), None)
+                    if row and row.get(opt_type):
+                        opt = row[opt_type]
+                        ltp = opt.get("lastPrice") or opt.get("ltp")
+                        iv  = opt.get("impliedVolatility")
+                        if ltp is not None:
+                            result["ltps"][key] = {"ltp": ltp, "iv": iv}
+                result["source"] = "playwright_bridge"
+                result["spot"] = spot
+                result["chain_age_seconds"] = int(age)
+                return result
+
+        # ── Source 2: Breeze API live quotes ──
+        session_file = "breeze_session.json"
+        if os.path.exists(session_file):
+            try:
+                with open(session_file, "r") as f:
+                    session = json.load(f)
+                if session.get("active") and session.get("session_key"):
+                    from breeze_connect import BreezeConnect
+                    breeze = BreezeConnect(api_key="67783F)1NxYr948k50C0Y47J10hI742G")
+                    breeze.generate_session(
+                        api_secret="71F582O9U151cG994q5A4ek79%d1447_",
+                        session_token=session.get("session_key")
+                    )
+                    s_map = {"NIFTY": "NIFTY", "BANKNIFTY": "CNXBAN", "FINNIFTY": "NIFFIN", "MIDCPNIFTY": "NIFMID"}
+                    stock_code = s_map.get(symbol.upper(), symbol.upper())
+
+                    for leg in legs:
+                        strike = leg.get("strike")
+                        opt_type = leg.get("type", "CE")
+                        if not strike or opt_type == "FUT":
+                            continue
+                        key = f"{int(float(strike))}_{opt_type}"
+                        try:
+                            res = breeze.get_quotes(
+                                stock_code=stock_code,
+                                exchange_code="NFO",
+                                product_type="options",
+                                right=opt_type,
+                                strike_price=str(int(float(strike)))
+                            )
+                            if res and res.get("Success"):
+                                ltp = float(res["Success"][0]["ltp"])
+                                result["ltps"][key] = {"ltp": ltp, "iv": None}
+                        except Exception:
+                            pass
+
+                    result["source"] = "breeze"
+                    result["chain_age_seconds"] = 0
+                    return result
+            except Exception as e:
+                log.warning(f"Breeze LTP fetch failed: {e}")
+
+        return result
+
     def get_payoff(self, symbol: str, spot: float, legs: list, dte: int) -> dict:
         """Calculate T+0 and Expiry P&L, plus POP and Sigma ranges."""
         r = self.cfg.risk_free_rate
@@ -297,12 +389,20 @@ class Orchestrator:
                 entry = float(l["entry_price"])
                 iv = float(l.get("iv") or avg_iv) / 100
                 
+                # Leg-specific T (years)
+                leg_expiry = l.get("expiry")
+                if leg_expiry:
+                    leg_dte = ind.days_to_expiry(leg_expiry)
+                    leg_T = max(leg_dte, 0.5) / 365
+                else:
+                    leg_T = T_years
+                
                 # Expiry P&L (pts)
                 intrinsic = max(0, s - strike) if l["type"] == "CE" else max(0, strike - s)
                 exp_sum += side * (intrinsic - entry)
                 
                 # T+0 P&L (pts)
-                theo = ind.bs_price(s, strike, T_years, r, iv, l["type"])
+                theo = ind.bs_price(s, strike, leg_T, r, iv, l["type"])
                 t0_sum += side * (theo - entry)
                 
             expiry_pnl.append(round(exp_sum * lot_size, 2))
@@ -464,17 +564,47 @@ def _make_handler(orchestrator: Orchestrator):
 
             elif parsed.path == "/strikes":
                 symbol = qs.get("symbol", ["NIFTY"])[0].upper()
-                snapshot = orchestrator.data.get_latest_market_snapshot(symbol)
+
+                # ── Fast path: compute expiries immediately (no network call) ──
+                upcoming = orchestrator.data._get_upcoming_expiry_dates(symbol, count=6)
+                computed_expiries = [d.strftime("%d-%b-%Y") for d in upcoming]
+
+                # ── Strikes: try to pull from the orchestrator's analysis cache first ──
                 strikes = []
-                expiries = []
-                if snapshot.chain:
-                    records = snapshot.chain.get("records", {})
-                    data_nodes = records.get("data", [])
-                    if not data_nodes:
-                        data_nodes = snapshot.chain.get("filtered", {}).get("data", [])
-                    strikes = sorted(list(set(node.get("strikePrice") for node in data_nodes if node.get("strikePrice"))))
-                    expiries = records.get("expiryDates", [])
-                self._send(200, json.dumps({"symbol": symbol, "spot": snapshot.spot, "strikes": strikes, "expiries": expiries, "expiry": snapshot.nearest_expiry}))
+                chain_expiries = []
+                spot = None
+                cache_key = next((k for k in orchestrator._cache if k.startswith(symbol + "_")), None)
+                if cache_key:
+                    cached = orchestrator._cache[cache_key]
+                    spot = cached.get("spot")
+                    contracts = cached.get("contracts", [])
+                    if contracts:
+                        strikes = sorted(list(set(c.get("strike") for c in contracts if c.get("strike"))))
+                    # Try chain expiries from cached data
+                    try:
+                        cached_snap = orchestrator.data._cache.get(symbol) if hasattr(orchestrator.data, "_cache") else None
+                        if cached_snap and cached_snap.chain:
+                            chain_expiries = cached_snap.chain.get("records", {}).get("expiryDates", [])
+                    except Exception:
+                        pass
+
+                # If no cached strikes, fall back to a quick synthetic ATM range
+                if not strikes and spot:
+                    interval = orchestrator.data.cfg.get_strike_interval(symbol)
+                    atm = round(spot / interval) * interval
+                    strikes = sorted([atm + i * interval for i in range(-10, 11)])
+
+                # Merge expiries (chain first, then computed)
+                seen = set()
+                merged_expiries = []
+                for e in (chain_expiries + computed_expiries):
+                    if e not in seen:
+                        seen.add(e)
+                        merged_expiries.append(e)
+
+                nearest = merged_expiries[0] if merged_expiries else None
+                self._send(200, json.dumps({"symbol": symbol, "spot": spot, "strikes": strikes, "expiries": merged_expiries, "expiry": nearest}))
+
 
             elif parsed.path == "/trades":
                 data = orchestrator.get_trades()
@@ -519,6 +649,18 @@ def _make_handler(orchestrator: Orchestrator):
                 symbol = qs.get("symbol", ["NIFTY"])[0].upper()
                 data = orchestrator.monitor_trades(symbol)
                 self._send(200, json.dumps(data))
+
+            elif parsed.path == "/ltp":
+                # Lightweight endpoint: returns real LTP from NSE bridge or Breeze
+                # Does NOT run the full heavy analysis pipeline
+                symbol = qs.get("symbol", ["NIFTY"])[0].upper()
+                try:
+                    legs_json = qs.get("legs", ["[]"])[0]
+                    legs = json.loads(legs_json)
+                    data = orchestrator.get_live_ltp(symbol, legs)
+                    self._send(200, json.dumps(data))
+                except Exception as e:
+                    self._send(400, json.dumps({"error": str(e), "ltps": {}, "source": "error"}))
 
             elif parsed.path == "/payoff":
                 symbol = qs.get("symbol", ["NIFTY"])[0].upper()

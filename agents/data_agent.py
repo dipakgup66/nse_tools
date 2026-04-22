@@ -67,7 +67,8 @@ class DataAgent:
 
     def get_latest_market_snapshot(self, symbol: str,
                                    capital: float = 1_000_000,
-                                   risk_pct: float = 2.0) -> MarketSnapshot:
+                                   risk_pct: float = 2.0,
+                                   lite: bool = False) -> MarketSnapshot:
         """
         Build a complete market snapshot from live data.
 
@@ -105,15 +106,21 @@ class DataAgent:
         # ── 2. VIX / IVR ────────────────────────────────────────────────────
         self._compute_ivr(snapshot)
 
-        # ── 3. EMA + Trend ───────────────────────────────────────────────────
-        self._compute_trend(snapshot)
+        if not lite:
+            # ── 3. EMA + Trend ───────────────────────────────────────────────────
+            self._compute_trend(snapshot)
 
-        # ── 4. Event risk ────────────────────────────────────────────────────
-        event = ind.check_event_risk()
-        snapshot.event_risk = event.to_dict()
+            # ── 4. Event risk ────────────────────────────────────────────────────
+            event = ind.check_event_risk()
+            snapshot.event_risk = event.to_dict()
 
-        # ── 5. Global Macro ──────────────────────────────────────────────────
-        snapshot.macro_data = self._fetch_macro()
+            # ── 5. Global Macro ──────────────────────────────────────────────────
+            snapshot.macro_data = self._fetch_macro()
+        else:
+            # In lite mode, use minimal defaults
+            snapshot.trend = "monitoring"
+            snapshot.macro_data = {}
+            snapshot.event_risk = {}
 
         elapsed = time.time() - t_start
         log.info(
@@ -278,15 +285,15 @@ class DataAgent:
         Try all data sources in priority order.
         Returns (chain_dict, source_label, capture_ts).
         """
-        # Source 1: Breeze API (from user session)
-        chain_res = self._try_breeze(symbol)
-        if chain_res:
-            return chain_res[0], "breeze_api", chain_res[1]
-
-        # Source 2: Browser Bridge
+        # Source 1: Browser Bridge (Real NSE data intercepted from Chrome)
         chain_res = self._try_bridge(symbol)
         if chain_res:
             return chain_res[0], "playwright_bridge", chain_res[1]
+
+        # Source 2: Breeze API (Synthetic fallback using Breeze Spot/VIX)
+        chain_res = self._try_breeze(symbol)
+        if chain_res:
+            return chain_res[0], "breeze_api", chain_res[1]
 
         # Source 3: Yahoo spot + synthetic chain
         log.warning(f"  Live APIs failed — building synthetic chain via Yahoo...")
@@ -341,7 +348,7 @@ class DataAgent:
             chain = self._make_synthetic_chain(symbol, spot, dte_days=None, real_iv=real_iv)
             if chain:
                 log.info(f"  Breeze API: Built live synthetic chain for {symbol} (Spot: {spot})")
-                return chain, datetime.now()
+                return chain, datetime.now()  # Returns (chain, capture_ts)
                 
         except Exception as e:
             log.warning(f"  Breeze API fetch failed: {e}")
@@ -380,6 +387,17 @@ class DataAgent:
             exp_date -= timedelta(days=1)
             
         return exp_date
+
+    def _get_upcoming_expiry_dates(self, symbol: str, count: int = 4) -> List[date]:
+        """Generate the next 'count' weekly expiry dates."""
+        expiries = []
+        curr = date.today()
+        for _ in range(count):
+            exp = self._get_next_expiry_date(symbol, curr)
+            expiries.append(exp)
+            # Move curr to exp so the next iteration finds the following week
+            curr = exp
+        return expiries
 
 
     def _try_bridge(self, symbol: str) -> Optional[tuple]:
@@ -436,14 +454,18 @@ class DataAgent:
         Build a minimal synthetic chain structure from spot + standard strikes.
         Premiums are estimated using Black-Scholes.
         """
-        # Calculate dynamic next expiry if dte_days is omitted
+        # Calculate dynamic expiries if dte_days is omitted
+        upcoming_dates = self._get_upcoming_expiry_dates(symbol, count=4)
+        expiry_date_strings = [d.strftime("%d-%b-%Y") for d in upcoming_dates]
+        
         if dte_days is None:
-            today = date.today()
-            next_exp = self._get_next_expiry_date(symbol, today)
-            dte_days = (next_exp - today).days
-            expiry_date_str = next_exp.strftime("%d-%b-%Y")
+            next_exp = upcoming_dates[0]
+            dte_days = (next_exp - date.today()).days
+            expiry_date_str = expiry_date_strings[0]
         else:
             expiry_date_str = (date.today() + timedelta(days=dte_days)).strftime("%d-%b-%Y")
+            if expiry_date_str not in expiry_date_strings:
+                expiry_date_strings.insert(0, expiry_date_str)
 
         interval = self.cfg.get_strike_interval(symbol)
         atm = round(spot / interval) * interval
@@ -496,7 +518,7 @@ class DataAgent:
         return {
             "records": {
                 "underlyingValue": spot,
-                "expiryDates": [expiry_date_str],
+                "expiryDates": expiry_date_strings,
             },
             "filtered": {
                 "data": data_rows,

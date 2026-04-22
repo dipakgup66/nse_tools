@@ -995,7 +995,10 @@
 
                     <div id="view-open" style="display:none;">
                         <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0 8px; border-bottom:1px solid var(--border); margin-bottom:4px;">
-                            <span style="font-size:10px; color:var(--text-dim); font-weight:600;">TRADE HEADER \u2192 LEGS \u2192 NET POSITION</span>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span style="font-size:10px; color:var(--text-dim); font-weight:600;">TRADE HEADER \u2192 LEGS \u2192 NET POSITION</span>
+                                <div id="monitorStatus" style="font-size:10px; font-weight:700; color:var(--text-sec); display:none; background:var(--bg); padding:1px 8px; border-radius:4px;"></div>
+                            </div>
                             <button class="btn btn-red" style="padding:3px 10px; font-size:9px;" onclick="deleteAllOpenTrades()">Clear All Open</button>
                         </div>
                         <table id="openTable" style="margin-top:0px;">
@@ -1595,6 +1598,7 @@
                 type: l.type,
                 strike: l.strike,
                 entry_price: l.price,
+                expiry: l.expiry,
                 iv: l.iv || 15.0
             }));
 
@@ -1840,23 +1844,68 @@
         }
 
 
+        // Compute upcoming expiry dates client-side (instant, no API needed)
+        function computeExpiries(symbol) {
+            const expDayMap = {
+                'NIFTY': 2,       // Tuesday (JS: 0=Sun,1=Mon,2=Tue)
+                'FINNIFTY': 2,    // Tuesday
+                'BANKNIFTY': 3,   // Wednesday
+                'MIDCPNIFTY': 1,  // Monday
+            };
+            const targetDay = expDayMap[symbol] !== undefined ? expDayMap[symbol] : 4; // Default Thu
+            const expiries = [];
+            let d = new Date();
+            // Advance to next occurrence of target weekday (never today)
+            let daysAhead = targetDay - d.getDay();
+            if (daysAhead <= 0) daysAhead += 7;
+            d.setDate(d.getDate() + daysAhead);
+            for (let i = 0; i < 6; i++) {
+                const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                const dd = String(d.getDate()).padStart(2,'0');
+                expiries.push(`${dd}-${months[d.getMonth()]}-${d.getFullYear()}`);
+                d.setDate(d.getDate() + 7);
+            }
+            return expiries;
+        }
+
         async function fetchStrikes() {
+            // Immediately populate with computed expiries so UI is ready before API responds
+            if (availableExpiries.length === 0) {
+                availableExpiries = computeExpiries(activeSymbol);
+            }
             try {
                 const r = await fetch(`${API}/strikes?symbol=${activeSymbol}`);
                 const data = await r.json();
                 availableStrikes = data.strikes || [];
-                availableExpiries = data.expiries || [];
+                // Merge API expiries with computed ones
+                const apiExpiries = data.expiries || [];
+                const seen = new Set(availableExpiries);
+                for (const e of apiExpiries) {
+                    if (!seen.has(e)) { seen.add(e); availableExpiries.push(e); }
+                }
                 
                 const dl = document.getElementById('strike-datalist');
                 if (dl) {
                     dl.innerHTML = '<option value="FUT"></option>' + availableStrikes.map(st => `<option value="${st}"></option>`).join('');
                 }
-            } catch(e) {}
+                // Update any already-rendered leg expiry dropdowns with the full merged list
+                document.querySelectorAll('.cust-exp-sel').forEach(sel => {
+                    const currentVal = sel.value;
+                    sel.innerHTML = '<option value="">Nearest</option>' +
+                        availableExpiries.map(e => `<option value="${e}">${e}</option>`).join('');
+                    if (currentVal) sel.value = currentVal;
+                });
+            } catch(e) {
+                console.warn('fetchStrikes failed, using computed expiries:', e);
+            }
         }
 
         function addCustomLeg() {
             try {
-                console.log("Adding custom leg...", {customLegCount, availableExpiriesCount: availableExpiries.length});
+                // Ensure we always have expiry dates before building the row
+                const expiries = availableExpiries.length > 0 ? availableExpiries : computeExpiries(activeSymbol);
+
+                console.log("Adding custom leg...", {customLegCount, expiriesCount: expiries.length});
                 const emptyRow = document.getElementById('cust-empty');
                 if (emptyRow) emptyRow.style.display = 'none';
                 
@@ -1869,7 +1918,7 @@
                     <td><select class="cust-act-sel"><option value="BUY">BUY</option><option value="SELL">SELL</option></select></td>
                     <td><select class="cust-type-sel"><option value="CE">CE</option><option value="PE">PE</option><option value="FUT">FUT</option></select></td>
                     <td><input type="text" class="cust-strike-sel" list="strike-datalist" placeholder="Strike/FUT" style="width:75px;"></td>
-                    <td><select class="cust-exp-sel" style="width:85px;"><option value="">Nearest</option>${availableExpiries.map(e => `<option value="${e}">${e}</option>`).join('')}</select></td>
+                    <td><select class="cust-exp-sel" style="width:85px;"><option value="">Nearest</option>${expiries.map(e => `<option value="${e}">${e}</option>`).join('')}</select></td>
                     <td><input type="number" step="0.05" class="cust-entry" placeholder="Price" style="width:60px;"></td>
                     <td><input type="number" class="cust-qty" value="1" style="width:40px;"></td>
                     <td><button onclick="document.getElementById('${legId}').remove()" style="color:var(--bear); background:none; border:none; cursor:pointer;" title="Remove">X</button></td>
@@ -2119,6 +2168,7 @@
                 type: l.type || 'CE',
                 strike: l.strike || 0,
                 price: l.entry || 0,
+                expiry: l.expiry,
                 iv: iv
             }));
 
@@ -2142,6 +2192,15 @@
             if (!tbody) return;
             const openTrades = data.trades || [];
             window._openTrades = openTrades; // Cache for selectTradeForChart
+            
+            // Update position monitoring status
+            const monitorStatus = document.getElementById('monitorStatus');
+            if (monitorStatus) {
+                const age = data.chain_age_seconds || 0;
+                const source = data.source || 'Live';
+                monitorStatus.innerHTML = `<span style="color:var(--bull)">●</span> Live (${source}) · ${new Date().toLocaleTimeString()}`;
+                monitorStatus.style.display = 'block';
+            }
 
             const countEl = document.getElementById('openCount');
             if (countEl) countEl.textContent = openTrades.length;
@@ -2236,6 +2295,20 @@
                                 g_iv = opt.impliedVolatility.toFixed(2);
                             }
                         }
+                    }
+                    
+                    // Final fallback: check if we have a cached LTP from a previous run if current is '—'
+                    if (ltpStr === '—' && window._ltpCache && l.strike) {
+                        const cacheKey = `${activeSymbol}_${l.strike}_${l.type}`;
+                        if (window._ltpCache[cacheKey]) {
+                            ltpStr = `₹${window._ltpCache[cacheKey].toFixed(2)} (cached)`;
+                        }
+                    } else if (ltpStr !== '—' && l.strike) {
+                        // Update cache
+                        if (!window._ltpCache) window._ltpCache = {};
+                        const cacheKey = `${activeSymbol}_${l.strike}_${l.type}`;
+                        const ltpVal = parseFloat(ltpStr.replace('₹', ''));
+                        window._ltpCache[cacheKey] = ltpVal;
                     }
 
                     rows.push(`<tr style="background:#fff;">
@@ -2361,17 +2434,20 @@
             }
         }
 
-        // Monitor timer for floating P&L
+        // ── Auto-refresh LTP for open positions every 15 seconds ──
         setInterval(async () => {
-            if (!activeData || document.hidden) return;
+            // Only refresh when the Open Positions tab is visible and page is in focus
+            const openTabVisible = document.getElementById('view-open') &&
+                                   document.getElementById('view-open').style.display !== 'none';
+            if (!activeData || document.hidden || !openTabVisible) return;
+            if ((window._openTrades || []).length === 0) return;
             try {
-                const r = await fetch(`${API}/monitor?symbol=${activeSymbol}`);
+                const r = await fetch(`${API}/monitor?symbol=${activeSymbol}&_cb=${Date.now()}`);
+                if (!r.ok) return;
                 const data = await r.json();
-                // Update dashboard price if needed, or just status
-                if (data.spot) {
-                    // We could update journal rows here if we had a clear way to link IDs
-                }
-            } catch (e) { }
+                // Render the updated positions with fresh chain/greeks data
+                renderOpenPositions(data);
+            } catch (e) { console.warn('LTP auto-refresh failed:', e); }
         }, 15000);
 
         refresh();
